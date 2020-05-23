@@ -8,16 +8,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static Melodii.DesignFunctionalities;
+using Melodii.Forms;
 
 namespace Melodii
 {
     public partial class Form1 : Form
     {
+        private static Form Home = new HomeForm();
         public Form1()
         {
             InitializeComponent();
             panelMelodiiSubmenu.Visible = false;
             panelParticipantiSubmenu.Visible = false;
+            openChildForm(Home, panelFormsArea);
         }
 
         private void btnMelodii_Click(object sender, EventArgs e)

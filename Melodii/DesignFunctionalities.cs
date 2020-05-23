@@ -17,5 +17,22 @@ namespace Melodii
             else
                 panel.Visible = true;
         }
+
+        public static void openChildForm(Form child, Panel parent)
+        {
+            //Eliminam obiectele care au fost plasate anterior
+            foreach(Form c in parent.Controls)
+            {
+                c.Close();
+            }
+
+            //Inseram forma
+            child.TopLevel = false;
+            child.FormBorderStyle = FormBorderStyle.None;
+            child.Dock = DockStyle.Fill;
+            parent.Controls.Add(child);
+            child.BringToFront();
+            child.Show();
+        }
     }
 }
