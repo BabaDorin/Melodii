@@ -225,6 +225,8 @@
             // 
             // panelFormsArea
             // 
+            this.panelFormsArea.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panelFormsArea.BackgroundImage")));
+            this.panelFormsArea.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.panelFormsArea.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelFormsArea.Location = new System.Drawing.Point(191, 0);
             this.panelFormsArea.Name = "panelFormsArea";
