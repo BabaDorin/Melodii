@@ -42,5 +42,6 @@ namespace Melodii.Forms
             int index = rnd.Next(Citate.Length - 1);
             return Citate[index];
         }
+
     }
 }

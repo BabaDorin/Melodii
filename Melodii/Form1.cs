@@ -14,13 +14,12 @@ namespace Melodii
 {
     public partial class Form1 : Form
     {
-        private static Form Home = new HomeForm();
         public Form1()
         {
             InitializeComponent();
             panelMelodiiSubmenu.Visible = false;
             panelParticipantiSubmenu.Visible = false;
-            openChildForm(Home, panelFormsArea);
+            openChildForm(new HomeForm(), panelFormsArea);
         }
 
         private void btnMelodii_Click(object sender, EventArgs e)
@@ -58,6 +57,11 @@ namespace Melodii
         private void btnVeziParticipanti_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            openChildForm(new HomeForm(), panelFormsArea);
         }
     }
 }

@@ -8,26 +8,115 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
+using System.Diagnostics.Eventing.Reader;
+using System.Drawing.Drawing2D;
+using Melodii.Forms;
+using static Melodii.DesignFunctionalities;
 
 namespace Melodii.Forms
 {
     public partial class AdaugaMelodieForm : Form
     {
-        private static int speed = 15;
+        private static int speed = 1;
         private static bool slideIn = true;
+        private List<TextBox> InvalidTextBoxes;
+        private static int Shakes = 0;
         public AdaugaMelodieForm()
         {
             InitializeComponent();
+            label6.Visible = false;
             label2.Left = -label2.Width;
             speed = (label1.Left - label2.Left) / 6;
         }
 
-        public void SlideBar()
+        private void btSave_Click(object sender, EventArgs e)
         {
-            //Bara va aparea din stanga si se va deplasa pana va ajunge sub label1. Viteza acestuia se va miscora
-            //treptat odata ce se aproprie de label1 si se va opri atunci cand label1.left == label2.left.
+            //Valideaza datele
+            //Daca totul este ok, datele sunt salvate in baza de date, iar in locul acestei forme
+            //este afisat un mesaj de succes pentru 1 secunda, dupa care forma va reveni avand campurile goale.
+            
+            if(tbAutor.Text.Trim() == "Autorul" || tbDenumire.Text.Trim() == "Denumirea" || tbGen.Text.Trim() == "Genul muzical")
+            {
+                speed = 1;
+                lbEroare.Text = "*Eroare. Asigurati-va ca ati completat toate campurile.";
+                Shakes = 0;
+                tbAutor.Left = tbDenumire.Left = tbGen.Left = label4.Left;
+
+                //Zguduirea campurilor lipsa
+                InvalidTextBoxes = new List<TextBox>();
+                if (tbAutor.Text == "Autorul")
+                    InvalidTextBoxes.Add(tbAutor);
+                if (tbDenumire.Text== "Denumirea")
+                    InvalidTextBoxes.Add(tbDenumire);
+                if (tbGen.Text == "Genul muzical")
+                    InvalidTextBoxes.Add(tbGen);
+                timer2.Start();
+            }
+            else
+            {
+                slideIn = false;
+                timer1.Start();
+
+                //Salvarea tuturor datelor si asigurarea ca totul s-a decurs cum trebuie
+
+                //Afisarea ferestrei de confirmare
+
+                label6.Top = 0;
+                label6.Left = 0;
+                label6.Width = this.Width;
+                label6.Height = this.Height;
+                label6.TextAlign = ContentAlignment.MiddleCenter;
+                label6.Text = "Melodia a fost inregistrata cu succes!";
+                label6.Visible = true;
+
+                timer3.Start();
+
+                //find a way to completely refresh the page after the label6 being disposed.
+            }
         }
 
+        //Button events
+        private void tb_Enter(object sender, EventArgs e)
+        {
+            TextBox tb = sender as TextBox;
+            if(tb.Tag.ToString() == tb.Text)
+            {
+                tb.Text = "";
+                tb.ForeColor = Color.WhiteSmoke;
+            }
+        }
+
+        private void tb_Leave(object sender, EventArgs e)
+        {
+            TextBox tb = sender as TextBox;
+            if (tb.Text.Trim() == "")
+            {
+                tb.Text = tb.Tag.ToString();
+                tb.ForeColor = Color.Gray;
+            }
+        }
+
+        private void timer2_Tick(object sender, EventArgs e)
+        {
+            if (Shakes == 3 && InvalidTextBoxes[0].Left == label4.Left)
+            {
+                Shakes = 0;
+                timer2.Stop();
+            }
+            else
+            {
+                if (InvalidTextBoxes[0].Left - label4.Left >= 5 || label4.Left - InvalidTextBoxes[0].Left >= 5)
+                {
+                    speed *= -1;
+                    Shakes++;
+                }
+
+                foreach(TextBox t in InvalidTextBoxes)
+                {
+                    t.Left += speed;
+                }
+            }
+        }
         private void timer1_Tick(object sender, EventArgs e)
         {
             if (slideIn)
@@ -55,18 +144,23 @@ namespace Melodii.Forms
                 else
                 {
                     timer1.Stop();
-                    Debug.WriteLine("Got here");
                     label2.Dispose();
                     slideIn = true;
                 }
+
+                //Totodata sterge treptat si mesajul de eroare, in caz in care acesta exista
+                if (lbEroare.Text.Length > 0)
+                {
+                    int lungime = (lbEroare.Text.Length - 6 < 0) ? 0 : lbEroare.Text.Length - 6;
+                    lbEroare.Text = lbEroare.Text.Substring(0, lungime);
+                }
             }
-            
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void timer3_Tick(object sender, EventArgs e)
         {
-            slideIn = false;
-            timer1.Start();
+            label6.Dispose();
+            timer3.Stop();
         }
     }
 }
