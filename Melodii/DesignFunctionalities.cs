@@ -21,10 +21,11 @@ namespace Melodii
         public static void openChildForm(Form child, Panel parent)
         {
             //Eliminam obiectele care au fost plasate anterior
-            foreach(Form c in parent.Controls)
-            {
-                c.Close();
-            }
+            if(parent.Controls.Count>0)
+                foreach(Form c in parent.Controls)
+                {
+                    c.Close();
+                }
 
             //Inseram forma
             child.TopLevel = false;

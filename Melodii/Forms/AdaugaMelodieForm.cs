@@ -18,9 +18,6 @@ namespace Melodii.Forms
     public partial class AdaugaMelodieForm : Form
     {
         private static int speed = 1;
-        private static bool slideIn = true;
-        private List<TextBox> InvalidTextBoxes;
-        private static int Shakes = 0;
         public AdaugaMelodieForm()
         {
             InitializeComponent();
@@ -29,13 +26,14 @@ namespace Melodii.Forms
             speed = (label1.Left - label2.Left) / 6;
         }
 
+        #region ButtonEvents
         private void btSave_Click(object sender, EventArgs e)
         {
             //Valideaza datele
             //Daca totul este ok, datele sunt salvate in baza de date, iar in locul acestei forme
             //este afisat un mesaj de succes pentru 1 secunda, dupa care forma va reveni avand campurile goale.
-            
-            if(tbAutor.Text.Trim() == "Autorul" || tbDenumire.Text.Trim() == "Denumirea" || tbGen.Text.Trim() == "Genul muzical")
+
+            if (tbAutor.Text.Trim() == "Autorul" || tbDenumire.Text.Trim() == "Denumirea" || tbGen.Text.Trim() == "Genul muzical")
             {
                 speed = 1;
                 lbEroare.Text = "*Eroare. Asigurati-va ca ati completat toate campurile.";
@@ -46,7 +44,7 @@ namespace Melodii.Forms
                 InvalidTextBoxes = new List<TextBox>();
                 if (tbAutor.Text == "Autorul")
                     InvalidTextBoxes.Add(tbAutor);
-                if (tbDenumire.Text== "Denumirea")
+                if (tbDenumire.Text == "Denumirea")
                     InvalidTextBoxes.Add(tbDenumire);
                 if (tbGen.Text == "Genul muzical")
                     InvalidTextBoxes.Add(tbGen);
@@ -59,8 +57,6 @@ namespace Melodii.Forms
 
                 //Salvarea tuturor datelor si asigurarea ca totul s-a decurs cum trebuie
 
-                //Afisarea ferestrei de confirmare
-
                 label6.Top = 0;
                 label6.Left = 0;
                 label6.Width = this.Width;
@@ -68,14 +64,10 @@ namespace Melodii.Forms
                 label6.TextAlign = ContentAlignment.MiddleCenter;
                 label6.Text = "Melodia a fost inregistrata cu succes!";
                 label6.Visible = true;
-
                 timer3.Start();
-
-                //find a way to completely refresh the page after the label6 being disposed.
             }
         }
 
-        //Button events
         private void tb_Enter(object sender, EventArgs e)
         {
             TextBox tb = sender as TextBox;
@@ -95,7 +87,12 @@ namespace Melodii.Forms
                 tb.ForeColor = Color.Gray;
             }
         }
+        #endregion
 
+        #region TimerEvents
+        private static bool slideIn = true;
+        private List<TextBox> InvalidTextBoxes;
+        private static int Shakes = 0;
         private void timer2_Tick(object sender, EventArgs e)
         {
             if (Shakes == 3 && InvalidTextBoxes[0].Left == label4.Left)
@@ -117,6 +114,7 @@ namespace Melodii.Forms
                 }
             }
         }
+
         private void timer1_Tick(object sender, EventArgs e)
         {
             if (slideIn)
@@ -161,6 +159,11 @@ namespace Melodii.Forms
         {
             label6.Dispose();
             timer3.Stop();
+            this.DialogResult = DialogResult.OK;
+            Panel parent = (Panel)this.Parent;
+            this.Close();
+            openChildForm(new AdaugaMelodieForm(), parent);
         }
+#endregion
     }
 }
