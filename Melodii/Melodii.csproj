@@ -59,6 +59,12 @@
     <Compile Include="Forms\AdaugaMelodieForm.Designer.cs">
       <DependentUpon>AdaugaMelodieForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\AdaugaParticipantForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AdaugaParticipantForm.Designer.cs">
+      <DependentUpon>AdaugaParticipantForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\HomeForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -72,6 +78,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\AdaugaMelodieForm.resx">
       <DependentUpon>AdaugaMelodieForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AdaugaParticipantForm.resx">
+      <DependentUpon>AdaugaParticipantForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\HomeForm.resx">
       <DependentUpon>HomeForm.cs</DependentUpon>

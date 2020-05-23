@@ -26,13 +26,13 @@ namespace Melodii
         private void btnMelodii_Click(object sender, EventArgs e)
         {
             //La fiecare click, submeniul va aparea sau va disparea.
-            Toggle(panelMelodiiSubmenu);
+            Toggle(btnMelodii, panelMelodiiSubmenu);
         }
 
         private void btnParticipanti_Click(object sender, EventArgs e)
         {
             //La fiecare click, submeniul va aparea sau va disparea.
-            Toggle(panelParticipantiSubmenu);
+            Toggle(btnParticipanti, panelParticipantiSubmenu);
         }
 
         private void btnAdaugaMelodii_Click(object sender, EventArgs e)
@@ -52,7 +52,7 @@ namespace Melodii
 
         private void btnAdaugaParticipanti_Click(object sender, EventArgs e)
         {
-
+            openChildForm(new AdaugaParticipantForm(), panelFormsArea);
         }
 
         private void btnVeziParticipanti_Click(object sender, EventArgs e)

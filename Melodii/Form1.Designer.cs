@@ -188,6 +188,8 @@
             // 
             // btnMelodii
             // 
+            this.btnMelodii.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(11)))), ((int)(((byte)(7)))), ((int)(((byte)(17)))));
+            this.btnMelodii.Cursor = System.Windows.Forms.Cursors.Default;
             this.btnMelodii.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnMelodii.FlatAppearance.BorderSize = 0;
             this.btnMelodii.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -198,9 +200,10 @@
             this.btnMelodii.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.btnMelodii.Size = new System.Drawing.Size(191, 38);
             this.btnMelodii.TabIndex = 1;
+            this.btnMelodii.TabStop = false;
             this.btnMelodii.Text = "Melodii";
             this.btnMelodii.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnMelodii.UseVisualStyleBackColor = true;
+            this.btnMelodii.UseVisualStyleBackColor = false;
             this.btnMelodii.Click += new System.EventHandler(this.btnMelodii_Click);
             // 
             // panelLogo
