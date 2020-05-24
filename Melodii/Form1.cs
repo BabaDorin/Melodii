@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using static Melodii.DesignFunctionalities;
 using Melodii.Forms;
 using System.Diagnostics;
+using System.Data.SqlClient;
 
 namespace Melodii
 {

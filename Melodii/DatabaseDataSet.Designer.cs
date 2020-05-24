@@ -373,6 +373,8 @@ namespace Melodii {
             
             private global::System.Data.DataColumn columnInformatii;
             
+            private global::System.Data.DataColumn columnGenMuzical;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public MelodiiDataTable() {
@@ -448,6 +450,14 @@ namespace Melodii {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn GenMuzicalColumn {
+                get {
+                    return this.columnGenMuzical;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -483,14 +493,15 @@ namespace Melodii {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public MelodiiRow AddMelodiiRow(string Denumire, string Interpret, int Puncte, string Informatii) {
+            public MelodiiRow AddMelodiiRow(string Denumire, string Interpret, int Puncte, string Informatii, string GenMuzical) {
                 MelodiiRow rowMelodiiRow = ((MelodiiRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
                         Denumire,
                         Interpret,
                         Puncte,
-                        Informatii};
+                        Informatii,
+                        GenMuzical};
                 rowMelodiiRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowMelodiiRow);
                 return rowMelodiiRow;
@@ -525,6 +536,7 @@ namespace Melodii {
                 this.columnInterpret = base.Columns["Interpret"];
                 this.columnPuncte = base.Columns["Puncte"];
                 this.columnInformatii = base.Columns["Informatii"];
+                this.columnGenMuzical = base.Columns["GenMuzical"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -540,6 +552,8 @@ namespace Melodii {
                 base.Columns.Add(this.columnPuncte);
                 this.columnInformatii = new global::System.Data.DataColumn("Informatii", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnInformatii);
+                this.columnGenMuzical = new global::System.Data.DataColumn("GenMuzical", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnGenMuzical);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnIdMelodie}, true));
                 this.columnIdMelodie.AutoIncrement = true;
@@ -554,6 +568,7 @@ namespace Melodii {
                 this.columnInterpret.MaxLength = 80;
                 this.columnPuncte.AllowDBNull = false;
                 this.columnInformatii.MaxLength = 255;
+                this.columnGenMuzical.MaxLength = 50;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1377,6 +1392,22 @@ namespace Melodii {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string GenMuzical {
+                get {
+                    try {
+                        return ((string)(this[this.tableMelodii.GenMuzicalColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'GenMuzical\' in table \'Melodii\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMelodii.GenMuzicalColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsInformatiiNull() {
                 return this.IsNull(this.tableMelodii.InformatiiColumn);
             }
@@ -1385,6 +1416,18 @@ namespace Melodii {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetInformatiiNull() {
                 this[this.tableMelodii.InformatiiColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsGenMuzicalNull() {
+                return this.IsNull(this.tableMelodii.GenMuzicalColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetGenMuzicalNull() {
+                this[this.tableMelodii.GenMuzicalColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1799,10 +1842,11 @@ namespace Melodii.DatabaseDataSetTableAdapters {
             tableMapping.ColumnMappings.Add("Interpret", "Interpret");
             tableMapping.ColumnMappings.Add("Puncte", "Puncte");
             tableMapping.ColumnMappings.Add("Informatii", "Informatii");
+            tableMapping.ColumnMappings.Add("GenMuzical", "GenMuzical");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [dbo].[Melodii] WHERE (([IdMelodie] = @Original_IdMelodie) AND ([Denumire] = @Original_Denumire) AND ([Interpret] = @Original_Interpret) AND ([Puncte] = @Original_Puncte) AND ((@IsNull_Informatii = 1 AND [Informatii] IS NULL) OR ([Informatii] = @Original_Informatii)))";
+            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [Melodii] WHERE (([IdMelodie] = @Original_IdMelodie) AND ([Denumire] = @Original_Denumire) AND ([Interpret] = @Original_Interpret) AND ([Puncte] = @Original_Puncte) AND ((@IsNull_Informatii = 1 AND [Informatii] IS NULL) OR ([Informatii] = @Original_Informatii)) AND ((@IsNull_GenMuzical = 1 AND [GenMuzical] IS NULL) OR ([GenMuzical] = @Original_GenMuzical)))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_IdMelodie", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IdMelodie", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Denumire", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Denumire", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
@@ -1810,31 +1854,36 @@ namespace Melodii.DatabaseDataSetTableAdapters {
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Puncte", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Puncte", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_Informatii", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Informatii", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Informatii", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Informatii", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_GenMuzical", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "GenMuzical", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_GenMuzical", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "GenMuzical", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[Melodii] ([Denumire], [Interpret], [Puncte], [Informatii]) VAL" +
-                "UES (@Denumire, @Interpret, @Puncte, @Informatii);\r\nSELECT IdMelodie, Denumire, " +
-                "Interpret, Puncte, Informatii FROM Melodii WHERE (IdMelodie = SCOPE_IDENTITY())";
+            this._adapter.InsertCommand.CommandText = @"INSERT INTO [Melodii] ([Denumire], [Interpret], [Puncte], [Informatii], [GenMuzical]) VALUES (@Denumire, @Interpret, @Puncte, @Informatii, @GenMuzical);
+SELECT IdMelodie, Denumire, Interpret, Puncte, Informatii, GenMuzical FROM Melodii WHERE (IdMelodie = SCOPE_IDENTITY())";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Denumire", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Denumire", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Interpret", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Interpret", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Puncte", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Puncte", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Informatii", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Informatii", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@GenMuzical", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "GenMuzical", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[Melodii] SET [Denumire] = @Denumire, [Interpret] = @Interpret, [Puncte] = @Puncte, [Informatii] = @Informatii WHERE (([IdMelodie] = @Original_IdMelodie) AND ([Denumire] = @Original_Denumire) AND ([Interpret] = @Original_Interpret) AND ([Puncte] = @Original_Puncte) AND ((@IsNull_Informatii = 1 AND [Informatii] IS NULL) OR ([Informatii] = @Original_Informatii)));
-SELECT IdMelodie, Denumire, Interpret, Puncte, Informatii FROM Melodii WHERE (IdMelodie = @IdMelodie)";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE [Melodii] SET [Denumire] = @Denumire, [Interpret] = @Interpret, [Puncte] = @Puncte, [Informatii] = @Informatii, [GenMuzical] = @GenMuzical WHERE (([IdMelodie] = @Original_IdMelodie) AND ([Denumire] = @Original_Denumire) AND ([Interpret] = @Original_Interpret) AND ([Puncte] = @Original_Puncte) AND ((@IsNull_Informatii = 1 AND [Informatii] IS NULL) OR ([Informatii] = @Original_Informatii)) AND ((@IsNull_GenMuzical = 1 AND [GenMuzical] IS NULL) OR ([GenMuzical] = @Original_GenMuzical)));
+SELECT IdMelodie, Denumire, Interpret, Puncte, Informatii, GenMuzical FROM Melodii WHERE (IdMelodie = @IdMelodie)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Denumire", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Denumire", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Interpret", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Interpret", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Puncte", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Puncte", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Informatii", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Informatii", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@GenMuzical", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "GenMuzical", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_IdMelodie", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IdMelodie", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Denumire", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Denumire", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Interpret", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Interpret", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Puncte", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Puncte", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_Informatii", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Informatii", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Informatii", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Informatii", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_GenMuzical", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "GenMuzical", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_GenMuzical", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "GenMuzical", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IdMelodie", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "IdMelodie", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
@@ -1851,7 +1900,8 @@ SELECT IdMelodie, Denumire, Interpret, Puncte, Informatii FROM Melodii WHERE (Id
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT IdMelodie, Denumire, Interpret, Puncte, Informatii FROM dbo.Melodii";
+            this._commandCollection[0].CommandText = "SELECT IdMelodie, Denumire, Interpret, Puncte, Informatii, GenMuzical FROM Melodi" +
+                "i";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -1912,7 +1962,7 @@ SELECT IdMelodie, Denumire, Interpret, Puncte, Informatii FROM Melodii WHERE (Id
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_IdMelodie, string Original_Denumire, string Original_Interpret, int Original_Puncte, string Original_Informatii) {
+        public virtual int Delete(int Original_IdMelodie, string Original_Denumire, string Original_Interpret, int Original_Puncte, string Original_Informatii, string Original_GenMuzical) {
             this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_IdMelodie));
             if ((Original_Denumire == null)) {
                 throw new global::System.ArgumentNullException("Original_Denumire");
@@ -1935,6 +1985,14 @@ SELECT IdMelodie, Denumire, Interpret, Puncte, Informatii FROM Melodii WHERE (Id
                 this.Adapter.DeleteCommand.Parameters[4].Value = ((object)(0));
                 this.Adapter.DeleteCommand.Parameters[5].Value = ((string)(Original_Informatii));
             }
+            if ((Original_GenMuzical == null)) {
+                this.Adapter.DeleteCommand.Parameters[6].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[7].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[6].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[7].Value = ((string)(Original_GenMuzical));
+            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -1955,7 +2013,7 @@ SELECT IdMelodie, Denumire, Interpret, Puncte, Informatii FROM Melodii WHERE (Id
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(string Denumire, string Interpret, int Puncte, string Informatii) {
+        public virtual int Insert(string Denumire, string Interpret, int Puncte, string Informatii, string GenMuzical) {
             if ((Denumire == null)) {
                 throw new global::System.ArgumentNullException("Denumire");
             }
@@ -1974,6 +2032,12 @@ SELECT IdMelodie, Denumire, Interpret, Puncte, Informatii FROM Melodii WHERE (Id
             }
             else {
                 this.Adapter.InsertCommand.Parameters[3].Value = ((string)(Informatii));
+            }
+            if ((GenMuzical == null)) {
+                this.Adapter.InsertCommand.Parameters[4].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[4].Value = ((string)(GenMuzical));
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -1995,7 +2059,7 @@ SELECT IdMelodie, Denumire, Interpret, Puncte, Informatii FROM Melodii WHERE (Id
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(string Denumire, string Interpret, int Puncte, string Informatii, int Original_IdMelodie, string Original_Denumire, string Original_Interpret, int Original_Puncte, string Original_Informatii, int IdMelodie) {
+        public virtual int Update(string Denumire, string Interpret, int Puncte, string Informatii, string GenMuzical, int Original_IdMelodie, string Original_Denumire, string Original_Interpret, int Original_Puncte, string Original_Informatii, string Original_GenMuzical, int IdMelodie) {
             if ((Denumire == null)) {
                 throw new global::System.ArgumentNullException("Denumire");
             }
@@ -2015,29 +2079,43 @@ SELECT IdMelodie, Denumire, Interpret, Puncte, Informatii FROM Melodii WHERE (Id
             else {
                 this.Adapter.UpdateCommand.Parameters[3].Value = ((string)(Informatii));
             }
-            this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(Original_IdMelodie));
+            if ((GenMuzical == null)) {
+                this.Adapter.UpdateCommand.Parameters[4].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[4].Value = ((string)(GenMuzical));
+            }
+            this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(Original_IdMelodie));
             if ((Original_Denumire == null)) {
                 throw new global::System.ArgumentNullException("Original_Denumire");
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[5].Value = ((string)(Original_Denumire));
+                this.Adapter.UpdateCommand.Parameters[6].Value = ((string)(Original_Denumire));
             }
             if ((Original_Interpret == null)) {
                 throw new global::System.ArgumentNullException("Original_Interpret");
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[6].Value = ((string)(Original_Interpret));
+                this.Adapter.UpdateCommand.Parameters[7].Value = ((string)(Original_Interpret));
             }
-            this.Adapter.UpdateCommand.Parameters[7].Value = ((int)(Original_Puncte));
+            this.Adapter.UpdateCommand.Parameters[8].Value = ((int)(Original_Puncte));
             if ((Original_Informatii == null)) {
-                this.Adapter.UpdateCommand.Parameters[8].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[9].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[9].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[10].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[8].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[9].Value = ((string)(Original_Informatii));
+                this.Adapter.UpdateCommand.Parameters[9].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[10].Value = ((string)(Original_Informatii));
             }
-            this.Adapter.UpdateCommand.Parameters[10].Value = ((int)(IdMelodie));
+            if ((Original_GenMuzical == null)) {
+                this.Adapter.UpdateCommand.Parameters[11].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[12].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[11].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[12].Value = ((string)(Original_GenMuzical));
+            }
+            this.Adapter.UpdateCommand.Parameters[13].Value = ((int)(IdMelodie));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -2058,8 +2136,8 @@ SELECT IdMelodie, Denumire, Interpret, Puncte, Informatii FROM Melodii WHERE (Id
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(string Denumire, string Interpret, int Puncte, string Informatii, int Original_IdMelodie, string Original_Denumire, string Original_Interpret, int Original_Puncte, string Original_Informatii) {
-            return this.Update(Denumire, Interpret, Puncte, Informatii, Original_IdMelodie, Original_Denumire, Original_Interpret, Original_Puncte, Original_Informatii, Original_IdMelodie);
+        public virtual int Update(string Denumire, string Interpret, int Puncte, string Informatii, string GenMuzical, int Original_IdMelodie, string Original_Denumire, string Original_Interpret, int Original_Puncte, string Original_Informatii, string Original_GenMuzical) {
+            return this.Update(Denumire, Interpret, Puncte, Informatii, GenMuzical, Original_IdMelodie, Original_Denumire, Original_Interpret, Original_Puncte, Original_Informatii, Original_GenMuzical, Original_IdMelodie);
         }
     }
     

@@ -6,3 +6,10 @@
     {
     }
 }
+
+namespace Melodii.DatabaseDataSetTableAdapters {
+    
+    
+    public partial class VoturiTableAdapter {
+    }
+}

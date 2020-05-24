@@ -12,6 +12,9 @@ using System.Diagnostics.Eventing.Reader;
 using System.Drawing.Drawing2D;
 using Melodii.Forms;
 using static Melodii.DesignFunctionalities;
+using System.Data.SqlClient;
+using System.IO;
+using System.Threading;
 
 namespace Melodii.Forms
 {
@@ -22,49 +25,90 @@ namespace Melodii.Forms
         {
             InitializeComponent();
             label6.Visible = false;
-            label2.Left = -label2.Width;
-            speed = (label1.Left - label2.Left) / 6;
+            slidingBar.Left = -slidingBar.Width;
+            speed = (label1.Left - slidingBar.Left) / 6;
         }
 
         #region ButtonEvents
         private void btSave_Click(object sender, EventArgs e)
         {
-            //Valideaza datele
-            //Daca totul este ok, datele sunt salvate in baza de date, iar in locul acestei forme
-            //este afisat un mesaj de succes pentru 1 secunda, dupa care forma va reveni avand campurile goale.
-
-            if (tbAutor.Text.Trim() == "Autorul" || tbDenumire.Text.Trim() == "Denumirea" || tbGen.Text.Trim() == "Genul muzical")
+            int puncte;
+            try
             {
-                speed = 1;
-                lbEroare.Text = "*Eroare. Asigurati-va ca ati completat toate campurile.";
-                Shakes = 0;
-                tbAutor.Left = tbDenumire.Left = tbGen.Left = label4.Left;
+                //-----------------------------------< Validare >-----------------------------------
 
-                //Zguduirea campurilor lipsa
-                InvalidTextBoxes = new List<TextBox>();
-                if (tbAutor.Text == "Autorul")
-                    InvalidTextBoxes.Add(tbAutor);
-                if (tbDenumire.Text == "Denumirea")
-                    InvalidTextBoxes.Add(tbDenumire);
-                if (tbGen.Text == "Genul muzical")
-                    InvalidTextBoxes.Add(tbGen);
-                timer2.Start();
-            }
-            else
-            {
+                //Un input este considerat invalid atunci cand acesta fie lipseste, fie nu corespunde tipului de date necesar. 
+                if (tbInterpret.Text.Trim() == (string)tbInterpret.Tag
+                || tbDenumire.Text.Trim() == (string)tbDenumire.Tag
+                || tbGen.Text.Trim() == (string)tbGen.Tag
+                || tbPuncte.Text.Trim() == (string)tbPuncte.Tag
+                || !int.TryParse(tbPuncte.Text, out puncte))
+                    throw new Exception("Eroare. Asigurati-va ca ati completat toate campurile necesare cu date valide.");
+
+                //-----------------------------------< Salvarea datelor >-----------------------------------
+
+                try
+                {
+                    //Deschiderea unei conexiuni si construirea comenzii de insereare a datelor.
+                    string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" + Directory.GetCurrentDirectory() + @"\Database.mdf;Integrated Security=True";
+                    SqlConnection Connection = new SqlConnection(connectionString);
+
+                    //Vom folosi parametri sql pentru ca aplicatia sa fie imuna atacurilor de tip SQL Injection
+                    SqlCommand cmd = new SqlCommand("INSERT INTO MELODII" +
+                    "(Denumire, Interpret, Puncte, Informatii, GenMuzical)" +
+                    "VALUES" +
+                    "(@Denumire, @Interpret, @Puncte, @Informatii, @GenMuzical); ", Connection);
+                    SqlParameter parDenumire = new SqlParameter("@Denumire", tbDenumire.Text);
+                    cmd.Parameters.Add(parDenumire);
+                    SqlParameter parInterpret = new SqlParameter("@Interpret", tbInterpret.Text);
+                    cmd.Parameters.Add(parInterpret);
+                    SqlParameter parPuncte = new SqlParameter("@Puncte", int.Parse(tbPuncte.Text));
+                    cmd.Parameters.Add(parPuncte);
+                    SqlParameter parInformatii;
+                    if (tbInformatii.Text != null)
+                        parInformatii = new SqlParameter("@Informatii", tbInformatii.Text);
+                    else
+                        parInformatii = new SqlParameter("@Informatii", null);
+                    cmd.Parameters.Add(parInformatii);
+                    SqlParameter parGenMuzical = new SqlParameter("@GenMuzical", tbGen.Text);
+                    cmd.Parameters.Add(parGenMuzical);
+
+                    //Executarea comenzii INSERT
+                    if (Connection.State != ConnectionState.Open)
+                        Connection.Open();
+                    cmd.ExecuteNonQuery();
+                    Connection.Close();
+                }
+                catch (Exception)
+                { 
+                    throw new Exception("Eroare. Datele nu au fost salvate din cauza unei probleme tehnice.");
+                }
+
+                //-----------------------------------< Afisarea mesajului de confirmare >-----------------------------------
+
+                //Bara se va deplasa spre dreapta.
                 slideIn = false;
                 timer1.Start();
+            }
+            catch (Exception ex)
+            {
+                //----------------------< Atentionarea utilizatorului privind invaliditatea datelor>-----------------------------------
 
-                //Salvarea tuturor datelor si asigurarea ca totul s-a decurs cum trebuie
-
-                label6.Top = 0;
-                label6.Left = 0;
-                label6.Width = this.Width;
-                label6.Height = this.Height;
-                label6.TextAlign = ContentAlignment.MiddleCenter;
-                label6.Text = "Melodia a fost inregistrata cu succes!";
-                label6.Visible = true;
-                timer3.Start();
+                //Zguduirea campurilor lipsa
+                speed = 1;
+                lbEroare.Text = ex.Message;
+                Shakes = 0;
+                tbInterpret.Left = tbDenumire.Left = tbGen.Left = tbPuncte.Left = label4.Left;
+                InvalidTextBoxes = new List<TextBox>();
+                if (tbInterpret.Text.Trim() == (string)tbInterpret.Tag)
+                    InvalidTextBoxes.Add(tbInterpret);
+                if (tbDenumire.Text.Trim() == (string)tbDenumire.Tag)
+                    InvalidTextBoxes.Add(tbDenumire);
+                if (tbGen.Text.Trim() == (string)tbGen.Tag)
+                    InvalidTextBoxes.Add(tbGen);
+                if (tbPuncte.Text.Trim() == (string)tbPuncte.Tag || !int.TryParse(tbPuncte.Text, out puncte))
+                    InvalidTextBoxes.Add(tbPuncte);
+                timer2.Start();
             }
         }
 
@@ -120,30 +164,42 @@ namespace Melodii.Forms
             if (slideIn)
             {
                 //Bara vine
-                if (label2.Left >= label1.Left)
+                if (slidingBar.Left >= label1.Left)
                 {
                     timer1.Stop();
                 }
                 else
                 {
-                    label2.Left += speed;
-                    speed = (label1.Left - label2.Left) / 6;
+                    slidingBar.Left += speed;
+                    speed = (label1.Left - slidingBar.Left) / 6;
                     if (speed < 1) speed = 1;
                 }
             }
             else
             {
                 //bara pleaca
-                if (label2.Left <= this.Width)
+                if (slidingBar.Left <= this.Width)
                 {
-                    label2.Left += speed;
-                    speed += label2.Left / 20;
+                    slidingBar.Left += speed;
+                    speed += slidingBar.Left / 30;
                 }
                 else
                 {
+                    //Bara iese din limitele ferestrei, este distrusa pentru a elibera resursele
+                    //dupa care este afisat mesajul de confirmare.
                     timer1.Stop();
-                    label2.Dispose();
+                    slidingBar.Dispose();
                     slideIn = true;
+
+                    label6.Top = 0;
+                    label6.Left = 0;
+                    label6.Width = this.Width;
+                    label6.Height = this.Height;
+                    label6.BringToFront();
+                    label6.TextAlign = ContentAlignment.MiddleCenter;
+                    label6.Text = "Melodia a fost inregistrata cu succes!";
+                    label6.Visible = true;
+                    timer3.Start();
                 }
 
                 //Totodata sterge treptat si mesajul de eroare, in caz in care acesta exista
