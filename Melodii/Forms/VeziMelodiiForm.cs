@@ -169,6 +169,23 @@ namespace Melodii.Forms
             Interpret.MaximumSize = new Size(Interpret.Width, 0);
             Interpret.Padding = new Padding(5);
 
+            Button exclude = new Button();
+            exclude.Padding = new Padding(10);
+            exclude.Dock = DockStyle.Top;
+            exclude.FlatStyle = FlatStyle.Flat;
+            exclude.ForeColor = Color.WhiteSmoke;
+            exclude.FlatAppearance.BorderSize = 0;
+            exclude.Text = "Exclude melodia";
+            exclude.AutoSize = true;
+            exclude.Click += btExclude_Click;
+            panelMelody.Controls.Add(exclude);
+
+            System.Windows.Forms.Label Spatiu = new System.Windows.Forms.Label();
+            Spatiu.Height = 50;
+            Spatiu.Dock = DockStyle.Top;
+            Spatiu.AutoSize = true;
+            panelMelody.Controls.Add(Spatiu);
+
             System.Windows.Forms.Label Puncte = new System.Windows.Forms.Label();
             Puncte.Text = String.Format("Puncte: " + melodie.Puncte.ToString());
             Puncte.ForeColor = Color.LightGray;
@@ -204,6 +221,17 @@ namespace Melodii.Forms
             movingPanel = panelMelody;
             timerSlideInDetails.Start();
             Debug.WriteLine("Here");
+        }
+
+        private void btExclude_Click(object sender, EventArgs e)
+        {
+            Form Messagebox = new MessageBox();
+            Messagebox.Tag = "Sunteti sigur ca doriti sa excludeti melodia Gucci Gang?";
+            Messagebox.ShowDialog();
+            if (Messagebox.DialogResult == DialogResult.OK)
+            {
+                //Exclude melodia
+            }
         }
 
         #region TimerEvents
@@ -257,9 +285,12 @@ namespace Melodii.Forms
             else
             {
                 movingPanel.Left += speedMovingPanel;
-                speedMovingPanel = (- movingPanel.Left) / 3;
+                speedMovingPanel = (-movingPanel.Left) / 3;
                 if (speedMovingPanel < 1) speedMovingPanel = 1;
             }
         }
+
+
+        
     }
 }
