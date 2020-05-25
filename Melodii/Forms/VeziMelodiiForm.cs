@@ -24,6 +24,9 @@ namespace Melodii.Forms
         {
             InitializeComponent();
             panelMelodii.Width = Width / 100 * 50;
+
+            panelInfo.Left = panelMelodii.Right + 50;
+            panelInfo.BackColor = Color.Red;
             
             melodii.Add(new Melodie { IdMelodie = 0, Denumire = "Gucci gang Gucci gang Gucci gang Gucci gang", Interpret = "Lil Pump", Puncte = 0 });
             melodii.Add(new Melodie { IdMelodie = 2, Denumire = "WWWWWWWWWWWWWWWWWWWWWWW", Interpret = "XXXTentacion", Puncte = 0 });
@@ -96,6 +99,7 @@ namespace Melodii.Forms
         {
             int lastMelodiiWidth = panelMelodii.Width;
             panelMelodii.Width = Width / 100 * 45;
+            panelInfo.Left = panelMelodii.Right + 50;
 
             if (lastMelodiiWidth > panelMelodii.Width)
                 formMinimized = true;

@@ -34,6 +34,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.panelMelodii = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.panelInfo = new System.Windows.Forms.Panel();
             this.panelMelodii.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -70,7 +71,7 @@
             this.label3.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.label3.Location = new System.Drawing.Point(1, 430);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(393, 1);
+            this.label3.Size = new System.Drawing.Size(328, 1);
             this.label3.TabIndex = 7;
             // 
             // panelMelodii
@@ -83,7 +84,7 @@
             this.panelMelodii.Controls.Add(this.label2);
             this.panelMelodii.Location = new System.Drawing.Point(55, 140);
             this.panelMelodii.Name = "panelMelodii";
-            this.panelMelodii.Size = new System.Drawing.Size(394, 431);
+            this.panelMelodii.Size = new System.Drawing.Size(329, 431);
             this.panelMelodii.TabIndex = 8;
             // 
             // panel1
@@ -92,15 +93,26 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(1, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(393, 430);
+            this.panel1.Size = new System.Drawing.Size(328, 430);
             this.panel1.TabIndex = 8;
+            // 
+            // panelInfo
+            // 
+            this.panelInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelInfo.Location = new System.Drawing.Point(426, 93);
+            this.panelInfo.Name = "panelInfo";
+            this.panelInfo.Size = new System.Drawing.Size(358, 477);
+            this.panelInfo.TabIndex = 9;
             // 
             // VeziMelodiiForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(7)))), ((int)(((byte)(36)))));
-            this.ClientSize = new System.Drawing.Size(771, 612);
+            this.ClientSize = new System.Drawing.Size(773, 612);
+            this.Controls.Add(this.panelInfo);
             this.Controls.Add(this.panelMelodii);
             this.Controls.Add(this.slidingBar);
             this.Controls.Add(this.label1);
@@ -124,5 +136,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Panel panelMelodii;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panelInfo;
     }
 }
