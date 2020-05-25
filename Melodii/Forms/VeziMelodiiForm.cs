@@ -25,75 +25,86 @@ namespace Melodii.Forms
             InitializeComponent();
             slidingBar.Left = -slidingBar.Width;
             speedSlidingBar = (label1.Left - slidingBar.Left) / 6;
-
-            melodii.Clear();
+            panelInfo.Left = panelMelodii.Right + 50;
             panelMelodii.Width = Width / 100 * 50;
 
-            panelInfo.Left = panelMelodii.Right + 50;
-            
-            melodii.Add(new Melodie { IdMelodie = 0, Denumire = "Gucci gang", Interpret = "Lil Pump", Puncte = 0 });
+            //Extragerea datelor din BD
+            melodii.Clear();
+            melodii.Add(new Melodie { IdMelodie = 0, Denumire = "Gucci gang Gucci gang Gucci gangGucci gang Gucci gang", Interpret = "Lil Pump", Puncte = 0 });
             melodii.Add(new Melodie { IdMelodie = 2, Informatii = "Melodia care a castigat 3 premii grammy in doar 4 ani.", Denumire = "Moonlight", Interpret = "XXXTentacion", Puncte = 0 });
             melodii.Add(new Melodie { IdMelodie = 3, Puncte = 34, Denumire = "Freeman", Interpret = "Miyagi"});
 
+            // Pentru fiecare melodie va fi creat un buton care va contine informatii
+            // privind Denumirea, Interpretul si numarul de puncte ale acesteia.
             GenerateButtons(melodii, panel1);
         }
 
         private  void GenerateButtons(List<Melodie> melodii, Panel parentPanel)
         {
-            if(melodii !=null && melodii.Count > 0)
+            try
             {
-                parentPanel.Controls.Clear();
-
-                for (int i = 0; i < melodii.Count; i++)
+                if (melodii != null && melodii.Count > 0)
                 {
-                    Button btn = new Button();
-                    btn.Dock = DockStyle.Top;
-                    btn.Text = melodii[i].Denumire;
-                    btn.Tag = melodii[i].IdMelodie;
-                    btn.FlatStyle = FlatStyle.Flat;
-                    btn.FlatAppearance.BorderSize = 0;
-                    btn.Height = 60;
-                    btn.TextAlign = ContentAlignment.MiddleLeft;
-                    btn.Font = new Font("Leelawadee", 13);
-                    btn.Click += new EventHandler(btInfo_Click);
+                    parentPanel.Controls.Clear();
 
-                    Size size = TextRenderer.MeasureText(btn.Text, btn.Font);
-                    if (size.Width > parentPanel.Width - parentPanel.Width * 0.3)
+                    for (int i = 0; i < melodii.Count; i++)
                     {
-                        while(size.Width > parentPanel.Width - parentPanel.Width * 0.3)
-                        {
-                            btn.Text = btn.Text.Substring(0, btn.Text.Length - 1);
-                            size = TextRenderer.MeasureText(btn.Text, btn.Font);
-                        }
-                        btn.Text += "...";
+                        //Butonul propriu zis.
+                        //Proprietatea Text va contine numele melodiei
+                        //Proprietatea Tag va contine ID-ul melodiei.
+                        Button btn = new Button();
+                        btn.Dock = DockStyle.Top;
+                        btn.Text = melodii[i].Denumire;
+                        btn.Tag = melodii[i].IdMelodie;
+                        btn.FlatStyle = FlatStyle.Flat;
+                        btn.FlatAppearance.BorderSize = 0;
+                        btn.Height = 60;
+                        btn.TextAlign = ContentAlignment.MiddleLeft;
+                        btn.Font = new Font("Leelawadee", 13);
+                        btn.Click += new EventHandler(btInfo_Click);
+
+                        //Label pentru a afisa numarul de puncte al melodiei
+                        System.Windows.Forms.Label lbPoints = new System.Windows.Forms.Label();
+                        lbPoints.Text = melodii[i].Puncte.ToString();
+                        lbPoints.AutoSize = false;
+                        lbPoints.Dock = DockStyle.Right;
+                        lbPoints.BackColor = Color.Transparent;
+                        lbPoints.Font = new Font("Leelawadee", 10);
+                        lbPoints.TextAlign = ContentAlignment.MiddleCenter;
+
+                        //Label pentru afisarea interpretului
+                        System.Windows.Forms.Label lbInterpret = new System.Windows.Forms.Label();
+                        lbInterpret.Text = melodii[i].Interpret;
+                        lbInterpret.ForeColor = Color.LightGray;
+                        lbInterpret.BackColor = Color.Transparent;
+                        lbInterpret.Dock = DockStyle.Bottom;
+                        lbInterpret.Font = new Font("Leelawadee", 10);
+
+                        btn.Controls.Add(lbInterpret);
+                        btn.Controls.Add(lbPoints);
+
+                        parentPanel.Controls.Add(btn);
                     }
-
-                    System.Windows.Forms.Label lbPoints = new System.Windows.Forms.Label();
-                    lbPoints.Text = melodii[i].Puncte.ToString();
-                    lbPoints.AutoSize = false;
-                    lbPoints.Dock = DockStyle.Right;
-                    lbPoints.BackColor = Color.Transparent;
-                    lbPoints.Font = new Font("Leelawadee", 10);
-                    lbPoints.TextAlign = ContentAlignment.MiddleCenter;
-
-                    System.Windows.Forms.Label lbInterpret = new System.Windows.Forms.Label();
-                    lbInterpret.Text = melodii[i].Interpret;
-                    lbInterpret.ForeColor = Color.LightGray;
-                    lbInterpret.BackColor = Color.Transparent;
-                    lbInterpret.Dock = DockStyle.Bottom;
-                    lbInterpret.Font = new Font("Leelawadee", 10);
-
-                    btn.Controls.Add(lbInterpret);
-                    btn.Controls.Add(lbPoints);
-
-                    parentPanel.Controls.Add(btn);
                 }
             }
-            
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                lbError.Text = "S-a produs o eroare la incarcarea datelor. Incercati din nou.";
+            }        
         }
 
         private void VeziMelodiiForm_Resize(object sender, EventArgs e)
         {
+            // In cazul in care are loc redimensionarea ferestrei:
+            //
+            // 1) Vom modifica pozitia si dimensiunile celor 2 panele, cel pentru afisarea listei
+            // melodiilor, si cel pentru afisarea informatiei despre fiecare melodie in parte.
+            //
+            // 2) Vom re-analiza modul in care este afisat numele melodiei
+            // Daca fereastra a fost marita, atunci denumirea va contine mai multe litere ca urmare
+            // a maririi lungimii butoanelor, in caz contrar, denumirea va fi scurtata.
+
             int lastMelodiiWidth = panelMelodii.Width;
             panelMelodii.Width = Width / 100 * 45;
             panelInfo.Left = panelMelodii.Right + 50;
@@ -109,48 +120,58 @@ namespace Melodii.Forms
                 {
                     if (formMinimized)
                     {
-                        Size size = TextRenderer.MeasureText(btn.Text, btn.Font);
-
-                        if (size.Width > panelMelodii.Width - panelMelodii.Width * 0.25)
-                        {
-                            while (size.Width > panelMelodii.Width - panelMelodii.Width * 0.25)
-                            {
-                                btn.Text = btn.Text.Substring(0, btn.Text.Length - 1);
-                                size = TextRenderer.MeasureText(btn.Text, btn.Font);
-                            }
-                            btn.Text += "...";
-                        }
+                        //In cazul in care forma este minimizata, denumirea este scurtata.
+                        ScurtareDenumire(btn, panelMelodii.Width);
                     }
                     else
                     {
+                        // In cazul in care forma este maximizata, atunci verificam daca 
+                        // denumirea care este afisata este scurtata. In caz afirmativ,
+                        // marim numarul de caractere ce vor fi afisate.
                         string initialButtonText = melodii.First(x => x.IdMelodie == int.Parse(btn.Tag.ToString())).Denumire;
                         if (btn.Text.Length < initialButtonText.Length)
                         {
                             btn.Text = initialButtonText;
-
-                            Size size = TextRenderer.MeasureText(btn.Text, btn.Font);
-                            if (size.Width > panelMelodii.Width - panelMelodii.Width * 0.3)
-                            {
-                                while (size.Width > panelMelodii.Width - panelMelodii.Width * 0.3)
-                                {
-                                    btn.Text = btn.Text.Substring(0, btn.Text.Length - 1);
-                                    size = TextRenderer.MeasureText(btn.Text, btn.Font);
-                                }
-                                btn.Text += "...";
-                            }
+                            ScurtareDenumire(btn, panelMelodii.Width);
                         }
                     }
                 }
         }
 
+        private void ScurtareDenumire(Button btn, int maxWidth)
+        {
+            //In cazul in care lungimea numelui melodiei este mai mare decat
+            //lungimea butonului, atunci vom afisa literele care incap, urmate de 
+            //3 puncte de suspensie [...].
+            //Exemplu, [Bine-i sade mesei mele imprejur cu nemurele] => [Bine-i sade mese mele...]
+            Size size = TextRenderer.MeasureText(btn.Text, btn.Font);
+            if (size.Width > maxWidth - maxWidth * 0.3)
+            {
+                while (size.Width > maxWidth - maxWidth * 0.3)
+                {
+                    btn.Text = btn.Text.Substring(0, btn.Text.Length - 1);
+                    size = TextRenderer.MeasureText(btn.Text, btn.Font);
+                }
+                btn.Text += "...";
+            }
+        }
+
+        #region ButtonEvents
         private void btInfo_Click(object sender, EventArgs e)
         {
+            // Evenimentul declansat de catre un click pe butonul destinat unei melodii.
+            // Acesta va crea un nou panel in care va introduce toate datele disponibile
+            // despre melodia aleasa.
+
             panelInfo.Controls.Clear();
             Panel panelMelody = new Panel();
             panelMelody.Width = panelInfo.Width;
             panelMelody.Height = panelInfo.Height;
+
+            // Id-ul melodiei se afla in propritatea [Tag] a butonului, drept urmare
             Melodie melodie = melodii.First(m => m.IdMelodie == int.Parse((sender as Button).Tag.ToString()));
 
+            //Label pentru denumire
             System.Windows.Forms.Label Denumire = new System.Windows.Forms.Label();
             Denumire.Text = melodie.Denumire;
             Denumire.Font = new Font("Leelawadee", 16);
@@ -159,6 +180,7 @@ namespace Melodii.Forms
             Denumire.Dock = DockStyle.Top;
             Denumire.MaximumSize = new Size(Denumire.Width, 0);
 
+            //Label pentru Interpret
             System.Windows.Forms.Label Interpret = new System.Windows.Forms.Label();
             Interpret.Text = melodie.Interpret;
             Interpret.ForeColor = Color.LightGray;
@@ -169,6 +191,7 @@ namespace Melodii.Forms
             Interpret.MaximumSize = new Size(Interpret.Width, 0);
             Interpret.Padding = new Padding(5);
 
+            //Label pentru butonul de excludere a melodiei
             Button exclude = new Button();
             exclude.Padding = new Padding(10);
             exclude.Dock = DockStyle.Top;
@@ -178,6 +201,7 @@ namespace Melodii.Forms
             exclude.Text = "Exclude melodia";
             exclude.AutoSize = true;
             exclude.Click += btExclude_Click;
+            exclude.Tag = String.Format("Sunteti sigur ca doriti sa excludeti melodia {0}?", Denumire.Text);
             panelMelody.Controls.Add(exclude);
 
             System.Windows.Forms.Label Spatiu = new System.Windows.Forms.Label();
@@ -186,6 +210,7 @@ namespace Melodii.Forms
             Spatiu.AutoSize = true;
             panelMelody.Controls.Add(Spatiu);
 
+            //Label pentru afisarea punctelor
             System.Windows.Forms.Label Puncte = new System.Windows.Forms.Label();
             Puncte.Text = String.Format("Puncte: " + melodie.Puncte.ToString());
             Puncte.ForeColor = Color.LightGray;
@@ -199,6 +224,7 @@ namespace Melodii.Forms
 
             if (melodie.Informatii != null)
             {
+                //Label pentru afisarea informatiilor aditionale, in cazul in care acestea exista.
                 System.Windows.Forms.Label Informatii = new System.Windows.Forms.Label();
                 Informatii.Text = String.Format($"Informatii: {melodie.Informatii}");
                 Informatii.ForeColor = Color.LightGray;
@@ -208,33 +234,37 @@ namespace Melodii.Forms
                 Informatii.Dock = DockStyle.Top;
                 Informatii.MaximumSize = new Size(panelInfo.Width, 0);
                 Informatii.Padding = new Padding(5);
-
                 panelMelody.Controls.Add(Informatii);
             }
 
             panelMelody.Controls.Add(Interpret);
             panelMelody.Controls.Add(Denumire);
+
             //Deplasarea panelului spre stanga si pregatirea terenului pentru slide.
             panelMelody.Left = -panelMelody.Width;
             speedMovingPanel = (panelMelody.Left) / 3;
             panelInfo.Controls.Add(panelMelody);
             movingPanel = panelMelody;
             timerSlideInDetails.Start();
-            Debug.WriteLine("Here");
         }
 
         private void btExclude_Click(object sender, EventArgs e)
         {
+            //In urma apasarii butonului [Exclude], va aparea un messagebox pentru confirmare.
+            //In cazul in care raspunstul este OK, atunci se va purcede la eliminarea melodiei din baza de date.
+
             Form Messagebox = new MessageBox();
-            Messagebox.Tag = "Sunteti sigur ca doriti sa excludeti melodia Gucci Gang?";
+            Messagebox.Tag = (sender as Button).Tag;
             Messagebox.ShowDialog();
             if (Messagebox.DialogResult == DialogResult.OK)
             {
                 //Exclude melodia
             }
         }
+        #endregion
 
         #region TimerEvents
+        //Deplasarea liniei
         private static int speedSlidingBar;
         private static bool slideIn = true;
         private void timerSlidingBar_Tick(object sender, EventArgs e)
@@ -271,8 +301,8 @@ namespace Melodii.Forms
                 }
             }
         }
-        #endregion
 
+        //Deplasarea blocului cu informatii despre melodia aleasa.
         private static Panel movingPanel;
         private static int speedMovingPanel;
         private void timerSlideInDetails_Tick(object sender, EventArgs e)
@@ -289,8 +319,6 @@ namespace Melodii.Forms
                 if (speedMovingPanel < 1) speedMovingPanel = 1;
             }
         }
-
-
-        
+        #endregion
     }
 }

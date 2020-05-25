@@ -38,6 +38,7 @@
             this.panelInfo = new System.Windows.Forms.Panel();
             this.timerSlidingBar = new System.Windows.Forms.Timer(this.components);
             this.timerSlideInDetails = new System.Windows.Forms.Timer(this.components);
+            this.lbError = new System.Windows.Forms.Label();
             this.panelMelodii.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -65,14 +66,14 @@
             this.label2.Dock = System.Windows.Forms.DockStyle.Left;
             this.label2.Location = new System.Drawing.Point(0, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(1, 431);
+            this.label2.Size = new System.Drawing.Size(1, 408);
             this.label2.TabIndex = 4;
             // 
             // label3
             // 
             this.label3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.label3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.label3.Location = new System.Drawing.Point(1, 430);
+            this.label3.Location = new System.Drawing.Point(1, 407);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(328, 1);
             this.label3.TabIndex = 7;
@@ -85,7 +86,7 @@
             this.panelMelodii.Controls.Add(this.label2);
             this.panelMelodii.Location = new System.Drawing.Point(55, 140);
             this.panelMelodii.Name = "panelMelodii";
-            this.panelMelodii.Size = new System.Drawing.Size(329, 431);
+            this.panelMelodii.Size = new System.Drawing.Size(329, 408);
             this.panelMelodii.TabIndex = 8;
             // 
             // panel1
@@ -95,7 +96,7 @@
             this.panel1.Location = new System.Drawing.Point(1, 0);
             this.panel1.Name = "panel1";
             this.panel1.Padding = new System.Windows.Forms.Padding(10);
-            this.panel1.Size = new System.Drawing.Size(328, 430);
+            this.panel1.Size = new System.Drawing.Size(328, 407);
             this.panel1.TabIndex = 8;
             // 
             // panelInfo
@@ -103,7 +104,7 @@
             this.panelInfo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(7)))), ((int)(((byte)(36)))));
             this.panelInfo.Location = new System.Drawing.Point(426, 93);
             this.panelInfo.Name = "panelInfo";
-            this.panelInfo.Size = new System.Drawing.Size(333, 477);
+            this.panelInfo.Size = new System.Drawing.Size(333, 455);
             this.panelInfo.TabIndex = 9;
             // 
             // timerSlidingBar
@@ -117,12 +118,22 @@
             this.timerSlideInDetails.Interval = 2;
             this.timerSlideInDetails.Tick += new System.EventHandler(this.timerSlideInDetails_Tick);
             // 
+            // lbError
+            // 
+            this.lbError.AutoSize = true;
+            this.lbError.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.lbError.Location = new System.Drawing.Point(51, 570);
+            this.lbError.Name = "lbError";
+            this.lbError.Size = new System.Drawing.Size(0, 20);
+            this.lbError.TabIndex = 10;
+            // 
             // VeziMelodiiForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(7)))), ((int)(((byte)(36)))));
             this.ClientSize = new System.Drawing.Size(771, 612);
+            this.Controls.Add(this.lbError);
             this.Controls.Add(this.panelInfo);
             this.Controls.Add(this.panelMelodii);
             this.Controls.Add(this.slidingBar);
@@ -151,5 +162,6 @@
         private System.Windows.Forms.Panel panelInfo;
         private System.Windows.Forms.Timer timerSlidingBar;
         private System.Windows.Forms.Timer timerSlideInDetails;
+        private System.Windows.Forms.Label lbError;
     }
 }
