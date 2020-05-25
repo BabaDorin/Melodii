@@ -48,7 +48,7 @@ namespace Melodii
 
         private void btnVeziMelodii_Click(object sender, EventArgs e)
         {
-        
+            openChildForm(new VeziMelodiiForm(), panelFormsArea);
         }
 
         private void btnAdaugaParticipanti_Click(object sender, EventArgs e)
