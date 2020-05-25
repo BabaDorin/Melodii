@@ -35,6 +35,7 @@
             this.panelMelodii = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panelInfo = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
             this.panelMelodii.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -106,12 +107,22 @@
             this.panelInfo.Size = new System.Drawing.Size(358, 477);
             this.panelInfo.TabIndex = 9;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(0, 0);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 10;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
             // VeziMelodiiForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(7)))), ((int)(((byte)(36)))));
             this.ClientSize = new System.Drawing.Size(773, 612);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.panelInfo);
             this.Controls.Add(this.panelMelodii);
             this.Controls.Add(this.slidingBar);
@@ -137,5 +148,6 @@
         private System.Windows.Forms.Panel panelMelodii;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panelInfo;
+        private System.Windows.Forms.Button button1;
     }
 }

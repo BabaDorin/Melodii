@@ -52,15 +52,9 @@ namespace Melodii.Forms
                     btn.Height = 60;
                     btn.TextAlign = ContentAlignment.MiddleLeft;
                     btn.Font = new Font("Leelawadee", 13);
-
-                    //SizeF size = new SizeF(0, 0);
-                    //using (System.Drawing.Graphics graphics = System.Drawing.Graphics.FromImage(new Bitmap(1, 1)))
-                    //{
-                    //    size = graphics.MeasureString(btn.Text, new Font("Leelawadee", 13));
-                    //}
+                    btn.Click += btInfo_Click;
 
                     Size size = TextRenderer.MeasureText(btn.Text, btn.Font);
-
                     if (size.Width > parentPanel.Width - parentPanel.Width * 0.3)
                     {
                         while(size.Width > parentPanel.Width - parentPanel.Width * 0.3)
@@ -143,6 +137,18 @@ namespace Melodii.Forms
                         }
                     }
                 }
+        }
+
+        static void btInfo_Click(object sender, EventArgs e)
+        {
+            Panel panelMelody = new Panel();
+            System.Windows.Forms.Label label = new System.Windows.Forms.Label();
+            label.Text = melodii.First(x => x.IdMelodie == int.Parse((sender as Button).Tag.ToString())).Denumire;
+            panelMelody.Controls.Add(label);
+
+            //DOODOO
+            panelInfo.Controls.Add(panelMelody);
+            Debug.WriteLine("Done");
         }
     }
 }
