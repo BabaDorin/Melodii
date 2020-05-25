@@ -33,7 +33,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.panelMelodii = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panelMelodii.SuspendLayout();
             this.SuspendLayout();
@@ -87,18 +86,9 @@
             this.panelMelodii.Size = new System.Drawing.Size(394, 431);
             this.panelMelodii.TabIndex = 8;
             // 
-            // button1
-            // 
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(621, 156);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 8;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
             // panel1
             // 
+            this.panel1.AutoScroll = true;
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(1, 0);
             this.panel1.Name = "panel1";
@@ -111,7 +101,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(7)))), ((int)(((byte)(36)))));
             this.ClientSize = new System.Drawing.Size(771, 612);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.panelMelodii);
             this.Controls.Add(this.slidingBar);
             this.Controls.Add(this.label1);
@@ -120,6 +109,7 @@
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "VeziMelodiiForm";
             this.Text = "Vezi melodiile";
+            this.Resize += new System.EventHandler(this.VeziMelodiiForm_Resize);
             this.panelMelodii.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -133,7 +123,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Panel panelMelodii;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Panel panel1;
     }
 }

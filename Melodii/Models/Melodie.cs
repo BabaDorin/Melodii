@@ -10,7 +10,7 @@ namespace Melodii.Models
     {
         public int IdMelodie { get; set; }
         public string Denumire { get; set; }
-        public string Autor { get; set; }
+        public string Interpret { get; set; }
         public int Puncte { get; set; }
     }
 }
