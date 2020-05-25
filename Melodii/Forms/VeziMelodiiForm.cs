@@ -19,19 +19,22 @@ namespace Melodii.Forms
     {
         private static List<Melodie> melodii = new List<Melodie>();
         bool formMinimized = false;
+        private static Panel panelInformation;
 
         public VeziMelodiiForm()
         {
             InitializeComponent();
+
+            melodii.Clear();
             panelMelodii.Width = Width / 100 * 50;
 
             panelInfo.Left = panelMelodii.Right + 50;
-            panelInfo.BackColor = Color.Red;
             
             melodii.Add(new Melodie { IdMelodie = 0, Denumire = "Gucci gang Gucci gang Gucci gang Gucci gang", Interpret = "Lil Pump", Puncte = 0 });
-            melodii.Add(new Melodie { IdMelodie = 2, Denumire = "WWWWWWWWWWWWWWWWWWWWWWW", Interpret = "XXXTentacion", Puncte = 0 });
-            melodii.Add(new Melodie { IdMelodie = 3, Denumire = "iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii", Interpret = "XXXTentacion", Puncte = 0 });
+            melodii.Add(new Melodie { IdMelodie = 2, Informatii = "Este infoEste infoEste infoEste infoEste infoEste infoEste infoEste infoEste infoEste infoEste infoEste infoEste infoEste infoEste infoEste infoEste infoEste infoEste infoEste infoEste infoEste info", Denumire = "WWWWWWWWWWWWWWWWWWWWWWW", Interpret = "XXXTentacion", Puncte = 0 });
+            melodii.Add(new Melodie { IdMelodie = 3, Denumire = "iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii", Interpret = "XXXTentacion", Puncte = 0 });
 
+            panelInformation = panelInfo;
             GenerateButtons(melodii, panel1);
         }
 
@@ -52,7 +55,7 @@ namespace Melodii.Forms
                     btn.Height = 60;
                     btn.TextAlign = ContentAlignment.MiddleLeft;
                     btn.Font = new Font("Leelawadee", 13);
-                    btn.Click += btInfo_Click;
+                    btn.Click += new EventHandler(btInfo_Click);
 
                     Size size = TextRenderer.MeasureText(btn.Text, btn.Font);
                     if (size.Width > parentPanel.Width - parentPanel.Width * 0.3)
@@ -139,16 +142,52 @@ namespace Melodii.Forms
                 }
         }
 
-        static void btInfo_Click(object sender, EventArgs e)
+        private static void btInfo_Click(object sender, EventArgs e)
         {
-            Panel panelMelody = new Panel();
-            System.Windows.Forms.Label label = new System.Windows.Forms.Label();
-            label.Text = melodii.First(x => x.IdMelodie == int.Parse((sender as Button).Tag.ToString())).Denumire;
-            panelMelody.Controls.Add(label);
+            panelInformation.Controls.Clear();
 
-            //DOODOO
-            panelInfo.Controls.Add(panelMelody);
-            Debug.WriteLine("Done");
+            Panel panelMelody = new Panel();
+            panelMelody.Dock = DockStyle.Fill;
+            panelMelody.Margin = new Padding(10);
+            Melodie melodie = melodii.First(m => m.IdMelodie == int.Parse((sender as Button).Tag.ToString()));
+
+            System.Windows.Forms.Label Denumire = new System.Windows.Forms.Label();
+            Denumire.Text = melodie.Denumire;
+            Denumire.Font = new Font("Leelawadee", 14);
+            Denumire.AutoSize = true;
+            Denumire.Width = panelInformation.Width;
+            Denumire.Dock = DockStyle.Top;
+            Denumire.MaximumSize = new Size(Denumire.Width, 0);
+
+            System.Windows.Forms.Label Interpret = new System.Windows.Forms.Label();
+            Interpret.Text = String.Format($"Interpret: {melodie.Interpret}");
+            Interpret.ForeColor = Color.LightGray;
+            Interpret.Font = new Font("Leelawadee", 11);
+            Interpret.AutoSize = true;
+            Interpret.Width = Denumire.Width;
+            Interpret.Dock = DockStyle.Top;
+            Interpret.MaximumSize = new Size(Interpret.Width, 0);
+
+            if (melodie.Informatii!=null)
+            {
+                System.Windows.Forms.Label Informatii = new System.Windows.Forms.Label();
+                Informatii.Text = Interpret.Text = String.Format($"Informatii: {melodie.Informatii}");
+                Informatii.ForeColor = Color.LightGray;
+                Informatii.Font = new Font("Leelawadee", 11);
+                Informatii.AutoSize = true;
+                Informatii.Width = Denumire.Width;
+                Informatii.Dock = DockStyle.Top;
+                Informatii.MaximumSize = new Size(Informatii.Width, 0);
+
+                panelMelody.Controls.Add(Informatii);
+            }
+            
+
+            panelMelody.Controls.Add(Interpret);
+            panelMelody.Controls.Add(Denumire);
+
+            panelInformation.Controls.Add(panelMelody);
+            Debug.WriteLine("Done, Button tag = " + (sender as Button).Tag.ToString());
         }
     }
 }
