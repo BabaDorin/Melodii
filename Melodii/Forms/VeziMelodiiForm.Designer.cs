@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.slidingBar = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -35,6 +36,8 @@
             this.panelMelodii = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panelInfo = new System.Windows.Forms.Panel();
+            this.timerSlidingBar = new System.Windows.Forms.Timer(this.components);
+            this.timerSlideInDetails = new System.Windows.Forms.Timer(this.components);
             this.panelMelodii.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -43,7 +46,7 @@
             this.slidingBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.slidingBar.Location = new System.Drawing.Point(75, 93);
             this.slidingBar.Name = "slidingBar";
-            this.slidingBar.Size = new System.Drawing.Size(224, 2);
+            this.slidingBar.Size = new System.Drawing.Size(174, 2);
             this.slidingBar.TabIndex = 3;
             // 
             // label1
@@ -100,9 +103,19 @@
             this.panelInfo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(7)))), ((int)(((byte)(36)))));
             this.panelInfo.Location = new System.Drawing.Point(426, 93);
             this.panelInfo.Name = "panelInfo";
-            this.panelInfo.Padding = new System.Windows.Forms.Padding(10);
             this.panelInfo.Size = new System.Drawing.Size(333, 477);
             this.panelInfo.TabIndex = 9;
+            // 
+            // timerSlidingBar
+            // 
+            this.timerSlidingBar.Enabled = true;
+            this.timerSlidingBar.Interval = 2;
+            this.timerSlidingBar.Tick += new System.EventHandler(this.timerSlidingBar_Tick);
+            // 
+            // timerSlideInDetails
+            // 
+            this.timerSlideInDetails.Interval = 2;
+            this.timerSlideInDetails.Tick += new System.EventHandler(this.timerSlideInDetails_Tick);
             // 
             // VeziMelodiiForm
             // 
@@ -114,6 +127,7 @@
             this.Controls.Add(this.panelMelodii);
             this.Controls.Add(this.slidingBar);
             this.Controls.Add(this.label1);
+            this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -135,5 +149,7 @@
         private System.Windows.Forms.Panel panelMelodii;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panelInfo;
+        private System.Windows.Forms.Timer timerSlidingBar;
+        private System.Windows.Forms.Timer timerSlideInDetails;
     }
 }

@@ -19,26 +19,26 @@ namespace Melodii.Forms
     {
         private static List<Melodie> melodii = new List<Melodie>();
         bool formMinimized = false;
-        private static Panel panelInformation;
 
         public VeziMelodiiForm()
         {
             InitializeComponent();
+            slidingBar.Left = -slidingBar.Width;
+            speedSlidingBar = (label1.Left - slidingBar.Left) / 6;
 
             melodii.Clear();
             panelMelodii.Width = Width / 100 * 50;
 
             panelInfo.Left = panelMelodii.Right + 50;
             
-            melodii.Add(new Melodie { IdMelodie = 0, Denumire = "Gucci gang Gucci gang Gucci gang Gucci gang", Interpret = "Lil Pump", Puncte = 0 });
-            melodii.Add(new Melodie { IdMelodie = 2, Informatii = "Este infoEste infoEste infoEste infoEste infoEste infoEste infoEste infoEste infoEste infoEste infoEste infoEste infoEste infoEste infoEste infoEste infoEste infoEste infoEste infoEste infoEste info", Denumire = "WWWWWWWWWWWWWWWWWWWWWWW", Interpret = "XXXTentacion", Puncte = 0 });
-            melodii.Add(new Melodie { IdMelodie = 3, Denumire = "iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii", Interpret = "XXXTentacion", Puncte = 0 });
+            melodii.Add(new Melodie { IdMelodie = 0, Denumire = "Gucci gang", Interpret = "Lil Pump", Puncte = 0 });
+            melodii.Add(new Melodie { IdMelodie = 2, Informatii = "Melodia care a castigat 3 premii grammy in doar 4 ani.", Denumire = "Moonlight", Interpret = "XXXTentacion", Puncte = 0 });
+            melodii.Add(new Melodie { IdMelodie = 3, Puncte = 34, Denumire = "Freeman", Interpret = "Miyagi"});
 
-            panelInformation = panelInfo;
             GenerateButtons(melodii, panel1);
         }
 
-        private static void GenerateButtons(List<Melodie> melodii, Panel parentPanel)
+        private  void GenerateButtons(List<Melodie> melodii, Panel parentPanel)
         {
             if(melodii !=null && melodii.Count > 0)
             {
@@ -97,6 +97,7 @@ namespace Melodii.Forms
             int lastMelodiiWidth = panelMelodii.Width;
             panelMelodii.Width = Width / 100 * 45;
             panelInfo.Left = panelMelodii.Right + 50;
+            panelInfo.Width = this.Right - panelInfo.Left - 20;
 
             if (lastMelodiiWidth > panelMelodii.Width)
                 formMinimized = true;
@@ -142,52 +143,123 @@ namespace Melodii.Forms
                 }
         }
 
-        private static void btInfo_Click(object sender, EventArgs e)
+        private void btInfo_Click(object sender, EventArgs e)
         {
-            panelInformation.Controls.Clear();
-
+            panelInfo.Controls.Clear();
             Panel panelMelody = new Panel();
-            panelMelody.Dock = DockStyle.Fill;
-            panelMelody.Margin = new Padding(10);
+            panelMelody.Width = panelInfo.Width;
+            panelMelody.Height = panelInfo.Height;
             Melodie melodie = melodii.First(m => m.IdMelodie == int.Parse((sender as Button).Tag.ToString()));
 
             System.Windows.Forms.Label Denumire = new System.Windows.Forms.Label();
             Denumire.Text = melodie.Denumire;
-            Denumire.Font = new Font("Leelawadee", 14);
+            Denumire.Font = new Font("Leelawadee", 16);
             Denumire.AutoSize = true;
-            Denumire.Width = panelInformation.Width;
+            Denumire.Width = panelInfo.Width;
             Denumire.Dock = DockStyle.Top;
             Denumire.MaximumSize = new Size(Denumire.Width, 0);
 
             System.Windows.Forms.Label Interpret = new System.Windows.Forms.Label();
-            Interpret.Text = String.Format($"Interpret: {melodie.Interpret}");
+            Interpret.Text = melodie.Interpret;
             Interpret.ForeColor = Color.LightGray;
-            Interpret.Font = new Font("Leelawadee", 11);
+            Interpret.Font = new Font("Leelawadee", 12);
             Interpret.AutoSize = true;
             Interpret.Width = Denumire.Width;
             Interpret.Dock = DockStyle.Top;
             Interpret.MaximumSize = new Size(Interpret.Width, 0);
+            Interpret.Padding = new Padding(5);
 
-            if (melodie.Informatii!=null)
+            System.Windows.Forms.Label Puncte = new System.Windows.Forms.Label();
+            Puncte.Text = String.Format("Puncte: " + melodie.Puncte.ToString());
+            Puncte.ForeColor = Color.LightGray;
+            Puncte.Font = new Font("Leelawadee", 10);
+            Puncte.AutoSize = true;
+            Puncte.Width = Denumire.Width;
+            Puncte.Dock = DockStyle.Top;
+            Puncte.MaximumSize = new Size(Interpret.Width, 0);
+            Puncte.Padding = new Padding(5);
+            panelMelody.Controls.Add(Puncte);
+
+            if (melodie.Informatii != null)
             {
                 System.Windows.Forms.Label Informatii = new System.Windows.Forms.Label();
-                Informatii.Text = Interpret.Text = String.Format($"Informatii: {melodie.Informatii}");
+                Informatii.Text = String.Format($"Informatii: {melodie.Informatii}");
                 Informatii.ForeColor = Color.LightGray;
-                Informatii.Font = new Font("Leelawadee", 11);
+                Informatii.Font = new Font("Leelawadee", 10);
                 Informatii.AutoSize = true;
                 Informatii.Width = Denumire.Width;
                 Informatii.Dock = DockStyle.Top;
-                Informatii.MaximumSize = new Size(Informatii.Width, 0);
+                Informatii.MaximumSize = new Size(panelInfo.Width, 0);
+                Informatii.Padding = new Padding(5);
 
                 panelMelody.Controls.Add(Informatii);
             }
-            
 
             panelMelody.Controls.Add(Interpret);
             panelMelody.Controls.Add(Denumire);
+            //Deplasarea panelului spre stanga si pregatirea terenului pentru slide.
+            panelMelody.Left = -panelMelody.Width;
+            speedMovingPanel = (panelMelody.Left) / 3;
+            panelInfo.Controls.Add(panelMelody);
+            movingPanel = panelMelody;
+            timerSlideInDetails.Start();
+            Debug.WriteLine("Here");
+        }
 
-            panelInformation.Controls.Add(panelMelody);
-            Debug.WriteLine("Done, Button tag = " + (sender as Button).Tag.ToString());
+        #region TimerEvents
+        private static int speedSlidingBar;
+        private static bool slideIn = true;
+        private void timerSlidingBar_Tick(object sender, EventArgs e)
+        {
+            if (slideIn)
+            {
+                //Bara vine
+                if (slidingBar.Left >= label1.Left)
+                {
+                    timerSlidingBar.Stop();
+                }
+                else
+                {
+                    slidingBar.Left += speedSlidingBar;
+                    speedSlidingBar = (label1.Left - slidingBar.Left) / 6;
+                    if (speedSlidingBar < 1) speedSlidingBar = 1;
+                }
+            }
+            else
+            {
+                //bara pleaca
+                if (slidingBar.Left <= this.Width)
+                {
+                    slidingBar.Left += speedSlidingBar;
+                    speedSlidingBar += slidingBar.Left / 30;
+                }
+                else
+                {
+                    //Bara iese din limitele ferestrei, este distrusa pentru a elibera resursele
+                    //dupa care este afisat mesajul de confirmare.
+                    timerSlidingBar.Stop();
+                    slidingBar.Dispose();
+                    slideIn = true;
+                }
+            }
+        }
+        #endregion
+
+        private static Panel movingPanel;
+        private static int speedMovingPanel;
+        private void timerSlideInDetails_Tick(object sender, EventArgs e)
+        {
+            if (movingPanel.Left >= 0)
+            {
+                timerSlideInDetails.Stop();
+                movingPanel.Dock = DockStyle.Fill;
+            }
+            else
+            {
+                movingPanel.Left += speedMovingPanel;
+                speedMovingPanel = (- movingPanel.Left) / 3;
+                if (speedMovingPanel < 1) speedMovingPanel = 1;
+            }
         }
     }
 }
