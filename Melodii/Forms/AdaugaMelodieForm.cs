@@ -60,16 +60,20 @@ namespace Melodii.Forms
                     "(@Denumire, @Interpret, @Puncte, @Informatii, @GenMuzical); ", Connection);
                     SqlParameter parDenumire = new SqlParameter("@Denumire", tbDenumire.Text);
                     cmd.Parameters.Add(parDenumire);
+                    
                     SqlParameter parInterpret = new SqlParameter("@Interpret", tbInterpret.Text);
                     cmd.Parameters.Add(parInterpret);
+                    
                     SqlParameter parPuncte = new SqlParameter("@Puncte", int.Parse(tbPuncte.Text));
                     cmd.Parameters.Add(parPuncte);
+                    
                     SqlParameter parInformatii;
-                    if (tbInformatii.Text != null)
+                    if (tbInformatii.Text != tbInformatii.Tag.ToString())
                         parInformatii = new SqlParameter("@Informatii", tbInformatii.Text);
                     else
-                        parInformatii = new SqlParameter("@Informatii", null);
+                        parInformatii = new SqlParameter("@Informatii", DBNull.Value);
                     cmd.Parameters.Add(parInformatii);
+                    
                     SqlParameter parGenMuzical = new SqlParameter("@GenMuzical", tbGen.Text);
                     cmd.Parameters.Add(parGenMuzical);
 
@@ -139,6 +143,11 @@ namespace Melodii.Forms
         private static int Shakes = 0;
         private void timer2_Tick(object sender, EventArgs e)
         {
+            if(InvalidTextBoxes == null)
+            {
+                timer2.Stop();
+            }
+
             if (Shakes == 3 && InvalidTextBoxes[0].Left == label4.Left)
             {
                 Shakes = 0;
@@ -220,6 +229,6 @@ namespace Melodii.Forms
             this.Close();
             openChildForm(new AdaugaMelodieForm(), parent);
         }
-#endregion
+        #endregion
     }
 }

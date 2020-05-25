@@ -876,6 +876,7 @@ namespace Melodii {
                 this.columnNume.AllowDBNull = false;
                 this.columnNume.MaxLength = 80;
                 this.columnScor.AllowDBNull = false;
+                this.columnScor.DefaultValue = ((int)(0));
                 this.columnInformatii.MaxLength = 255;
             }
             

@@ -208,7 +208,7 @@
             // label8
             // 
             this.label8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.label8.Location = new System.Drawing.Point(76, 460);
+            this.label8.Location = new System.Drawing.Point(77, 456);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(391, 1);
             this.label8.TabIndex = 14;
@@ -219,7 +219,7 @@
             this.tbInformatii.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tbInformatii.Font = new System.Drawing.Font("Leelawadee", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbInformatii.ForeColor = System.Drawing.Color.Gray;
-            this.tbInformatii.Location = new System.Drawing.Point(76, 435);
+            this.tbInformatii.Location = new System.Drawing.Point(77, 431);
             this.tbInformatii.Name = "tbInformatii";
             this.tbInformatii.Size = new System.Drawing.Size(584, 23);
             this.tbInformatii.TabIndex = 13;

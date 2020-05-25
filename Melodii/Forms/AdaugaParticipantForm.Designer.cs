@@ -30,8 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.tbCod = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.tbScor = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -43,6 +41,8 @@
             this.lbEroare = new System.Windows.Forms.Label();
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.timer3 = new System.Windows.Forms.Timer(this.components);
+            this.label7 = new System.Windows.Forms.Label();
+            this.tbInformatii = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label6
@@ -54,29 +54,6 @@
             this.label6.Padding = new System.Windows.Forms.Padding(50);
             this.label6.Size = new System.Drawing.Size(288, 75);
             this.label6.TabIndex = 20;
-            // 
-            // label5
-            // 
-            this.label5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.label5.Location = new System.Drawing.Point(76, 357);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(391, 1);
-            this.label5.TabIndex = 19;
-            // 
-            // tbCod
-            // 
-            this.tbCod.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(7)))), ((int)(((byte)(36)))));
-            this.tbCod.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.tbCod.Font = new System.Drawing.Font("Leelawadee", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbCod.ForeColor = System.Drawing.Color.Gray;
-            this.tbCod.Location = new System.Drawing.Point(76, 332);
-            this.tbCod.Name = "tbCod";
-            this.tbCod.Size = new System.Drawing.Size(584, 23);
-            this.tbCod.TabIndex = 18;
-            this.tbCod.Tag = "Codul participantului (optional)";
-            this.tbCod.Text = "Codul participantului (optional)";
-            this.tbCod.Enter += new System.EventHandler(this.tb_Enter);
-            this.tbCod.Leave += new System.EventHandler(this.tb_Leave);
             // 
             // label4
             // 
@@ -178,16 +155,39 @@
             this.timer3.Interval = 2000;
             this.timer3.Tick += new System.EventHandler(this.timer3_Tick);
             // 
+            // label7
+            // 
+            this.label7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.label7.Location = new System.Drawing.Point(76, 357);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(391, 1);
+            this.label7.TabIndex = 23;
+            // 
+            // tbInformatii
+            // 
+            this.tbInformatii.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(7)))), ((int)(((byte)(36)))));
+            this.tbInformatii.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tbInformatii.Font = new System.Drawing.Font("Leelawadee", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbInformatii.ForeColor = System.Drawing.Color.Gray;
+            this.tbInformatii.Location = new System.Drawing.Point(76, 332);
+            this.tbInformatii.Name = "tbInformatii";
+            this.tbInformatii.Size = new System.Drawing.Size(584, 23);
+            this.tbInformatii.TabIndex = 22;
+            this.tbInformatii.Tag = "Informatii (optional)";
+            this.tbInformatii.Text = "Informatii (optional)";
+            this.tbInformatii.Enter += new System.EventHandler(this.tb_Enter);
+            this.tbInformatii.Leave += new System.EventHandler(this.tb_Leave);
+            // 
             // AdaugaParticipantForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(7)))), ((int)(((byte)(36)))));
             this.ClientSize = new System.Drawing.Size(771, 612);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.tbInformatii);
             this.Controls.Add(this.lbEroare);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.tbCod);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.tbScor);
             this.Controls.Add(this.label3);
@@ -208,8 +208,6 @@
         #endregion
 
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox tbCod;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox tbScor;
         private System.Windows.Forms.Label label3;
@@ -221,5 +219,7 @@
         private System.Windows.Forms.Label lbEroare;
         private System.Windows.Forms.Timer timer2;
         private System.Windows.Forms.Timer timer3;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox tbInformatii;
     }
 }
