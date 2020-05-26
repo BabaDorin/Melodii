@@ -181,5 +181,11 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\shrug-face.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\shrug.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

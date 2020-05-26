@@ -32,15 +32,12 @@ namespace Melodii.Forms
 
             //Extragerea datelor din BD
             LoadData();
-
-            // Pentru fiecare melodie va fi creat un buton care va contine informatii
-            // privind Denumirea, Interpretul si numarul de puncte ale acesteia.
-            GenerateButtons(melodii, panel1);
             timerSlidingBar.Start();
         }
 
         private  void GenerateButtons(List<Melodie> melodii, Panel parentPanel)
         {
+            panelMelodiiButtons.Controls.Clear();
             try
             {
                 if (melodii != null && melodii.Count > 0)
@@ -86,6 +83,18 @@ namespace Melodii.Forms
                         parentPanel.Controls.Add(btn);
                     }
                 }
+                else
+                {
+                    System.Windows.Forms.Label label = new System.Windows.Forms.Label();
+                    label.Font = new Font("Leelawadee", 13);
+                    label.ForeColor = Color.WhiteSmoke;
+                    label.Dock = DockStyle.Fill;
+                    label.TextAlign = ContentAlignment.TopCenter;
+                    label.Text = "Nu exista melodii spre afisare.";
+                    label.Image = Properties.Resources.shrug;
+                    label.ImageAlign = ContentAlignment.MiddleCenter;
+                    panelMelodiiButtons.Controls.Add(label);
+                }
             }
             catch (Exception ex)
             {
@@ -116,7 +125,7 @@ namespace Melodii.Forms
                 formMinimized = false;
 
             if(melodii.Count>0)
-                foreach(Button btn in panel1.Controls)
+                foreach(Button btn in panelMelodiiButtons.Controls)
                 {
                     if (formMinimized)
                     {
@@ -201,7 +210,7 @@ namespace Melodii.Forms
             exclude.Text = "Exclude melodia";
             exclude.AutoSize = true;
             exclude.Click += btExclude_Click;
-            exclude.Tag = String.Format("Sunteti sigur ca doriti sa excludeti melodia {0}?", Denumire.Text);
+            exclude.Tag = melodie.IdMelodie;
             panelMelody.Controls.Add(exclude);
 
             System.Windows.Forms.Label Spatiu = new System.Windows.Forms.Label();
@@ -252,13 +261,39 @@ namespace Melodii.Forms
         {
             //In urma apasarii butonului [Exclude], va aparea un messagebox pentru confirmare.
             //In cazul in care raspunstul este OK, atunci se va purcede la eliminarea melodiei din baza de date.
-
             Form Messagebox = new MessageBox();
-            Messagebox.Tag = (sender as Button).Tag;
+            int idMelodie = int.Parse((sender as Button).Tag.ToString());
+            string Denumire = melodii.First(m => m.IdMelodie == idMelodie).Denumire;
+            Messagebox.Tag = String.Format("Sunteti sigur ca doriti sa excludeti melodia {0}?", Denumire);
             Messagebox.ShowDialog();
+
             if (Messagebox.DialogResult == DialogResult.OK)
             {
-                //Exclude melodia
+                //Eliminarea melodiei din baza de date
+                string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" + Directory.GetCurrentDirectory() + @"\Database.mdf;Integrated Security=True";
+                SqlConnection Connection = new SqlConnection(connectionString);
+                try
+                {
+                    SqlCommand sqlcDelete = new SqlCommand("DELETE FROM MELODII WHERE IDMELODIE = @IdMelodie", Connection);
+                    SqlParameter parIdMelodie = new SqlParameter("@IdMelodie", idMelodie);
+                    sqlcDelete.Parameters.Add(parIdMelodie);
+
+                    Connection.Open();
+                    sqlcDelete.ExecuteNonQuery();
+                    Connection.Close();
+                    LoadData();
+                    panelInfo.Controls.Clear();
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex.Message);
+                    lbError.Text = "Ne pare rau, s-a produs o eroare, melodia nu a fost exclusa.";
+                }
+                finally
+                {
+                    if (Connection.State == ConnectionState.Open)
+                        Connection.Close();
+                }
             }
         }
         #endregion
@@ -323,38 +358,54 @@ namespace Melodii.Forms
 
         private void LoadData()
         {
-            //----------------------------< Extragerea datelor din BD >-------------------------
-            
-            //Stabilirea conexiunii
             string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" + Directory.GetCurrentDirectory() + @"\Database.mdf;Integrated Security=True";
             SqlConnection Connection = new SqlConnection(connectionString);
-            Connection.Open();
 
-            //Crerea unui obiect de tip DataAdapter pentru conectarea DataSet-ului
-            //cu baza de date.
-            SqlDataAdapter daMelodii = new SqlDataAdapter("SELECT * FROM MELODII", Connection);
-            DataSet dsMelodii = new DataSet("Melodii");
-            daMelodii.Fill(dsMelodii, "Melodii");
-            DataTable tblMelodii = dsMelodii.Tables["Melodii"];
-
-            //Acum avem datele din tabela Melodii din baza de date in obiectul tblMelodii.
-            //Trecem la popularea listei.
-            melodii.Clear();
-
-            foreach(DataRow drMelodie in tblMelodii.Rows)
+            try
             {
-                melodii.Add(new Melodie
+                //----------------------------< Extragerea datelor din BD >-------------------------
+
+                //Stabilirea conexiunii
+                Connection.Open();
+
+                //Crerea unui obiect de tip DataAdapter pentru conectarea DataSet-ului
+                //cu baza de date.
+                SqlDataAdapter daMelodii = new SqlDataAdapter("SELECT * FROM MELODII", Connection);
+                DataSet dsMelodii = new DataSet("Melodii");
+                daMelodii.Fill(dsMelodii, "Melodii");
+                DataTable tblMelodii = dsMelodii.Tables["Melodii"];
+
+                //Acum avem datele din tabela Melodii din baza de date in obiectul tblMelodii.
+                //Trecem la popularea listei.
+                
+                melodii.Clear();
+                foreach (DataRow drMelodie in tblMelodii.Rows)
                 {
-                    IdMelodie = int.Parse(drMelodie["IdMelodie"].ToString()),
-                    Denumire = drMelodie["Denumire"].ToString(),
-                    Interpret = drMelodie["Interpret"].ToString(),
-                    Puncte = int.Parse(drMelodie["Puncte"].ToString()),
-                    Informatii = drMelodie["Informatii"].ToString()
-                });
+                    melodii.Add(new Melodie
+                    {
+                        IdMelodie = int.Parse(drMelodie["IdMelodie"].ToString()),
+                        Denumire = drMelodie["Denumire"].ToString(),
+                        Interpret = drMelodie["Interpret"].ToString(),
+                        Puncte = int.Parse(drMelodie["Puncte"].ToString()),
+                        Informatii = drMelodie["Informatii"].ToString()
+                    });
+                }
+
+                // Pentru fiecare melodie va fi creat un buton care va contine informatii
+                // privind Denumirea, Interpretul si numarul de puncte ale acesteia.
+                GenerateButtons(melodii, panelMelodiiButtons);
             }
-
-            Connection.Close();
-
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                lbError.Text = "Ne pare rau, s-a produs o eroare la incarcarea datelor.";
+            }
+            finally
+            {
+                if(Connection.State == ConnectionState.Open)
+                    Connection.Close();
+            }
+            
         }
     }
 }

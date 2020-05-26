@@ -34,11 +34,11 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.panelMelodii = new System.Windows.Forms.Panel();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.panelInfo = new System.Windows.Forms.Panel();
             this.timerSlidingBar = new System.Windows.Forms.Timer(this.components);
             this.timerSlideInDetails = new System.Windows.Forms.Timer(this.components);
             this.lbError = new System.Windows.Forms.Label();
+            this.panelMelodiiButtons = new System.Windows.Forms.Panel();
             this.panelMelodii.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -80,24 +80,16 @@
             // 
             // panelMelodii
             // 
+            this.panelMelodii.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.panelMelodii.AutoScroll = true;
-            this.panelMelodii.Controls.Add(this.panel1);
+            this.panelMelodii.Controls.Add(this.panelMelodiiButtons);
             this.panelMelodii.Controls.Add(this.label3);
             this.panelMelodii.Controls.Add(this.label2);
             this.panelMelodii.Location = new System.Drawing.Point(55, 140);
             this.panelMelodii.Name = "panelMelodii";
             this.panelMelodii.Size = new System.Drawing.Size(329, 408);
             this.panelMelodii.TabIndex = 8;
-            // 
-            // panel1
-            // 
-            this.panel1.AutoScroll = true;
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(1, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Padding = new System.Windows.Forms.Padding(10);
-            this.panel1.Size = new System.Drawing.Size(328, 407);
-            this.panel1.TabIndex = 8;
             // 
             // panelInfo
             // 
@@ -125,6 +117,17 @@
             this.lbError.Name = "lbError";
             this.lbError.Size = new System.Drawing.Size(0, 20);
             this.lbError.TabIndex = 10;
+            // 
+            // panelMelodiiButtons
+            // 
+            this.panelMelodiiButtons.AutoScroll = true;
+            this.panelMelodiiButtons.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.panelMelodiiButtons.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelMelodiiButtons.Location = new System.Drawing.Point(1, 0);
+            this.panelMelodiiButtons.Name = "panelMelodiiButtons";
+            this.panelMelodiiButtons.Padding = new System.Windows.Forms.Padding(10);
+            this.panelMelodiiButtons.Size = new System.Drawing.Size(328, 407);
+            this.panelMelodiiButtons.TabIndex = 8;
             // 
             // VeziMelodiiForm
             // 
@@ -157,7 +160,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Panel panelMelodii;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panelMelodiiButtons;
         private System.Windows.Forms.Panel panelInfo;
         private System.Windows.Forms.Timer timerSlidingBar;
         private System.Windows.Forms.Timer timerSlideInDetails;
