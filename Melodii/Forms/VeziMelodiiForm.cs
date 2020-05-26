@@ -12,6 +12,8 @@ using System.Windows.Forms;
 using Melodii.Models;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using System.Data.SqlClient;
+using System.IO;
 
 namespace Melodii.Forms
 {
@@ -29,14 +31,12 @@ namespace Melodii.Forms
             panelMelodii.Width = Width / 100 * 50;
 
             //Extragerea datelor din BD
-            melodii.Clear();
-            melodii.Add(new Melodie { IdMelodie = 0, Denumire = "Gucci gang Gucci gang Gucci gangGucci gang Gucci gang", Interpret = "Lil Pump", Puncte = 0 });
-            melodii.Add(new Melodie { IdMelodie = 2, Informatii = "Melodia care a castigat 3 premii grammy in doar 4 ani.", Denumire = "Moonlight", Interpret = "XXXTentacion", Puncte = 0 });
-            melodii.Add(new Melodie { IdMelodie = 3, Puncte = 34, Denumire = "Freeman", Interpret = "Miyagi"});
+            LoadData();
 
             // Pentru fiecare melodie va fi creat un buton care va contine informatii
             // privind Denumirea, Interpretul si numarul de puncte ale acesteia.
             GenerateButtons(melodii, panel1);
+            timerSlidingBar.Start();
         }
 
         private  void GenerateButtons(List<Melodie> melodii, Panel parentPanel)
@@ -320,5 +320,41 @@ namespace Melodii.Forms
             }
         }
         #endregion
+
+        private void LoadData()
+        {
+            //----------------------------< Extragerea datelor din BD >-------------------------
+            
+            //Stabilirea conexiunii
+            string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" + Directory.GetCurrentDirectory() + @"\Database.mdf;Integrated Security=True";
+            SqlConnection Connection = new SqlConnection(connectionString);
+            Connection.Open();
+
+            //Crerea unui obiect de tip DataAdapter pentru conectarea DataSet-ului
+            //cu baza de date.
+            SqlDataAdapter daMelodii = new SqlDataAdapter("SELECT * FROM MELODII", Connection);
+            DataSet dsMelodii = new DataSet("Melodii");
+            daMelodii.Fill(dsMelodii, "Melodii");
+            DataTable tblMelodii = dsMelodii.Tables["Melodii"];
+
+            //Acum avem datele din tabela Melodii din baza de date in obiectul tblMelodii.
+            //Trecem la popularea listei.
+            melodii.Clear();
+
+            foreach(DataRow drMelodie in tblMelodii.Rows)
+            {
+                melodii.Add(new Melodie
+                {
+                    IdMelodie = int.Parse(drMelodie["IdMelodie"].ToString()),
+                    Denumire = drMelodie["Denumire"].ToString(),
+                    Interpret = drMelodie["Interpret"].ToString(),
+                    Puncte = int.Parse(drMelodie["Puncte"].ToString()),
+                    Informatii = drMelodie["Informatii"].ToString()
+                });
+            }
+
+            Connection.Close();
+
+        }
     }
 }

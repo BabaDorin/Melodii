@@ -91,6 +91,7 @@
             this.tbDenumire.Font = new System.Drawing.Font("Leelawadee", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbDenumire.ForeColor = System.Drawing.Color.Gray;
             this.tbDenumire.Location = new System.Drawing.Point(76, 149);
+            this.tbDenumire.MaxLength = 80;
             this.tbDenumire.Name = "tbDenumire";
             this.tbDenumire.Size = new System.Drawing.Size(584, 23);
             this.tbDenumire.TabIndex = 3;
@@ -122,6 +123,7 @@
             this.tbInterpret.Font = new System.Drawing.Font("Leelawadee", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbInterpret.ForeColor = System.Drawing.Color.Gray;
             this.tbInterpret.Location = new System.Drawing.Point(76, 217);
+            this.tbInterpret.MaxLength = 80;
             this.tbInterpret.Name = "tbInterpret";
             this.tbInterpret.Size = new System.Drawing.Size(584, 23);
             this.tbInterpret.TabIndex = 5;
@@ -145,6 +147,7 @@
             this.tbGen.Font = new System.Drawing.Font("Leelawadee", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbGen.ForeColor = System.Drawing.Color.Gray;
             this.tbGen.Location = new System.Drawing.Point(76, 287);
+            this.tbGen.MaxLength = 50;
             this.tbGen.Name = "tbGen";
             this.tbGen.Size = new System.Drawing.Size(584, 23);
             this.tbGen.TabIndex = 7;
@@ -220,6 +223,7 @@
             this.tbInformatii.Font = new System.Drawing.Font("Leelawadee", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbInformatii.ForeColor = System.Drawing.Color.Gray;
             this.tbInformatii.Location = new System.Drawing.Point(77, 431);
+            this.tbInformatii.MaxLength = 255;
             this.tbInformatii.Name = "tbInformatii";
             this.tbInformatii.Size = new System.Drawing.Size(584, 23);
             this.tbInformatii.TabIndex = 13;

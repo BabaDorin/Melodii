@@ -109,7 +109,6 @@
             // 
             // timerSlidingBar
             // 
-            this.timerSlidingBar.Enabled = true;
             this.timerSlidingBar.Interval = 2;
             this.timerSlidingBar.Tick += new System.EventHandler(this.timerSlidingBar_Tick);
             // 
