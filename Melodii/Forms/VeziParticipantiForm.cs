@@ -62,6 +62,9 @@ namespace Melodii.Forms
                     });
                 }
 
+                //Sortarea listei participantilor
+                participanti.Sort((x, y) => x.Scor.CompareTo(y.Scor));
+
                 // Pentru fiecare melodie va fi creat un buton care va contine informatii
                 // privind Denumirea, Interpretul si numarul de puncte ale acesteia.
                 GenerateButtons(participanti, panelParticipantiButtons);
