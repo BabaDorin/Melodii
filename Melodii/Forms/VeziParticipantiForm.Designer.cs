@@ -1,6 +1,6 @@
 ﻿namespace Melodii.Forms
 {
-    partial class VeziMelodiiForm
+    partial class VeziParticipantiForm
     {
         /// <summary>
         /// Required designer variable.
@@ -29,54 +29,35 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.slidingBar = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.lbError = new System.Windows.Forms.Label();
+            this.panelInfo = new System.Windows.Forms.Panel();
             this.panelMelodii = new System.Windows.Forms.Panel();
             this.panelMelodiiButtons = new System.Windows.Forms.Panel();
-            this.panelInfo = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.slidingBar = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.timerSlidingBar = new System.Windows.Forms.Timer(this.components);
             this.timerSlideInDetails = new System.Windows.Forms.Timer(this.components);
-            this.lbError = new System.Windows.Forms.Label();
             this.panelMelodii.SuspendLayout();
             this.SuspendLayout();
             // 
-            // slidingBar
+            // lbError
             // 
-            this.slidingBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.slidingBar.Location = new System.Drawing.Point(70, 96);
-            this.slidingBar.Name = "slidingBar";
-            this.slidingBar.Size = new System.Drawing.Size(174, 2);
-            this.slidingBar.TabIndex = 3;
+            this.lbError.AutoSize = true;
+            this.lbError.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.lbError.Location = new System.Drawing.Point(47, 572);
+            this.lbError.Name = "lbError";
+            this.lbError.Size = new System.Drawing.Size(0, 17);
+            this.lbError.TabIndex = 15;
             // 
-            // label1
+            // panelInfo
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Leelawadee", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(64, 57);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(183, 32);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Vezi melodiile";
-            // 
-            // label2
-            // 
-            this.label2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.label2.Dock = System.Windows.Forms.DockStyle.Left;
-            this.label2.Location = new System.Drawing.Point(0, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(1, 408);
-            this.label2.TabIndex = 4;
-            // 
-            // label3
-            // 
-            this.label3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.label3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.label3.Location = new System.Drawing.Point(1, 407);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(328, 1);
-            this.label3.TabIndex = 7;
+            this.panelInfo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(7)))), ((int)(((byte)(36)))));
+            this.panelInfo.Location = new System.Drawing.Point(422, 95);
+            this.panelInfo.Name = "panelInfo";
+            this.panelInfo.Size = new System.Drawing.Size(333, 455);
+            this.panelInfo.TabIndex = 14;
             // 
             // panelMelodii
             // 
@@ -86,11 +67,10 @@
             this.panelMelodii.Controls.Add(this.panelMelodiiButtons);
             this.panelMelodii.Controls.Add(this.label3);
             this.panelMelodii.Controls.Add(this.label2);
-            this.panelMelodii.Font = new System.Drawing.Font("Leelawadee", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.panelMelodii.Location = new System.Drawing.Point(50, 143);
+            this.panelMelodii.Location = new System.Drawing.Point(51, 142);
             this.panelMelodii.Name = "panelMelodii";
             this.panelMelodii.Size = new System.Drawing.Size(329, 408);
-            this.panelMelodii.TabIndex = 8;
+            this.panelMelodii.TabIndex = 13;
             // 
             // panelMelodiiButtons
             // 
@@ -103,13 +83,41 @@
             this.panelMelodiiButtons.Size = new System.Drawing.Size(328, 407);
             this.panelMelodiiButtons.TabIndex = 8;
             // 
-            // panelInfo
+            // label3
             // 
-            this.panelInfo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(7)))), ((int)(((byte)(36)))));
-            this.panelInfo.Location = new System.Drawing.Point(421, 96);
-            this.panelInfo.Name = "panelInfo";
-            this.panelInfo.Size = new System.Drawing.Size(333, 455);
-            this.panelInfo.TabIndex = 9;
+            this.label3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.label3.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.label3.Location = new System.Drawing.Point(1, 407);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(328, 1);
+            this.label3.TabIndex = 7;
+            // 
+            // label2
+            // 
+            this.label2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.label2.Dock = System.Windows.Forms.DockStyle.Left;
+            this.label2.Location = new System.Drawing.Point(0, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(1, 408);
+            this.label2.TabIndex = 4;
+            // 
+            // slidingBar
+            // 
+            this.slidingBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.slidingBar.Location = new System.Drawing.Point(71, 95);
+            this.slidingBar.Name = "slidingBar";
+            this.slidingBar.Size = new System.Drawing.Size(209, 2);
+            this.slidingBar.TabIndex = 12;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(65, 56);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(215, 31);
+            this.label1.TabIndex = 11;
+            this.label1.Text = "Vezi Participantii";
             // 
             // timerSlidingBar
             // 
@@ -121,18 +129,9 @@
             this.timerSlideInDetails.Interval = 2;
             this.timerSlideInDetails.Tick += new System.EventHandler(this.timerSlideInDetails_Tick);
             // 
-            // lbError
+            // VeziParticipantiForm
             // 
-            this.lbError.AutoSize = true;
-            this.lbError.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lbError.Location = new System.Drawing.Point(46, 573);
-            this.lbError.Name = "lbError";
-            this.lbError.Size = new System.Drawing.Size(0, 20);
-            this.lbError.TabIndex = 10;
-            // 
-            // VeziMelodiiForm
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(7)))), ((int)(((byte)(36)))));
             this.ClientSize = new System.Drawing.Size(771, 612);
@@ -141,12 +140,11 @@
             this.Controls.Add(this.panelMelodii);
             this.Controls.Add(this.slidingBar);
             this.Controls.Add(this.label1);
-            this.DoubleBuffered = true;
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.Name = "VeziMelodiiForm";
-            this.Text = "Vezi melodiile";
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Name = "VeziParticipantiForm";
+            this.Text = "VeziParticipantiForm";
             this.Resize += new System.EventHandler(this.VeziMelodiiForm_Resize);
             this.panelMelodii.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -156,15 +154,15 @@
 
         #endregion
 
-        private System.Windows.Forms.Label slidingBar;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lbError;
+        private System.Windows.Forms.Panel panelInfo;
         private System.Windows.Forms.Panel panelMelodii;
         private System.Windows.Forms.Panel panelMelodiiButtons;
-        private System.Windows.Forms.Panel panelInfo;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label slidingBar;
+        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Timer timerSlidingBar;
         private System.Windows.Forms.Timer timerSlideInDetails;
-        private System.Windows.Forms.Label lbError;
     }
 }

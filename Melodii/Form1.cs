@@ -58,7 +58,7 @@ namespace Melodii
 
         private void btnVeziParticipanti_Click(object sender, EventArgs e)
         {
-
+            openChildForm(new VeziParticipantiForm(), panelFormsArea);
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)

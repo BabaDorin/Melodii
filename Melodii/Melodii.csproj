@@ -106,6 +106,12 @@
     <Compile Include="Forms\VeziMelodiiForm.Designer.cs">
       <DependentUpon>VeziMelodiiForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\VeziParticipantiForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\VeziParticipantiForm.Designer.cs">
+      <DependentUpon>VeziParticipantiForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Melodie.cs" />
     <Compile Include="Models\Participant.cs" />
     <Compile Include="Models\Vot.cs" />
@@ -128,6 +134,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\VeziMelodiiForm.resx">
       <DependentUpon>VeziMelodiiForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\VeziParticipantiForm.resx">
+      <DependentUpon>VeziParticipantiForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

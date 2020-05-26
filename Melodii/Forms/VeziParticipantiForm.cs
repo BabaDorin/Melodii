@@ -4,8 +4,6 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Net.NetworkInformation;
-using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -17,12 +15,11 @@ using System.IO;
 
 namespace Melodii.Forms
 {
-    public partial class VeziMelodiiForm : Form
+    public partial class VeziParticipantiForm : Form
     {
         private static List<Melodie> melodii = new List<Melodie>();
         bool formMinimized = false;
-
-        public VeziMelodiiForm()
+        public VeziParticipantiForm()
         {
             InitializeComponent();
             slidingBar.Left = -slidingBar.Width;
@@ -153,7 +150,7 @@ namespace Melodii.Forms
             {
                 Debug.WriteLine(ex.Message);
                 lbError.Text = "S-a produs o eroare la incarcarea datelor. Incercati din nou.";
-            }        
+            }
         }
 
         private void VeziMelodiiForm_Resize(object sender, EventArgs e)
@@ -177,8 +174,8 @@ namespace Melodii.Forms
             else
                 formMinimized = false;
 
-            if(melodii.Count>0)
-                foreach(Button btn in panelMelodiiButtons.Controls)
+            if (melodii.Count > 0)
+                foreach (Button btn in panelMelodiiButtons.Controls)
                 {
                     if (formMinimized)
                     {
@@ -409,6 +406,5 @@ namespace Melodii.Forms
             }
         }
         #endregion
-
     }
 }
