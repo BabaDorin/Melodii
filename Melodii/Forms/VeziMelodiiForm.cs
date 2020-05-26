@@ -70,6 +70,9 @@ namespace Melodii.Forms
                     });
                 }
 
+                //Sortarea listei in ordine descrescatoare dupa punctele acumulate
+                melodii.Sort((x, y) => x.Puncte.CompareTo(y.Puncte));
+
                 // Pentru fiecare melodie va fi creat un buton care va contine informatii
                 // privind Denumirea, Interpretul si numarul de puncte ale acesteia.
                 GenerateButtons(melodii, panelMelodiiButtons);
@@ -410,5 +413,15 @@ namespace Melodii.Forms
         }
         #endregion
 
+        private void btTop3_Click(object sender, EventArgs e)
+        {
+            //Lista deja este sortata. Ultimele 3 melodii sunt cele mai populare.
+            if (melodii.Count > 3)
+            {
+                melodii.RemoveRange(0, melodii.Count-3);
+            }
+
+            GenerateButtons(melodii,panelMelodiiButtons);
+        }
     }
 }

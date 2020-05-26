@@ -39,6 +39,7 @@
             this.timerSlidingBar = new System.Windows.Forms.Timer(this.components);
             this.timerSlideInDetails = new System.Windows.Forms.Timer(this.components);
             this.lbError = new System.Windows.Forms.Label();
+            this.btTop3 = new System.Windows.Forms.Button();
             this.panelMelodii.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -130,12 +131,29 @@
             this.lbError.Size = new System.Drawing.Size(0, 20);
             this.lbError.TabIndex = 10;
             // 
+            // btTop3
+            // 
+            this.btTop3.AutoSize = true;
+            this.btTop3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(7)))), ((int)(((byte)(36)))));
+            this.btTop3.FlatAppearance.BorderSize = 0;
+            this.btTop3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btTop3.Font = new System.Drawing.Font("Leelawadee", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btTop3.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.btTop3.Location = new System.Drawing.Point(275, 111);
+            this.btTop3.Name = "btTop3";
+            this.btTop3.Size = new System.Drawing.Size(104, 26);
+            this.btTop3.TabIndex = 11;
+            this.btTop3.Text = "Top 3 melodii";
+            this.btTop3.UseVisualStyleBackColor = false;
+            this.btTop3.Click += new System.EventHandler(this.btTop3_Click);
+            // 
             // VeziMelodiiForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(7)))), ((int)(((byte)(36)))));
             this.ClientSize = new System.Drawing.Size(771, 612);
+            this.Controls.Add(this.btTop3);
             this.Controls.Add(this.lbError);
             this.Controls.Add(this.panelInfo);
             this.Controls.Add(this.panelMelodii);
@@ -166,5 +184,6 @@
         private System.Windows.Forms.Timer timerSlidingBar;
         private System.Windows.Forms.Timer timerSlideInDetails;
         private System.Windows.Forms.Label lbError;
+        private System.Windows.Forms.Button btTop3;
     }
 }

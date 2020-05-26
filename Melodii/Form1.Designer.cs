@@ -36,22 +36,28 @@
             this.btnParticipanti = new System.Windows.Forms.Button();
             this.panelMelodiiSubmenu = new System.Windows.Forms.Panel();
             this.btnVeziMelodii = new System.Windows.Forms.Button();
-            this.btnExcludeMelodii = new System.Windows.Forms.Button();
             this.btnAdaugaMelodii = new System.Windows.Forms.Button();
             this.btnMelodii = new System.Windows.Forms.Button();
             this.panelLogo = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panelFormsArea = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
             this.panelMenu.SuspendLayout();
             this.panelParticipantiSubmenu.SuspendLayout();
             this.panelMelodiiSubmenu.SuspendLayout();
             this.panelLogo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelMenu
             // 
             this.panelMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(11)))), ((int)(((byte)(7)))), ((int)(((byte)(17)))));
+            this.panelMenu.Controls.Add(this.panel1);
+            this.panelMenu.Controls.Add(this.button1);
             this.panelMenu.Controls.Add(this.panelParticipantiSubmenu);
             this.panelMenu.Controls.Add(this.btnParticipanti);
             this.panelMenu.Controls.Add(this.panelMelodiiSubmenu);
@@ -70,7 +76,7 @@
             this.panelParticipantiSubmenu.Controls.Add(this.btnVeziParticipanti);
             this.panelParticipantiSubmenu.Controls.Add(this.btnAdaugaParticipanti);
             this.panelParticipantiSubmenu.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelParticipantiSubmenu.Location = new System.Drawing.Point(0, 385);
+            this.panelParticipantiSubmenu.Location = new System.Drawing.Point(0, 346);
             this.panelParticipantiSubmenu.Name = "panelParticipantiSubmenu";
             this.panelParticipantiSubmenu.Size = new System.Drawing.Size(191, 82);
             this.panelParticipantiSubmenu.TabIndex = 4;
@@ -113,7 +119,7 @@
             this.btnParticipanti.FlatAppearance.BorderSize = 0;
             this.btnParticipanti.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnParticipanti.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.btnParticipanti.Location = new System.Drawing.Point(0, 346);
+            this.btnParticipanti.Location = new System.Drawing.Point(0, 307);
             this.btnParticipanti.Name = "btnParticipanti";
             this.btnParticipanti.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
             this.btnParticipanti.Size = new System.Drawing.Size(191, 39);
@@ -127,12 +133,11 @@
             // 
             this.panelMelodiiSubmenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(32)))), ((int)(((byte)(39)))));
             this.panelMelodiiSubmenu.Controls.Add(this.btnVeziMelodii);
-            this.panelMelodiiSubmenu.Controls.Add(this.btnExcludeMelodii);
             this.panelMelodiiSubmenu.Controls.Add(this.btnAdaugaMelodii);
             this.panelMelodiiSubmenu.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelMelodiiSubmenu.Location = new System.Drawing.Point(0, 229);
             this.panelMelodiiSubmenu.Name = "panelMelodiiSubmenu";
-            this.panelMelodiiSubmenu.Size = new System.Drawing.Size(191, 117);
+            this.panelMelodiiSubmenu.Size = new System.Drawing.Size(191, 78);
             this.panelMelodiiSubmenu.TabIndex = 2;
             // 
             // btnVeziMelodii
@@ -141,7 +146,7 @@
             this.btnVeziMelodii.FlatAppearance.BorderSize = 0;
             this.btnVeziMelodii.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnVeziMelodii.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.btnVeziMelodii.Location = new System.Drawing.Point(0, 76);
+            this.btnVeziMelodii.Location = new System.Drawing.Point(0, 38);
             this.btnVeziMelodii.Name = "btnVeziMelodii";
             this.btnVeziMelodii.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
             this.btnVeziMelodii.RightToLeft = System.Windows.Forms.RightToLeft.No;
@@ -151,23 +156,6 @@
             this.btnVeziMelodii.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnVeziMelodii.UseVisualStyleBackColor = true;
             this.btnVeziMelodii.Click += new System.EventHandler(this.btnVeziMelodii_Click);
-            // 
-            // btnExcludeMelodii
-            // 
-            this.btnExcludeMelodii.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnExcludeMelodii.FlatAppearance.BorderSize = 0;
-            this.btnExcludeMelodii.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnExcludeMelodii.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.btnExcludeMelodii.Location = new System.Drawing.Point(0, 38);
-            this.btnExcludeMelodii.Name = "btnExcludeMelodii";
-            this.btnExcludeMelodii.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
-            this.btnExcludeMelodii.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.btnExcludeMelodii.Size = new System.Drawing.Size(191, 38);
-            this.btnExcludeMelodii.TabIndex = 1;
-            this.btnExcludeMelodii.Text = "Exclude";
-            this.btnExcludeMelodii.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnExcludeMelodii.UseVisualStyleBackColor = true;
-            this.btnExcludeMelodii.Click += new System.EventHandler(this.btnExcludeMelodii_Click);
             // 
             // btnAdaugaMelodii
             // 
@@ -237,6 +225,63 @@
             this.panelFormsArea.Size = new System.Drawing.Size(787, 651);
             this.panelFormsArea.TabIndex = 1;
             // 
+            // button1
+            // 
+            this.button1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.button1.FlatAppearance.BorderSize = 0;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.button1.Location = new System.Drawing.Point(0, 428);
+            this.button1.Name = "button1";
+            this.button1.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
+            this.button1.Size = new System.Drawing.Size(191, 39);
+            this.button1.TabIndex = 5;
+            this.button1.Text = "Sondaj";
+            this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(32)))), ((int)(((byte)(39)))));
+            this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.panel1.Controls.Add(this.button2);
+            this.panel1.Controls.Add(this.button3);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 467);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(191, 82);
+            this.panel1.TabIndex = 6;
+            // 
+            // button2
+            // 
+            this.button2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.button2.FlatAppearance.BorderSize = 0;
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button2.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.button2.Location = new System.Drawing.Point(0, 39);
+            this.button2.Name = "button2";
+            this.button2.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
+            this.button2.Size = new System.Drawing.Size(191, 27);
+            this.button2.TabIndex = 1;
+            this.button2.Text = "*Vezi sondaje anterioare";
+            this.button2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // button3
+            // 
+            this.button3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.button3.FlatAppearance.BorderSize = 0;
+            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button3.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.button3.Location = new System.Drawing.Point(0, 0);
+            this.button3.Name = "button3";
+            this.button3.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
+            this.button3.Size = new System.Drawing.Size(191, 39);
+            this.button3.TabIndex = 0;
+            this.button3.Text = "Creaza";
+            this.button3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button3.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -257,6 +302,7 @@
             this.panelMelodiiSubmenu.ResumeLayout(false);
             this.panelLogo.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -271,11 +317,14 @@
         private System.Windows.Forms.Button btnParticipanti;
         private System.Windows.Forms.Panel panelMelodiiSubmenu;
         private System.Windows.Forms.Button btnVeziMelodii;
-        private System.Windows.Forms.Button btnExcludeMelodii;
         private System.Windows.Forms.Button btnAdaugaMelodii;
         private System.Windows.Forms.Button btnMelodii;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Panel panelFormsArea;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button1;
     }
 }
 
