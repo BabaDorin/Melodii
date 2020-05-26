@@ -43,6 +43,8 @@
             this.timer3 = new System.Windows.Forms.Timer(this.components);
             this.label7 = new System.Windows.Forms.Label();
             this.tbInformatii = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.tbVarsta = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label6
@@ -58,7 +60,7 @@
             // label4
             // 
             this.label4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.label4.Location = new System.Drawing.Point(76, 287);
+            this.label4.Location = new System.Drawing.Point(76, 387);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(391, 1);
             this.label4.TabIndex = 17;
@@ -69,7 +71,7 @@
             this.tbScor.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tbScor.Font = new System.Drawing.Font("Leelawadee", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbScor.ForeColor = System.Drawing.Color.Gray;
-            this.tbScor.Location = new System.Drawing.Point(76, 262);
+            this.tbScor.Location = new System.Drawing.Point(76, 362);
             this.tbScor.Name = "tbScor";
             this.tbScor.Size = new System.Drawing.Size(584, 23);
             this.tbScor.TabIndex = 16;
@@ -81,7 +83,7 @@
             // label3
             // 
             this.label3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.label3.Location = new System.Drawing.Point(76, 219);
+            this.label3.Location = new System.Drawing.Point(76, 179);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(391, 1);
             this.label3.TabIndex = 15;
@@ -92,7 +94,7 @@
             this.tbNume.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tbNume.Font = new System.Drawing.Font("Leelawadee", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbNume.ForeColor = System.Drawing.Color.Gray;
-            this.tbNume.Location = new System.Drawing.Point(76, 194);
+            this.tbNume.Location = new System.Drawing.Point(76, 154);
             this.tbNume.Name = "tbNume";
             this.tbNume.Size = new System.Drawing.Size(584, 23);
             this.tbNume.TabIndex = 14;
@@ -158,7 +160,7 @@
             // label7
             // 
             this.label7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.label7.Location = new System.Drawing.Point(76, 357);
+            this.label7.Location = new System.Drawing.Point(76, 317);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(391, 1);
             this.label7.TabIndex = 23;
@@ -169,7 +171,7 @@
             this.tbInformatii.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tbInformatii.Font = new System.Drawing.Font("Leelawadee", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbInformatii.ForeColor = System.Drawing.Color.Gray;
-            this.tbInformatii.Location = new System.Drawing.Point(76, 332);
+            this.tbInformatii.Location = new System.Drawing.Point(76, 292);
             this.tbInformatii.Name = "tbInformatii";
             this.tbInformatii.Size = new System.Drawing.Size(584, 23);
             this.tbInformatii.TabIndex = 22;
@@ -178,12 +180,37 @@
             this.tbInformatii.Enter += new System.EventHandler(this.tb_Enter);
             this.tbInformatii.Leave += new System.EventHandler(this.tb_Leave);
             // 
+            // label5
+            // 
+            this.label5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.label5.Location = new System.Drawing.Point(76, 248);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(391, 1);
+            this.label5.TabIndex = 25;
+            // 
+            // tbVarsta
+            // 
+            this.tbVarsta.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(7)))), ((int)(((byte)(36)))));
+            this.tbVarsta.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tbVarsta.Font = new System.Drawing.Font("Leelawadee", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbVarsta.ForeColor = System.Drawing.Color.Gray;
+            this.tbVarsta.Location = new System.Drawing.Point(76, 223);
+            this.tbVarsta.Name = "tbVarsta";
+            this.tbVarsta.Size = new System.Drawing.Size(584, 23);
+            this.tbVarsta.TabIndex = 24;
+            this.tbVarsta.Tag = "Varsta";
+            this.tbVarsta.Text = "Varsta";
+            this.tbVarsta.Enter += new System.EventHandler(this.tb_Enter);
+            this.tbVarsta.Leave += new System.EventHandler(this.tb_Leave);
+            // 
             // AdaugaParticipantForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(7)))), ((int)(((byte)(36)))));
             this.ClientSize = new System.Drawing.Size(771, 612);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.tbVarsta);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.tbInformatii);
             this.Controls.Add(this.lbEroare);
@@ -221,5 +248,7 @@
         private System.Windows.Forms.Timer timer3;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox tbInformatii;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox tbVarsta;
     }
 }

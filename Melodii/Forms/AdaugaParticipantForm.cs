@@ -18,7 +18,7 @@ namespace Melodii.Forms
     public partial class AdaugaParticipantForm : Form
     {
         private static int speed = 1;
-        private static TextBox InvalidTextBox;
+        private static List<TextBox> InvalidTextBoxes = new List<TextBox>();
         public AdaugaParticipantForm()
         {
             InitializeComponent();
@@ -39,19 +39,19 @@ namespace Melodii.Forms
                 //-----------------------------------< Validare >-----------------------------------
 
                 //Validarea datelor.
-                //Aici exista doar un singur camp obligatoriu, tbNume.
-                if (tbNume.Text == tbNume.Tag.ToString())
-                {
-                    InvalidTextBox = tbNume;
-                    throw new Exception("Eroare. Asigurati-va ca ati completat toate campurile necesare cu date valide.");
-                }
 
-                //Si un camp care admite doar numere intregi
+                if (tbNume.Text == tbNume.Tag.ToString())
+                    InvalidTextBoxes.Add(tbNume);
                 int validare;
-                if(tbScor.Text != tbScor.Tag.ToString() && !int.TryParse(tbScor.Text, out validare))
+                if (tbScor.Text != tbScor.Tag.ToString() && !int.TryParse(tbScor.Text, out validare))
+                    InvalidTextBoxes.Add(tbScor);
+                if (tbVarsta.Text == tbVarsta.Tag.ToString() || !int.TryParse(tbVarsta.Text, out validare))
+                    InvalidTextBoxes.Add(tbVarsta);
+
+                if (InvalidTextBoxes.Count > 0)
                 {
-                    InvalidTextBox = tbScor;
-                    throw new Exception("Eroare. Scorul poate fi doar un numar intreg.");
+                    throw new Exception("Eroare. Asigurati-va ca ati completat toate campurile necesare cu date valide."
+                        + Environment.NewLine + "Campurile pentru Varsta si Scor acceapta doar numere intregi.");
                 }
 
                 //-----------------------------------< Salvarea datelor >-----------------------------------
@@ -63,9 +63,9 @@ namespace Melodii.Forms
 
                     //Vom folosi parametri sql pentru ca aplicatia sa fie imuna atacurilor de tip SQL Injection
                     SqlCommand cmd = new SqlCommand("INSERT INTO PARTICIPANTI" +
-                    "(Nume, Scor, Informatii)" +
+                    "(Nume, Scor, Informatii, Varsta)" +
                     "VALUES" +
-                    "(@Nume, @Scor, @Informatii); ", Connection);
+                    "(@Nume, @Scor, @Informatii, @Varsta); ", Connection);
                     SqlParameter parNume = new SqlParameter("@Nume", tbNume.Text);
                     cmd.Parameters.Add(parNume);
 
@@ -82,6 +82,9 @@ namespace Melodii.Forms
                     else
                         parInformatii = new SqlParameter("@Informatii", DBNull.Value);
                     cmd.Parameters.Add(parInformatii);
+
+                    SqlParameter parVarsta = new SqlParameter("@Varsta", int.Parse(tbVarsta.Text));
+                    cmd.Parameters.Add(parVarsta);
 
                     //Executarea comenzii INSERT
                     if (Connection.State != ConnectionState.Open)
@@ -101,54 +104,19 @@ namespace Melodii.Forms
             catch (Exception ex)
             {
                 //Verificam daca exceptia este cauzata de invaliditatea datelor
-                if(InvalidTextBox != null)
+                if(InvalidTextBoxes.Count > 0)
                 {
-                    //Zguduirea campului invalid
+                    //Zguduirea campurilor invalide
                     speed = 1;
                     lbEroare.Text = ex.Message;
                     Shakes = 0;
-                    InvalidTextBox.Left = label4.Left;
+                    foreach (TextBox t in InvalidTextBoxes)
+                        t.Left = label4.Left;
                     timer2.Start();
                 }
 
                 lbEroare.Text = ex.Message;
             }
-
-
-
-
-
-
-
-
-            /*
-            if (tbNume.Text == tbNume.Tag.ToString())
-            {
-                speed = 1;
-                lbEroare.Text = "*Eroare. Asigurati-va ca ati completat toate campurile.";
-                Shakes = 0;
-                tbNume.Left = label4.Left;
-
-                //Zguduirea campurilui lipsa (in cazul dat, doar a campului 'Nume', celelate sunt optionale).
-                timer2.Start();
-            }
-            else
-            {
-                slideIn = false;
-                timer1.Start();
-
-                //Salvarea tuturor datelor si asigurarea ca totul s-a decurs cum trebuie
-
-                label6.Top = 0;
-                label6.Left = 0;
-                label6.Width = this.Width;
-                label6.Height = this.Height;
-                label6.TextAlign = ContentAlignment.MiddleCenter;
-                label6.Text = "Participantul a fost inregistrat cu succes!";
-                label6.Visible = true;
-                timer3.Start();
-            }
-            */
         }
 
         private void tb_Enter(object sender, EventArgs e)
@@ -228,21 +196,24 @@ namespace Melodii.Forms
 
         private void timer2_Tick(object sender, EventArgs e)
         {
-            if (Shakes == 3 && InvalidTextBox.Left == label4.Left)
+            if (Shakes == 3 && InvalidTextBoxes[0].Left == label4.Left)
             {
                 Shakes = 0;
-                InvalidTextBox = null;
+                InvalidTextBoxes.Clear();
                 timer2.Stop();
             }
             else
             {
-                if (InvalidTextBox.Left - label4.Left >= 5 || label4.Left - InvalidTextBox.Left >= 5)
+                if (InvalidTextBoxes[0].Left - label4.Left >= 5 || label4.Left - InvalidTextBoxes[0].Left >= 5)
                 {
                     speed *= -1;
                     Shakes++;
                 }
 
-                InvalidTextBox.Left += speed;
+                foreach (TextBox tb in InvalidTextBoxes)
+                {
+                    tb.Left += speed;
+                }
             }
         }
 
