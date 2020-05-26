@@ -31,15 +31,15 @@
             this.components = new System.ComponentModel.Container();
             this.lbError = new System.Windows.Forms.Label();
             this.panelInfo = new System.Windows.Forms.Panel();
-            this.panelMelodii = new System.Windows.Forms.Panel();
-            this.panelMelodiiButtons = new System.Windows.Forms.Panel();
+            this.panelParticipanti = new System.Windows.Forms.Panel();
+            this.panelParticipantiButtons = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.slidingBar = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.timerSlidingBar = new System.Windows.Forms.Timer(this.components);
             this.timerSlideInDetails = new System.Windows.Forms.Timer(this.components);
-            this.panelMelodii.SuspendLayout();
+            this.panelParticipanti.SuspendLayout();
             this.SuspendLayout();
             // 
             // lbError
@@ -59,29 +59,29 @@
             this.panelInfo.Size = new System.Drawing.Size(333, 455);
             this.panelInfo.TabIndex = 14;
             // 
-            // panelMelodii
+            // panelParticipanti
             // 
-            this.panelMelodii.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.panelParticipanti.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.panelMelodii.AutoScroll = true;
-            this.panelMelodii.Controls.Add(this.panelMelodiiButtons);
-            this.panelMelodii.Controls.Add(this.label3);
-            this.panelMelodii.Controls.Add(this.label2);
-            this.panelMelodii.Location = new System.Drawing.Point(51, 142);
-            this.panelMelodii.Name = "panelMelodii";
-            this.panelMelodii.Size = new System.Drawing.Size(329, 408);
-            this.panelMelodii.TabIndex = 13;
+            this.panelParticipanti.AutoScroll = true;
+            this.panelParticipanti.Controls.Add(this.panelParticipantiButtons);
+            this.panelParticipanti.Controls.Add(this.label3);
+            this.panelParticipanti.Controls.Add(this.label2);
+            this.panelParticipanti.Location = new System.Drawing.Point(51, 142);
+            this.panelParticipanti.Name = "panelParticipanti";
+            this.panelParticipanti.Size = new System.Drawing.Size(329, 408);
+            this.panelParticipanti.TabIndex = 13;
             // 
-            // panelMelodiiButtons
+            // panelParticipantiButtons
             // 
-            this.panelMelodiiButtons.AutoScroll = true;
-            this.panelMelodiiButtons.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.panelMelodiiButtons.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelMelodiiButtons.Location = new System.Drawing.Point(1, 0);
-            this.panelMelodiiButtons.Name = "panelMelodiiButtons";
-            this.panelMelodiiButtons.Padding = new System.Windows.Forms.Padding(10);
-            this.panelMelodiiButtons.Size = new System.Drawing.Size(328, 407);
-            this.panelMelodiiButtons.TabIndex = 8;
+            this.panelParticipantiButtons.AutoScroll = true;
+            this.panelParticipantiButtons.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.panelParticipantiButtons.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelParticipantiButtons.Location = new System.Drawing.Point(1, 0);
+            this.panelParticipantiButtons.Name = "panelParticipantiButtons";
+            this.panelParticipantiButtons.Padding = new System.Windows.Forms.Padding(10);
+            this.panelParticipantiButtons.Size = new System.Drawing.Size(328, 407);
+            this.panelParticipantiButtons.TabIndex = 8;
             // 
             // label3
             // 
@@ -137,16 +137,16 @@
             this.ClientSize = new System.Drawing.Size(771, 612);
             this.Controls.Add(this.lbError);
             this.Controls.Add(this.panelInfo);
-            this.Controls.Add(this.panelMelodii);
+            this.Controls.Add(this.panelParticipanti);
             this.Controls.Add(this.slidingBar);
             this.Controls.Add(this.label1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "VeziParticipantiForm";
             this.Text = "VeziParticipantiForm";
             this.Resize += new System.EventHandler(this.VeziMelodiiForm_Resize);
-            this.panelMelodii.ResumeLayout(false);
+            this.panelParticipanti.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -156,8 +156,8 @@
 
         private System.Windows.Forms.Label lbError;
         private System.Windows.Forms.Panel panelInfo;
-        private System.Windows.Forms.Panel panelMelodii;
-        private System.Windows.Forms.Panel panelMelodiiButtons;
+        private System.Windows.Forms.Panel panelParticipanti;
+        private System.Windows.Forms.Panel panelParticipantiButtons;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label slidingBar;

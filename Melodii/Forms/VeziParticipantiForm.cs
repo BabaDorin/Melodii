@@ -1,31 +1,27 @@
-﻿using System;
+﻿using Melodii.Models;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using Melodii.Models;
-using System.Diagnostics;
-using System.Runtime.InteropServices;
 using System.Data.SqlClient;
+using System.Diagnostics;
+using System.Drawing;
 using System.IO;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace Melodii.Forms
 {
     public partial class VeziParticipantiForm : Form
     {
-        private static List<Melodie> melodii = new List<Melodie>();
+        private static List<Participant> participanti = new List<Participant>();
         bool formMinimized = false;
         public VeziParticipantiForm()
         {
             InitializeComponent();
             slidingBar.Left = -slidingBar.Width;
             speedSlidingBar = (label1.Left - slidingBar.Left) / 6;
-            panelInfo.Left = panelMelodii.Right + 50;
-            panelMelodii.Width = Width / 100 * 50;
+            panelInfo.Left = panelParticipanti.Right + 50;
+            panelParticipanti.Width = Width / 100 * 50;
 
             //Extragerea datelor din BD
             LoadData();
@@ -46,30 +42,29 @@ namespace Melodii.Forms
 
                 //Crerea unui obiect de tip DataAdapter pentru conectarea DataSet-ului
                 //cu baza de date.
-                SqlDataAdapter daMelodii = new SqlDataAdapter("SELECT * FROM MELODII", Connection);
-                DataSet dsMelodii = new DataSet("Melodii");
-                daMelodii.Fill(dsMelodii, "Melodii");
-                DataTable tblMelodii = dsMelodii.Tables["Melodii"];
+                SqlDataAdapter daParticipanti = new SqlDataAdapter("SELECT * FROM PARTICIPANTI", Connection);
+                DataSet dsParticipanti = new DataSet("Participanti");
+                daParticipanti.Fill(dsParticipanti, "Participanti");
+                DataTable tblParticipanti = dsParticipanti.Tables["Participanti"];
 
                 //Acum avem datele din tabela Melodii din baza de date in obiectul tblMelodii.
                 //Trecem la popularea listei.
 
-                melodii.Clear();
-                foreach (DataRow drMelodie in tblMelodii.Rows)
+                participanti.Clear();
+                foreach (DataRow drParticipant in tblParticipanti.Rows)
                 {
-                    melodii.Add(new Melodie
+                    participanti.Add(new Participant
                     {
-                        IdMelodie = int.Parse(drMelodie["IdMelodie"].ToString()),
-                        Denumire = drMelodie["Denumire"].ToString(),
-                        Interpret = drMelodie["Interpret"].ToString(),
-                        Puncte = int.Parse(drMelodie["Puncte"].ToString()),
-                        Informatii = drMelodie["Informatii"].ToString()
+                        IdParticipant = int.Parse(drParticipant["IdParticipant"].ToString()),
+                        Nume = drParticipant["Nume"].ToString(),
+                        Scor = int.Parse(drParticipant["Scor"].ToString()),
+                        Informatii = drParticipant["Informatii"].ToString()
                     });
                 }
 
                 // Pentru fiecare melodie va fi creat un buton care va contine informatii
                 // privind Denumirea, Interpretul si numarul de puncte ale acesteia.
-                GenerateButtons(melodii, panelMelodiiButtons);
+                GenerateButtons(participanti, panelParticipantiButtons);
             }
             catch (Exception ex)
             {
@@ -85,24 +80,24 @@ namespace Melodii.Forms
         }
 
         #region DesignMethods
-        private void GenerateButtons(List<Melodie> melodii, Panel parentPanel)
+        private void GenerateButtons(List<Participant> participanti, Panel parentPanel)
         {
-            panelMelodiiButtons.Controls.Clear();
+            panelParticipantiButtons.Controls.Clear();
             try
             {
-                if (melodii != null && melodii.Count > 0)
+                if (participanti != null && participanti.Count > 0)
                 {
                     parentPanel.Controls.Clear();
 
-                    for (int i = 0; i < melodii.Count; i++)
+                    for (int i = 0; i < participanti.Count; i++)
                     {
                         //Butonul propriu zis.
-                        //Proprietatea Text va contine numele melodiei
-                        //Proprietatea Tag va contine ID-ul melodiei.
+                        //Proprietatea Text va contine numele participantului
+                        //Proprietatea Tag va contine ID-ul participantului.
                         Button btn = new Button();
                         btn.Dock = DockStyle.Top;
-                        btn.Text = melodii[i].Denumire;
-                        btn.Tag = melodii[i].IdMelodie;
+                        btn.Text = participanti[i].Nume;
+                        btn.Tag = participanti[i].IdParticipant;
                         btn.FlatStyle = FlatStyle.Flat;
                         btn.FlatAppearance.BorderSize = 0;
                         btn.Height = 60;
@@ -110,25 +105,16 @@ namespace Melodii.Forms
                         btn.Font = new Font("Leelawadee", 13);
                         btn.Click += new EventHandler(btInfo_Click);
 
-                        //Label pentru a afisa numarul de puncte al melodiei
-                        System.Windows.Forms.Label lbPoints = new System.Windows.Forms.Label();
-                        lbPoints.Text = melodii[i].Puncte.ToString();
-                        lbPoints.AutoSize = false;
-                        lbPoints.Dock = DockStyle.Right;
-                        lbPoints.BackColor = Color.Transparent;
-                        lbPoints.Font = new Font("Leelawadee", 10);
-                        lbPoints.TextAlign = ContentAlignment.MiddleCenter;
-
-                        //Label pentru afisarea interpretului
-                        System.Windows.Forms.Label lbInterpret = new System.Windows.Forms.Label();
-                        lbInterpret.Text = melodii[i].Interpret;
-                        lbInterpret.ForeColor = Color.LightGray;
-                        lbInterpret.BackColor = Color.Transparent;
-                        lbInterpret.Dock = DockStyle.Bottom;
-                        lbInterpret.Font = new Font("Leelawadee", 10);
-
-                        btn.Controls.Add(lbInterpret);
-                        btn.Controls.Add(lbPoints);
+                        //Label pentru afisarea scorului fiecarul participant.
+                        System.Windows.Forms.Label lbScor = new System.Windows.Forms.Label();
+                        lbScor.Text = participanti[i].Scor.ToString();
+                        lbScor.AutoSize = false;
+                        lbScor.Dock = DockStyle.Right;
+                        lbScor.BackColor = Color.Transparent;
+                        lbScor.Font = new Font("Leelawadee", 10);
+                        lbScor.TextAlign = ContentAlignment.MiddleCenter;
+                        
+                        btn.Controls.Add(lbScor);
 
                         parentPanel.Controls.Add(btn);
                     }
@@ -140,10 +126,10 @@ namespace Melodii.Forms
                     label.ForeColor = Color.WhiteSmoke;
                     label.Dock = DockStyle.Fill;
                     label.TextAlign = ContentAlignment.TopCenter;
-                    label.Text = "Nu exista melodii spre afisare.";
+                    label.Text = "Nu exista participanti spre afisare.";
                     label.Image = Properties.Resources.shrug;
                     label.ImageAlign = ContentAlignment.MiddleCenter;
-                    panelMelodiiButtons.Controls.Add(label);
+                    panelParticipantiButtons.Controls.Add(label);
                 }
             }
             catch (Exception ex)
@@ -164,34 +150,34 @@ namespace Melodii.Forms
             // Daca fereastra a fost marita, atunci denumirea va contine mai multe litere ca urmare
             // a maririi lungimii butoanelor, in caz contrar, denumirea va fi scurtata.
 
-            int lastMelodiiWidth = panelMelodii.Width;
-            panelMelodii.Width = Width / 100 * 45;
-            panelInfo.Left = panelMelodii.Right + 50;
+            int lastMelodiiWidth = panelParticipanti.Width;
+            panelParticipanti.Width = Width / 100 * 45;
+            panelInfo.Left = panelParticipanti.Right + 50;
             panelInfo.Width = this.Right - panelInfo.Left - 20;
 
-            if (lastMelodiiWidth > panelMelodii.Width)
+            if (lastMelodiiWidth > panelParticipanti.Width)
                 formMinimized = true;
             else
                 formMinimized = false;
 
-            if (melodii.Count > 0)
-                foreach (Button btn in panelMelodiiButtons.Controls)
+            if (participanti.Count > 0)
+                foreach (Button btn in panelParticipantiButtons.Controls)
                 {
                     if (formMinimized)
                     {
                         //In cazul in care forma este minimizata, denumirea este scurtata.
-                        ScurtareDenumire(btn, panelMelodii.Width);
+                        ScurtareDenumire(btn, panelParticipanti.Width);
                     }
                     else
                     {
                         // In cazul in care forma este maximizata, atunci verificam daca 
                         // denumirea care este afisata este scurtata. In caz afirmativ,
                         // marim numarul de caractere ce vor fi afisate.
-                        string initialButtonText = melodii.First(x => x.IdMelodie == int.Parse(btn.Tag.ToString())).Denumire;
+                        string initialButtonText = participanti.First(x => x.IdParticipant == int.Parse(btn.Tag.ToString())).Nume;
                         if (btn.Text.Length < initialButtonText.Length)
                         {
                             btn.Text = initialButtonText;
-                            ScurtareDenumire(btn, panelMelodii.Width);
+                            ScurtareDenumire(btn, panelParticipanti.Width);
                         }
                     }
                 }
@@ -224,32 +210,21 @@ namespace Melodii.Forms
             // despre melodia aleasa.
 
             panelInfo.Controls.Clear();
-            Panel panelMelody = new Panel();
-            panelMelody.Width = panelInfo.Width;
-            panelMelody.Height = panelInfo.Height;
+            Panel panelParticipant = new Panel();
+            panelParticipant.Width = panelInfo.Width;
+            panelParticipant.Height = panelInfo.Height;
 
             // Id-ul melodiei se afla in propritatea [Tag] a butonului, drept urmare
-            Melodie melodie = melodii.First(m => m.IdMelodie == int.Parse((sender as Button).Tag.ToString()));
+            Participant participant = participanti.First(m => m.IdParticipant == int.Parse((sender as Button).Tag.ToString()));
 
             //Label pentru denumire
             System.Windows.Forms.Label Denumire = new System.Windows.Forms.Label();
-            Denumire.Text = melodie.Denumire;
+            Denumire.Text = participant.Nume;
             Denumire.Font = new Font("Leelawadee", 16);
             Denumire.AutoSize = true;
             Denumire.Width = panelInfo.Width;
             Denumire.Dock = DockStyle.Top;
             Denumire.MaximumSize = new Size(Denumire.Width, 0);
-
-            //Label pentru Interpret
-            System.Windows.Forms.Label Interpret = new System.Windows.Forms.Label();
-            Interpret.Text = melodie.Interpret;
-            Interpret.ForeColor = Color.LightGray;
-            Interpret.Font = new Font("Leelawadee", 12);
-            Interpret.AutoSize = true;
-            Interpret.Width = Denumire.Width;
-            Interpret.Dock = DockStyle.Top;
-            Interpret.MaximumSize = new Size(Interpret.Width, 0);
-            Interpret.Padding = new Padding(5);
 
             //Label pentru butonul de excludere a melodiei
             Button exclude = new Button();
@@ -258,35 +233,35 @@ namespace Melodii.Forms
             exclude.FlatStyle = FlatStyle.Flat;
             exclude.ForeColor = Color.WhiteSmoke;
             exclude.FlatAppearance.BorderSize = 0;
-            exclude.Text = "Exclude melodia";
+            exclude.Text = "Exclude participantul";
             exclude.AutoSize = true;
             exclude.Click += btExclude_Click;
-            exclude.Tag = melodie.IdMelodie;
-            panelMelody.Controls.Add(exclude);
+            exclude.Tag = participant.IdParticipant;
+            panelParticipant.Controls.Add(exclude);
 
             System.Windows.Forms.Label Spatiu = new System.Windows.Forms.Label();
             Spatiu.Height = 50;
             Spatiu.Dock = DockStyle.Top;
             Spatiu.AutoSize = true;
-            panelMelody.Controls.Add(Spatiu);
+            panelParticipant.Controls.Add(Spatiu);
 
-            //Label pentru afisarea punctelor
-            System.Windows.Forms.Label Puncte = new System.Windows.Forms.Label();
-            Puncte.Text = String.Format("Puncte: " + melodie.Puncte.ToString());
-            Puncte.ForeColor = Color.LightGray;
-            Puncte.Font = new Font("Leelawadee", 10);
-            Puncte.AutoSize = true;
-            Puncte.Width = Denumire.Width;
-            Puncte.Dock = DockStyle.Top;
-            Puncte.MaximumSize = new Size(Interpret.Width, 0);
-            Puncte.Padding = new Padding(5);
-            panelMelody.Controls.Add(Puncte);
+            //Label pentru afisarea scorului
+            System.Windows.Forms.Label Scor = new System.Windows.Forms.Label();
+            Scor.Text = String.Format("Puncte: " + participant.Scor.ToString());
+            Scor.ForeColor = Color.LightGray;
+            Scor.Font = new Font("Leelawadee", 10);
+            Scor.AutoSize = true;
+            Scor.Width = Denumire.Width;
+            Scor.Dock = DockStyle.Top;
+            Scor.MaximumSize = new Size(Denumire.Width, 0);
+            Scor.Padding = new Padding(5);
+            panelParticipant.Controls.Add(Scor);
 
-            if (melodie.Informatii != null)
+            if (participant.Informatii != null)
             {
                 //Label pentru afisarea informatiilor aditionale, in cazul in care acestea exista.
                 System.Windows.Forms.Label Informatii = new System.Windows.Forms.Label();
-                Informatii.Text = String.Format($"Informatii: {melodie.Informatii}");
+                Informatii.Text = String.Format($"Informatii: {participant.Informatii}");
                 Informatii.ForeColor = Color.LightGray;
                 Informatii.Font = new Font("Leelawadee", 10);
                 Informatii.AutoSize = true;
@@ -294,17 +269,16 @@ namespace Melodii.Forms
                 Informatii.Dock = DockStyle.Top;
                 Informatii.MaximumSize = new Size(panelInfo.Width, 0);
                 Informatii.Padding = new Padding(5);
-                panelMelody.Controls.Add(Informatii);
+                panelParticipant.Controls.Add(Informatii);
             }
 
-            panelMelody.Controls.Add(Interpret);
-            panelMelody.Controls.Add(Denumire);
+            panelParticipant.Controls.Add(Denumire);
 
             //Deplasarea panelului spre stanga si pregatirea terenului pentru slide.
-            panelMelody.Left = -panelMelody.Width;
-            speedMovingPanel = (panelMelody.Left) / 3;
-            panelInfo.Controls.Add(panelMelody);
-            movingPanel = panelMelody;
+            panelParticipant.Left = -panelParticipant.Width;
+            speedMovingPanel = (panelParticipant.Left) / 3;
+            panelInfo.Controls.Add(panelParticipant);
+            movingPanel = panelParticipant;
             timerSlideInDetails.Start();
         }
 
@@ -313,21 +287,21 @@ namespace Melodii.Forms
             //In urma apasarii butonului [Exclude], va aparea un messagebox pentru confirmare.
             //In cazul in care raspunstul este OK, atunci se va purcede la eliminarea melodiei din baza de date.
             Form Messagebox = new MessageBox();
-            int idMelodie = int.Parse((sender as Button).Tag.ToString());
-            string Denumire = melodii.First(m => m.IdMelodie == idMelodie).Denumire;
+            int idParticipant = int.Parse((sender as Button).Tag.ToString());
+            string Denumire = participanti.First(m => m.IdParticipant == idParticipant).Nume;
             Messagebox.Tag = String.Format("Sunteti sigur ca doriti sa excludeti melodia {0}?", Denumire);
             Messagebox.ShowDialog();
 
             if (Messagebox.DialogResult == DialogResult.OK)
             {
-                //Eliminarea melodiei din baza de date
+                //Eliminarea participantului din baza de date
                 string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" + Directory.GetCurrentDirectory() + @"\Database.mdf;Integrated Security=True";
                 SqlConnection Connection = new SqlConnection(connectionString);
                 try
                 {
-                    SqlCommand sqlcDelete = new SqlCommand("DELETE FROM MELODII WHERE IDMELODIE = @IdMelodie", Connection);
-                    SqlParameter parIdMelodie = new SqlParameter("@IdMelodie", idMelodie);
-                    sqlcDelete.Parameters.Add(parIdMelodie);
+                    SqlCommand sqlcDelete = new SqlCommand("DELETE FROM PARTICIPANTI WHERE IDPARTICIPANT = @IdParticipant", Connection);
+                    SqlParameter parIdParticipant = new SqlParameter("@IdParticipant", idParticipant);
+                    sqlcDelete.Parameters.Add(parIdParticipant);
 
                     Connection.Open();
                     sqlcDelete.ExecuteNonQuery();
@@ -338,7 +312,7 @@ namespace Melodii.Forms
                 catch (Exception ex)
                 {
                     Debug.WriteLine(ex.Message);
-                    lbError.Text = "Ne pare rau, s-a produs o eroare, melodia nu a fost exclusa.";
+                    lbError.Text = "Ne pare rau, s-a produs o eroare, participantul nu a fost exclus.";
                 }
                 finally
                 {
