@@ -12,5 +12,6 @@ namespace Melodii.Models
         public string Nume { get; set; }
         public int Scor { get; set; }
         public string Informatii { get; set; }
+        public int Varsta { get; set; }
     }
 }

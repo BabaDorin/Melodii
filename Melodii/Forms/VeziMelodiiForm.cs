@@ -174,6 +174,7 @@ namespace Melodii.Forms
             panelMelodii.Width = Width / 100 * 45;
             panelInfo.Left = panelMelodii.Right + 50;
             panelInfo.Width = this.Right - panelInfo.Left - 20;
+            btTop3.Left = panelMelodii.Right - btTop3.Width;
 
             if (lastMelodiiWidth > panelMelodii.Width)
                 formMinimized = true;
@@ -288,7 +289,7 @@ namespace Melodii.Forms
             Puncte.Padding = new Padding(5);
             panelMelody.Controls.Add(Puncte);
 
-            if (melodie.Informatii != null)
+            if (melodie.Informatii != "")
             {
                 //Label pentru afisarea informatiilor aditionale, in cazul in care acestea exista.
                 System.Windows.Forms.Label Informatii = new System.Windows.Forms.Label();

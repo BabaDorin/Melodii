@@ -58,7 +58,8 @@ namespace Melodii.Forms
                         IdParticipant = int.Parse(drParticipant["IdParticipant"].ToString()),
                         Nume = drParticipant["Nume"].ToString(),
                         Scor = int.Parse(drParticipant["Scor"].ToString()),
-                        Informatii = drParticipant["Informatii"].ToString()
+                        Informatii = drParticipant["Informatii"].ToString(),
+                        Varsta = int.Parse(drParticipant["Varsta"].ToString())
                     });
                 }
 
@@ -147,18 +148,18 @@ namespace Melodii.Forms
             // In cazul in care are loc redimensionarea ferestrei:
             //
             // 1) Vom modifica pozitia si dimensiunile celor 2 panele, cel pentru afisarea listei
-            // melodiilor, si cel pentru afisarea informatiei despre fiecare melodie in parte.
+            // participantilor, si cel pentru afisarea informatiei despre fiecare participant in parte.
             //
-            // 2) Vom re-analiza modul in care este afisat numele melodiei
+            // 2) Vom re-analiza modul in care este afisat numele participantului
             // Daca fereastra a fost marita, atunci denumirea va contine mai multe litere ca urmare
             // a maririi lungimii butoanelor, in caz contrar, denumirea va fi scurtata.
 
-            int lastMelodiiWidth = panelParticipanti.Width;
+            int lastParticipantWidth = panelParticipanti.Width;
             panelParticipanti.Width = Width / 100 * 45;
             panelInfo.Left = panelParticipanti.Right + 50;
             panelInfo.Width = this.Right - panelInfo.Left - 20;
-
-            if (lastMelodiiWidth > panelParticipanti.Width)
+            btVarsta18.Left = panelParticipanti.Right - btVarsta18.Width;
+            if (lastParticipantWidth > panelParticipanti.Width)
                 formMinimized = true;
             else
                 formMinimized = false;
@@ -188,10 +189,9 @@ namespace Melodii.Forms
 
         private void ScurtareDenumire(Button btn, int maxWidth)
         {
-            //In cazul in care lungimea numelui melodiei este mai mare decat
+            //In cazul in care lungimea numelui este mai mare decat
             //lungimea butonului, atunci vom afisa literele care incap, urmate de 
             //3 puncte de suspensie [...].
-            //Exemplu, [Bine-i sade mesei mele imprejur cu nemurele] => [Bine-i sade mese mele...]
             Size size = TextRenderer.MeasureText(btn.Text, btn.Font);
             if (size.Width > maxWidth - maxWidth * 0.3)
             {
@@ -208,28 +208,28 @@ namespace Melodii.Forms
         #region ButtonEvents
         private void btInfo_Click(object sender, EventArgs e)
         {
-            // Evenimentul declansat de catre un click pe butonul destinat unei melodii.
+            // Evenimentul declansat de catre un click pe butonul destinat unui participant.
             // Acesta va crea un nou panel in care va introduce toate datele disponibile
-            // despre melodia aleasa.
+            // despre participantul selectat.
 
             panelInfo.Controls.Clear();
             Panel panelParticipant = new Panel();
             panelParticipant.Width = panelInfo.Width;
             panelParticipant.Height = panelInfo.Height;
 
-            // Id-ul melodiei se afla in propritatea [Tag] a butonului, drept urmare
+            // Id-ul persoanei se afla in propritatea [Tag] a butonului, drept urmare
             Participant participant = participanti.First(m => m.IdParticipant == int.Parse((sender as Button).Tag.ToString()));
 
             //Label pentru denumire
-            System.Windows.Forms.Label Denumire = new System.Windows.Forms.Label();
-            Denumire.Text = participant.Nume;
-            Denumire.Font = new Font("Leelawadee", 16);
-            Denumire.AutoSize = true;
-            Denumire.Width = panelInfo.Width;
-            Denumire.Dock = DockStyle.Top;
-            Denumire.MaximumSize = new Size(Denumire.Width, 0);
+            System.Windows.Forms.Label Nume = new System.Windows.Forms.Label();
+            Nume.Text = participant.Nume;
+            Nume.Font = new Font("Leelawadee", 16);
+            Nume.AutoSize = true;
+            Nume.Width = panelInfo.Width;
+            Nume.Dock = DockStyle.Top;
+            Nume.MaximumSize = new Size(Nume.Width, 0);
 
-            //Label pentru butonul de excludere a melodiei
+            //Label pentru butonul de excludere a persoanei
             Button exclude = new Button();
             exclude.Padding = new Padding(10);
             exclude.Dock = DockStyle.Top;
@@ -254,13 +254,13 @@ namespace Melodii.Forms
             Scor.ForeColor = Color.LightGray;
             Scor.Font = new Font("Leelawadee", 10);
             Scor.AutoSize = true;
-            Scor.Width = Denumire.Width;
+            Scor.Width = Nume.Width;
             Scor.Dock = DockStyle.Top;
-            Scor.MaximumSize = new Size(Denumire.Width, 0);
+            Scor.MaximumSize = new Size(Nume.Width, 0);
             Scor.Padding = new Padding(5);
             panelParticipant.Controls.Add(Scor);
 
-            if (participant.Informatii != null)
+            if (participant.Informatii != "")
             {
                 //Label pentru afisarea informatiilor aditionale, in cazul in care acestea exista.
                 System.Windows.Forms.Label Informatii = new System.Windows.Forms.Label();
@@ -268,14 +268,26 @@ namespace Melodii.Forms
                 Informatii.ForeColor = Color.LightGray;
                 Informatii.Font = new Font("Leelawadee", 10);
                 Informatii.AutoSize = true;
-                Informatii.Width = Denumire.Width;
+                Informatii.Width = Nume.Width;
                 Informatii.Dock = DockStyle.Top;
                 Informatii.MaximumSize = new Size(panelInfo.Width, 0);
                 Informatii.Padding = new Padding(5);
                 panelParticipant.Controls.Add(Informatii);
             }
 
-            panelParticipant.Controls.Add(Denumire);
+            //Label pentru afisarea varstei
+            System.Windows.Forms.Label Varsta = new System.Windows.Forms.Label();
+            Varsta.Text = String.Format($"Varsta: {participant.Varsta}");
+            Varsta.ForeColor = Color.LightGray;
+            Varsta.Font = new Font("Leelawadee", 10);
+            Varsta.AutoSize = true;
+            Varsta.Width = Nume.Width;
+            Varsta.Dock = DockStyle.Top;
+            Varsta.MaximumSize = new Size(panelInfo.Width, 0);
+            Varsta.Padding = new Padding(5);
+            panelParticipant.Controls.Add(Varsta);
+
+            panelParticipant.Controls.Add(Nume);
 
             //Deplasarea panelului spre stanga si pregatirea terenului pentru slide.
             panelParticipant.Left = -panelParticipant.Width;
@@ -383,5 +395,18 @@ namespace Melodii.Forms
             }
         }
         #endregion
+
+        private void btVarsta18_Click(object sender, EventArgs e)
+        {
+            for(int i=0; i<participanti.Count; i++)
+            {
+                if (participanti[i].Varsta > 18)
+                {
+                    participanti.RemoveAt(i);
+                }
+            }
+
+            GenerateButtons(participanti, panelParticipantiButtons);
+        }
     }
 }

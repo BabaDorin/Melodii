@@ -39,6 +39,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.timerSlidingBar = new System.Windows.Forms.Timer(this.components);
             this.timerSlideInDetails = new System.Windows.Forms.Timer(this.components);
+            this.btVarsta18 = new System.Windows.Forms.Button();
             this.panelParticipanti.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -129,12 +130,29 @@
             this.timerSlideInDetails.Interval = 2;
             this.timerSlideInDetails.Tick += new System.EventHandler(this.timerSlideInDetails_Tick);
             // 
+            // btVarsta18
+            // 
+            this.btVarsta18.AutoSize = true;
+            this.btVarsta18.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(7)))), ((int)(((byte)(36)))));
+            this.btVarsta18.FlatAppearance.BorderSize = 0;
+            this.btVarsta18.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btVarsta18.Font = new System.Drawing.Font("Leelawadee", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btVarsta18.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.btVarsta18.Location = new System.Drawing.Point(276, 110);
+            this.btVarsta18.Name = "btVarsta18";
+            this.btVarsta18.Size = new System.Drawing.Size(104, 26);
+            this.btVarsta18.TabIndex = 16;
+            this.btVarsta18.Text = "Varsta ≤ 18";
+            this.btVarsta18.UseVisualStyleBackColor = false;
+            this.btVarsta18.Click += new System.EventHandler(this.btVarsta18_Click);
+            // 
             // VeziParticipantiForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(7)))), ((int)(((byte)(36)))));
             this.ClientSize = new System.Drawing.Size(771, 612);
+            this.Controls.Add(this.btVarsta18);
             this.Controls.Add(this.lbError);
             this.Controls.Add(this.panelInfo);
             this.Controls.Add(this.panelParticipanti);
@@ -164,5 +182,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Timer timerSlidingBar;
         private System.Windows.Forms.Timer timerSlideInDetails;
+        private System.Windows.Forms.Button btVarsta18;
     }
 }
