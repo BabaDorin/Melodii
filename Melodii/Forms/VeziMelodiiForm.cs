@@ -72,6 +72,12 @@ namespace Melodii.Forms
 
                 //Sortarea listei in ordine descrescatoare dupa punctele acumulate
                 melodii.Sort((x, y) => x.Puncte.CompareTo(y.Puncte));
+                
+                //Stabilirea locurilor in top
+                for(int i=0; i<melodii.Count; i++)
+                {
+                    melodii[i].LoculInTop = melodii.Count - i;
+                }
 
                 // Pentru fiecare melodie va fi creat un buton care va contine informatii
                 // privind Denumirea, Interpretul si numarul de puncte ale acesteia.
@@ -288,6 +294,18 @@ namespace Melodii.Forms
             Puncte.MaximumSize = new Size(Interpret.Width, 0);
             Puncte.Padding = new Padding(5);
             panelMelody.Controls.Add(Puncte);
+
+            //Label pentru afisarea locului in top
+            System.Windows.Forms.Label LocTop = new System.Windows.Forms.Label();
+            LocTop.Text = String.Format("Locul in top: " + melodie.LoculInTop.ToString());
+            LocTop.ForeColor = Color.LightGray;
+            LocTop.Font = new Font("Leelawadee", 10);
+            LocTop.AutoSize = true;
+            LocTop.Width = Denumire.Width;
+            LocTop.Dock = DockStyle.Top;
+            LocTop.MaximumSize = new Size(Interpret.Width, 0);
+            LocTop.Padding = new Padding(5);
+            panelMelody.Controls.Add(LocTop);
 
             if (melodie.Informatii != "")
             {

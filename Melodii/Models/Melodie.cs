@@ -13,5 +13,6 @@ namespace Melodii.Models
         public string Interpret { get; set; }
         public string Informatii { get; set; }
         public int Puncte { get; set; }
+        public int LoculInTop { get; set; }
     }
 }
