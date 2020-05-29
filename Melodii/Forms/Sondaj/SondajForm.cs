@@ -15,6 +15,7 @@ namespace Melodii.Forms.Sondaj
     public partial class SondajForm : Form
     {
         private static List<Melodie> melodii = new List<Melodie>();
+        private static int nrMelodiiInitial = 0;
         private static int CurrentId = 0;
         private static Panel UpgoingPanel;
         private static Panel UpComingPanel;
@@ -26,8 +27,11 @@ namespace Melodii.Forms.Sondaj
             lbMelodiiRamase.Left = Width / 2 - lbMelodiiRamase.Width / 2;
             lbParticipant.Left = Width / 2 - lbParticipant.Width / 2;
             speed = Width / 10;
+
             //Extragerea melodiilor din baza de date
             DB_Methods.LoadMelodii(ref melodii);
+            nrMelodiiInitial = melodii.Count();
+            RandomMelodie();
         }
 
         private void RandomMelodie()
@@ -40,27 +44,69 @@ namespace Melodii.Forms.Sondaj
             else
             {
                 panelSondaj.Controls.Clear();
+
                 //Melodiile for fi afisate in ordine aleatorie.
                 Random rnd = new Random();
                 int randomIndex = rnd.Next(0, melodii.Count - 1);
                 Melodie random = melodii[randomIndex];
-
-                Panel info = new Panel();
-
-                Label lb = new Label();
-                lb.Text = random.Denumire;
                 CurrentId = randomIndex;
-                info.Controls.Add(lb);
+
+                //Panoul pentru afisarea informatiilor despre melodie
+                Panel info = new Panel();
+                info.Width = panelSondaj.Width;
+                info.Height = panelSondaj.Height;
+
+                Label Denumire = new Label();
+                Denumire.Dock = DockStyle.Top;
+                Denumire.Text = random.Denumire;
+                Denumire.Font = new Font("Leelawadee", 20);
+                Denumire.AutoSize = true;
+
+                Label Interpret = new Label();
+                Interpret.Dock = DockStyle.Top;
+                Interpret.Text = String.Format("\t" + random.Interpret);
+                Interpret.Font = new Font("Leelawadee", 15);
+                Interpret.ForeColor = Color.LightGray;
+                Interpret.AutoSize = true;
+
+                Label Gen = new Label();
+                Gen.Dock = DockStyle.Top;
+                Gen.Text = String.Format($"Genul muzical: {random.GenMuzical}");
+                Gen.Font = new Font("Leelawadee", 13);
+                Gen.ForeColor = Color.LightGray;
+                Gen.Padding = new Padding(20);
+                Gen.AutoSize = true;
+
+                if (random.Informatii != null)
+                {
+                    Label Informatii = new Label();
+                    Informatii.Dock = DockStyle.Top;
+                    Informatii.Text = String.Format($"Informatii: {random.Informatii}");
+                    Informatii.Font = new Font("Leelawadee", 13);
+                    Informatii.ForeColor = Color.LightGray;
+                    Informatii.Padding = new Padding(20);
+                    Informatii.AutoSize = true;
+
+                    info.Controls.Add(Informatii);
+                }
+                
+
+                info.Controls.Add(Gen);
+                info.Controls.Add(Interpret);
+                info.Controls.Add(Denumire);
 
                 info.Left = (UpgoingPanel == null) ? 0 : this.Width;
                 panelSondaj.Controls.Add(info);
 
-                if (UpgoingPanel == null)
-                    UpgoingPanel = info;
-                else
+                if(UpComingPanel == null)
                 {
                     UpComingPanel = info;
-                    UpgoingPanel = UpComingPanel;
+                    UpComingPanel.Left = 10;
+                }else
+                {
+                    UpComingPanel = info;
+                    UpComingPanel.Left = Width;
+                    speed = Width / 15;
                     SlidingPanel.Start();
                 }
             }
@@ -88,10 +134,10 @@ namespace Melodii.Forms.Sondaj
                 if (UpComingPanel.Left <= 10)
                 {
                     SlidingPanel.Stop();
+                    UpComingPanel.Dock = DockStyle.Fill;
                 }
-                UpComingPanel.Left += -speed;
-                UpgoingPanel.Left += -speed;
-                speed = UpComingPanel.Left / 20;
+                UpComingPanel.Left -= speed;
+                speed = UpComingPanel.Left / 15;
                 if (speed < 1)
                     speed = 1;
             }
