@@ -14,6 +14,7 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Data.SqlClient;
 using System.IO;
+using static Melodii.DB_Methods;
 
 namespace Melodii.Forms
 {
@@ -37,38 +38,9 @@ namespace Melodii.Forms
 
         private void LoadData()
         {
-            string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" + Directory.GetCurrentDirectory() + @"\Database.mdf;Integrated Security=True";
-            SqlConnection Connection = new SqlConnection(connectionString);
-
             try
             {
-                //----------------------------< Extragerea datelor din BD >-------------------------
-
-                //Stabilirea conexiunii
-                Connection.Open();
-
-                //Crerea unui obiect de tip DataAdapter pentru conectarea DataSet-ului
-                //cu baza de date.
-                SqlDataAdapter daMelodii = new SqlDataAdapter("SELECT * FROM MELODII", Connection);
-                DataSet dsMelodii = new DataSet("Melodii");
-                daMelodii.Fill(dsMelodii, "Melodii");
-                DataTable tblMelodii = dsMelodii.Tables["Melodii"];
-
-                //Acum avem datele din tabela Melodii din baza de date in obiectul tblMelodii.
-                //Trecem la popularea listei.
-
-                melodii.Clear();
-                foreach (DataRow drMelodie in tblMelodii.Rows)
-                {
-                    melodii.Add(new Melodie
-                    {
-                        IdMelodie = int.Parse(drMelodie["IdMelodie"].ToString()),
-                        Denumire = drMelodie["Denumire"].ToString(),
-                        Interpret = drMelodie["Interpret"].ToString(),
-                        Puncte = int.Parse(drMelodie["Puncte"].ToString()),
-                        Informatii = drMelodie["Informatii"].ToString()
-                    });
-                }
+                LoadMelodii(ref melodii);
 
                 //Sortarea listei in ordine descrescatoare dupa punctele acumulate
                 melodii.Sort((x, y) => x.Puncte.CompareTo(y.Puncte));
@@ -88,12 +60,6 @@ namespace Melodii.Forms
                 Debug.WriteLine(ex.Message);
                 lbError.Text = "Ne pare rau, s-a produs o eroare la incarcarea datelor.";
             }
-            finally
-            {
-                if (Connection.State == ConnectionState.Open)
-                    Connection.Close();
-            }
-
         }
 
         #region DesignMethods

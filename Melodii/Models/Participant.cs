@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Melodii.Models
 {
-    class Participant
+    public class Participant
     {
         public int IdParticipant { get; set; }
         public string Nume { get; set; }

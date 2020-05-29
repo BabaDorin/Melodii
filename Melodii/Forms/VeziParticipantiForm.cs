@@ -1,4 +1,5 @@
-﻿using Melodii.Models;
+﻿using Melodii.Forms.Sondaj;
+using Melodii.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -8,12 +9,14 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using static Melodii.DesignFunctionalities;
 
 namespace Melodii.Forms
 {
     public partial class VeziParticipantiForm : Form
     {
         private static List<Participant> participanti = new List<Participant>();
+        private static string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" + Directory.GetCurrentDirectory() + @"\Database.mdf;Integrated Security=True";
         bool formMinimized = false;
         public VeziParticipantiForm()
         {
@@ -231,7 +234,7 @@ namespace Melodii.Forms
             Nume.Dock = DockStyle.Top;
             Nume.MaximumSize = new Size(Nume.Width, 0);
 
-            //Label pentru butonul de excludere a persoanei
+            //butonul de excludere a persoanei
             Button exclude = new Button();
             exclude.Padding = new Padding(10);
             exclude.Dock = DockStyle.Top;
@@ -243,6 +246,19 @@ namespace Melodii.Forms
             exclude.Click += btExclude_Click;
             exclude.Tag = participant.IdParticipant;
             panelParticipant.Controls.Add(exclude);
+
+            //butonul de creare a unui sondaj
+            Button sondaj = new Button();
+            sondaj.Padding = new Padding(10);
+            sondaj.Dock = DockStyle.Top;
+            sondaj.FlatStyle = FlatStyle.Flat;
+            sondaj.ForeColor = Color.WhiteSmoke;
+            sondaj.FlatAppearance.BorderSize = 0;
+            sondaj.Text = "Creaza un sondaj";
+            sondaj.AutoSize = true;
+            sondaj.Click += btSondaj_Click;
+            sondaj.Tag = participant.IdParticipant;
+            panelParticipant.Controls.Add(sondaj);
 
             System.Windows.Forms.Label Spatiu = new System.Windows.Forms.Label();
             Spatiu.Height = 50;
@@ -312,7 +328,7 @@ namespace Melodii.Forms
             if (Messagebox.DialogResult == DialogResult.OK)
             {
                 //Eliminarea participantului din baza de date
-                string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" + Directory.GetCurrentDirectory() + @"\Database.mdf;Integrated Security=True";
+                
                 SqlConnection Connection = new SqlConnection(connectionString);
                 try
                 {
@@ -336,6 +352,50 @@ namespace Melodii.Forms
                     if (Connection.State == ConnectionState.Open)
                         Connection.Close();
                 }
+            }
+        }
+
+        private void btSondaj_Click(object sender, EventArgs e)
+        {
+            //Acest event va declansat atunci cand utilizatorul va alege sa inceapa un sondaj
+            //pe baza participantului ales.
+            //Pentru inceput se verifca daca exists melodii in baza de date, dupa care se trece
+            //nemijlocit la initializarea si ulterior desfasurarea sondajului.
+
+            SqlConnection Connection = new SqlConnection(connectionString);
+            try
+            {
+                SqlCommand sqlCount = new SqlCommand("SELECT COUNT(*) FROM MELODII", Connection);
+
+                Connection.Open();
+                int nrMelodii = (int)sqlCount.ExecuteScalar();
+                Connection.Close();
+
+                if (nrMelodii == 0)
+                {
+                    lbError.Text = "Ne pare rau, nu exista melodii in baza de date pentru a incepe sondajul.";
+                }
+                else
+                {
+                    //Incepe sondajul
+                    Panel parent = this.Parent as Panel;
+                    parent.Tag = (sender as Button).Tag;
+                    string Nume = participanti.First(p => p.IdParticipant == int.Parse(parent.Tag.ToString())).Nume;
+                    SondajStartForm sondajStart = new SondajStartForm(Nume, int.Parse(parent.Tag.ToString()));
+                    this.Close();
+
+                    openChildForm(sondajStart, parent);
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                lbError.Text = "Ne pare rau, s-a produs o eroare.";
+            }
+            finally
+            {
+                if (Connection.State == ConnectionState.Open)
+                    Connection.Close();
             }
         }
         #endregion

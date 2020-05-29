@@ -66,6 +66,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DatabaseDataSet1.xsd</DependentUpon>
     </Compile>
+    <Compile Include="DB_Methods.cs" />
     <Compile Include="DesignFunctionalities.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -85,12 +86,6 @@
     <Compile Include="Forms\AdaugaParticipantForm.Designer.cs">
       <DependentUpon>AdaugaParticipantForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\CreazaSondajForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\CreazaSondajForm.Designer.cs">
-      <DependentUpon>CreazaSondajForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\HomeForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -102,6 +97,18 @@
     </Compile>
     <Compile Include="Forms\MessageBox.Designer.cs">
       <DependentUpon>MessageBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Sondaj\SondajForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Sondaj\SondajForm.Designer.cs">
+      <DependentUpon>SondajForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Sondaj\SondajStartForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Sondaj\SondajStartForm.Designer.cs">
+      <DependentUpon>SondajStartForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\VeziMelodiiForm.cs">
       <SubType>Form</SubType>
@@ -130,14 +137,17 @@
     <EmbeddedResource Include="Forms\AdaugaParticipantForm.resx">
       <DependentUpon>AdaugaParticipantForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\CreazaSondajForm.resx">
-      <DependentUpon>CreazaSondajForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\HomeForm.resx">
       <DependentUpon>HomeForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MessageBox.resx">
       <DependentUpon>MessageBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Sondaj\SondajForm.resx">
+      <DependentUpon>SondajForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Sondaj\SondajStartForm.resx">
+      <DependentUpon>SondajStartForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\VeziMelodiiForm.resx">
       <DependentUpon>VeziMelodiiForm.cs</DependentUpon>
