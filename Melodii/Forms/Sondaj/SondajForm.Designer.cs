@@ -120,7 +120,7 @@
             this.btNext.TabIndex = 0;
             this.btNext.Text = "Urmatoarea melodie";
             this.btNext.UseVisualStyleBackColor = true;
-            this.btNext.Click += new System.EventHandler(this.button2_Click);
+            this.btNext.Click += new System.EventHandler(this.btNext_Click);
             // 
             // panelSondaj
             // 

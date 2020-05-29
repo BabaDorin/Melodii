@@ -19,34 +19,42 @@ namespace Melodii.Forms.Sondaj
         private static List<Melodie> melodii = new List<Melodie>();
         private static int nrMelodiiInitial = 0;
         private static int CurrentId = 0;
-        private static Panel UpgoingPanel;
+        private static Panel UpGoingPanel;
         private static Panel UpComingPanel;
         private static int speed;
 
         public SondajForm(int IdParticipant)
         {
             InitializeComponent();
-            panelSondaj.Controls.Clear();
-            UpgoingPanel = null;
+            UpGoingPanel = null;
+
+            //Pozitionarea label-urilor la mijlocul ferestrei
             label.Left = Width / 2 - label.Width / 2;
             lbMelodiiRamase.Left = Width / 2 - lbMelodiiRamase.Width / 2;
             lbParticipant.Left = Width / 2 - lbParticipant.Width / 2;
+
+            //Viteza initiala pentru UpGoingPanel si UpComingPanel;
             speed = Width / 10;
 
             //Extragerea melodiilor din baza de date
             DB_Methods.LoadMelodii(ref melodii);
+
             nrMelodiiInitial = melodii.Count();
             lbMelodiiRamase.Text = "Melodii ramase: " + (nrMelodiiInitial-1);
             lbProgessBar.Width = 0;
             lbProgessBar.Tag = (100 / (nrMelodiiInitial-1)).ToString();
             btNext.Enabled = false;
 
+            //Extragerea unei melodii aleatoare
             RandomMelodie();
         }
 
         private void RandomMelodie()
-        { 
-            if(melodii.Count == 0)
+        {
+
+            //-----------------< Extrage o melodie si completeaza un panou cu informatii despre melodia respectiva >-----------------
+
+            if (melodii.Count == 0)
             {
                 panelSondaj.BackColor = Color.Red;
                 CurrentId = -1;
@@ -55,17 +63,17 @@ namespace Melodii.Forms.Sondaj
             {
                 //UpgoingPanel este panoul care va iesi din limitele ecranului atunci cand
                 //se va trece la urmatoarea melodie
-                if (UpgoingPanel == null)
+                if (UpGoingPanel == null)
                 {
                     Panel empty = new Panel();
                     empty.Width = panelSondaj.Width;
                     panelSondaj.Controls.Add(empty);
                 }else
-                    UpgoingPanel.Dispose();
-                UpgoingPanel = panelSondaj.Controls[0] as Panel;
-                UpgoingPanel.Dock = DockStyle.None;
+                    UpGoingPanel.Dispose();
+                UpGoingPanel = panelSondaj.Controls[0] as Panel;
+                UpGoingPanel.Dock = DockStyle.None;
 
-                //Melodiile for fi afisate in ordine aleatorie.
+                //Melodiile for fi extrase una cate una, in mod aleator
                 Random rnd = new Random();
                 int randomIndex = rnd.Next(0, melodii.Count);
                 Melodie random = melodii[randomIndex];
@@ -74,11 +82,11 @@ namespace Melodii.Forms.Sondaj
 
                 //Panoul pentru afisarea informatiilor despre melodie
                 Panel info = new Panel();
-                //info.AutoSize = true;
                 info.AutoScroll = true;
                 info.Width = panelSondaj.Width;
                 info.Height = panelSondaj.Height;
 
+                //Label pentru afisarea Denumirii
                 Label Denumire = new Label();
                 Denumire.Dock = DockStyle.Top;
                 Denumire.Text = random.Denumire;
@@ -86,7 +94,7 @@ namespace Melodii.Forms.Sondaj
                 Denumire.AutoSize = true;
                 Denumire.MaximumSize = new Size(panelSondaj.Width, 0);
 
-
+                //Label pentru afisarea Interpretului
                 Label Interpret = new Label();
                 Interpret.Dock = DockStyle.Top;
                 Interpret.Text = String.Format("\t" + random.Interpret);
@@ -95,6 +103,14 @@ namespace Melodii.Forms.Sondaj
                 Interpret.AutoSize = true;
                 Interpret.MaximumSize = new Size(panelSondaj.Width, 0);
 
+                //Label care va servi ca o bara de subliniere
+                Label bar = new Label();
+                bar.Height = 1;
+                bar.Dock = DockStyle.Top;
+                bar.Width = Denumire.Width;
+                bar.BackColor = Color.WhiteSmoke;
+
+                //Label pentru afisarea Genului Muzical
                 Label Gen = new Label();
                 Gen.Dock = DockStyle.Top;
                 Gen.Text = String.Format($"Genul muzical: {random.GenMuzical}");
@@ -105,9 +121,13 @@ namespace Melodii.Forms.Sondaj
                 Gen.AutoSize = true;
                 Gen.MaximumSize = new Size(panelSondaj.Width, 0);
 
+                //Panoul care va contine 2 elemente, 1: Textul "Pozitia in Top", 2: Un comboBox
+                //pentru alegerea pozitiei
                 Panel comboPanel = new Panel();
                 comboPanel.Dock = DockStyle.Top;
                 comboPanel.Padding = new Padding(20);
+
+                //Label pentru afisarea mesajului
                 Label Text = new Label();
                 Text.Dock = DockStyle.Left;
                 Text.Text = "Pozitia in TOP: ";
@@ -115,10 +135,11 @@ namespace Melodii.Forms.Sondaj
                 Text.ForeColor = Color.LightGray;
                 Text.AutoSize = true;
 
+                //ComboBox-ul pentru selectarea pozitiei
                 ComboBox cmbPozitieTop = new ComboBox();
                 cmbPozitieTop.Dock = DockStyle.Top;
                 cmbPozitieTop.MaximumSize = new Size(50, 50);
-                for(int i=1; i<=50; i++)
+                for(int i=1; i<=nrMelodiiInitial; i++)
                 {
                     cmbPozitieTop.Items.Add(i);
                 }
@@ -132,9 +153,9 @@ namespace Melodii.Forms.Sondaj
 
                 comboPanel.Controls.Add(cmbPozitieTop);
                 comboPanel.Controls.Add(Text);
-
                 info.Controls.Add(comboPanel);
 
+                //Label pentru afisarea informatiilor suplimentare
                 if (random.Informatii != "")
                 {
                     Label Informatii = new Label();
@@ -145,17 +166,10 @@ namespace Melodii.Forms.Sondaj
                     Informatii.Padding = new Padding(20);
                     Informatii.AutoSize = true;
                     Informatii.MaximumSize = new Size(panelSondaj.Width, 0);
-
                     info.Controls.Add(Informatii);
                 }
 
-                Label bar = new Label();
-                bar.Height = 1;
-                bar.Dock = DockStyle.Top;
-                bar.Width = Denumire.Width;
-                bar.BackColor = Color.WhiteSmoke;
-
-
+                //Inserarea elementelor mai sus declarate in panoul parinte
                 info.Controls.Add(Gen);
                 info.Controls.Add(bar);
                 info.Controls.Add(Interpret);
@@ -166,15 +180,16 @@ namespace Melodii.Forms.Sondaj
                 //UpComingPanel va fi panoul ce se va deplasa din dreapta catre mijlocul ecranului.
                 UpComingPanel = info;
                 UpComingPanel.Left = Width;
+
+                //Declansarea animatiei de schimbare a melodiei afisate
                 SlidingPanel.Start();
             }
         }
 
         private void ProcesareVot()
         {
-            //Remove melody from list
-            //build vot object
-            //insert vot into db and build sted by step the Sondaj object
+            //-----------------< Insereaza votul curent in baza de date si construieste pas cu pas obiectul [Sondaj] >-----------------
+
             if (CurrentId != -1)
                 melodii.RemoveAt(CurrentId);
             
@@ -186,28 +201,25 @@ namespace Melodii.Forms.Sondaj
                 lbMelodiiRamase.Text = "Melodii ramase: " + (melodii.Count()-1);
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-           
-        }
-
         private void cmb_ValueChanged(object sender, EventArgs e)
         {
-            Debug.WriteLine("Dogto");
+            //Odata ce a fost aleasa pozitia pentru melodia curenta, putem trece la urmatoarea melodie
             btNext.Enabled = true;
         }
+
         private void SlidingPanel_Tick(object sender, EventArgs e)
         {
+            //Deplasarea panourilor
             if (UpComingPanel.Left <= 10)
             {
-                UpgoingPanel.Dispose();
+                UpGoingPanel.Dispose();
                 UpComingPanel.Dock = DockStyle.Fill;
                 SlidingPanel.Stop();
             }
             else
             {
                 UpComingPanel.Left -= speed;
-                UpgoingPanel.Left -= speed+10;
+                UpGoingPanel.Left -= speed+10;
                 speed = UpComingPanel.Left / 15;
 
                 if (speed <= 1)
@@ -217,13 +229,14 @@ namespace Melodii.Forms.Sondaj
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void btNext_Click(object sender, EventArgs e)
         {
+            //Procesarea votului curent si alegerea urmatoarei melodii
             ProcesareVot();
             RandomMelodie();
             (sender as Button).Enabled = false;
 
-
+            //Incrementarea progressBar-ului
             if (melodii.Count() == 0)
                 lbProgessBar.Width = Width;
             else
@@ -232,6 +245,7 @@ namespace Melodii.Forms.Sondaj
 
         private void SondajForm_Resize(object sender, EventArgs e)
         {
+            //Ajustarea progressBar-ului atunci cand fereastra este redimensionata.
             lbProgessBar.Left = 0;
             if (melodii.Count == 0)
             {
@@ -242,7 +256,6 @@ namespace Melodii.Forms.Sondaj
                 int IntrebariParcurse = nrMelodiiInitial - melodii.Count();
                 lbProgessBar.Width = IntrebariParcurse * (int)(Width / 100 * (double.Parse(lbProgessBar.Tag.ToString())));
             }
-            
         }
     }
 }
