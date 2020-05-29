@@ -10,13 +10,13 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using static Melodii.DesignFunctionalities;
+using static Melodii.DB_Methods;
 
 namespace Melodii.Forms
 {
     public partial class VeziParticipantiForm : Form
     {
         private static List<Participant> participanti = new List<Participant>();
-        private static string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" + Directory.GetCurrentDirectory() + @"\Database.mdf;Integrated Security=True";
         bool formMinimized = false;
         public VeziParticipantiForm()
         {
@@ -33,38 +33,9 @@ namespace Melodii.Forms
 
         private void LoadData()
         {
-            string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" + Directory.GetCurrentDirectory() + @"\Database.mdf;Integrated Security=True";
-            SqlConnection Connection = new SqlConnection(connectionString);
-
             try
             {
-                //----------------------------< Extragerea datelor din BD >-------------------------
-
-                //Stabilirea conexiunii
-                Connection.Open();
-
-                //Crerea unui obiect de tip DataAdapter pentru conectarea DataSet-ului
-                //cu baza de date.
-                SqlDataAdapter daParticipanti = new SqlDataAdapter("SELECT * FROM PARTICIPANTI", Connection);
-                DataSet dsParticipanti = new DataSet("Participanti");
-                daParticipanti.Fill(dsParticipanti, "Participanti");
-                DataTable tblParticipanti = dsParticipanti.Tables["Participanti"];
-
-                //Acum avem datele din tabela Melodii din baza de date in obiectul tblMelodii.
-                //Trecem la popularea listei.
-
-                participanti.Clear();
-                foreach (DataRow drParticipant in tblParticipanti.Rows)
-                {
-                    participanti.Add(new Participant
-                    {
-                        IdParticipant = int.Parse(drParticipant["IdParticipant"].ToString()),
-                        Nume = drParticipant["Nume"].ToString(),
-                        Scor = int.Parse(drParticipant["Scor"].ToString()),
-                        Informatii = drParticipant["Informatii"].ToString(),
-                        Varsta = int.Parse(drParticipant["Varsta"].ToString())
-                    });
-                }
+                LoadParticipanti(ref participanti);
 
                 //Sortarea listei participantilor
                 participanti.Sort((x, y) => x.Scor.CompareTo(y.Scor));
@@ -78,12 +49,6 @@ namespace Melodii.Forms
                 Debug.WriteLine(ex.Message);
                 lbError.Text = "Ne pare rau, s-a produs o eroare la incarcarea datelor.";
             }
-            finally
-            {
-                if (Connection.State == ConnectionState.Open)
-                    Connection.Close();
-            }
-
         }
 
         #region DesignMethods
@@ -322,23 +287,15 @@ namespace Melodii.Forms
             Form Messagebox = new MessageBox();
             int idParticipant = int.Parse((sender as Button).Tag.ToString());
             string Denumire = participanti.First(m => m.IdParticipant == idParticipant).Nume;
-            Messagebox.Tag = String.Format("Sunteti sigur ca doriti sa excludeti melodia {0}?", Denumire);
+            Messagebox.Tag = String.Format("Sunteti sigur ca doriti sa excludeti participantul {0}?", Denumire);
             Messagebox.ShowDialog();
 
             if (Messagebox.DialogResult == DialogResult.OK)
             {
                 //Eliminarea participantului din baza de date
-                
-                SqlConnection Connection = new SqlConnection(connectionString);
                 try
                 {
-                    SqlCommand sqlcDelete = new SqlCommand("DELETE FROM PARTICIPANTI WHERE IDPARTICIPANT = @IdParticipant", Connection);
-                    SqlParameter parIdParticipant = new SqlParameter("@IdParticipant", idParticipant);
-                    sqlcDelete.Parameters.Add(parIdParticipant);
-
-                    Connection.Open();
-                    sqlcDelete.ExecuteNonQuery();
-                    Connection.Close();
+                    RemoveParticipant(idParticipant);
                     LoadData();
                     panelInfo.Controls.Clear();
                 }
@@ -346,11 +303,6 @@ namespace Melodii.Forms
                 {
                     Debug.WriteLine(ex.Message);
                     lbError.Text = "Ne pare rau, s-a produs o eroare, participantul nu a fost exclus.";
-                }
-                finally
-                {
-                    if (Connection.State == ConnectionState.Open)
-                        Connection.Close();
                 }
             }
         }
@@ -361,16 +313,9 @@ namespace Melodii.Forms
             //pe baza participantului ales.
             //Pentru inceput se verifca daca exists melodii in baza de date, dupa care se trece
             //nemijlocit la initializarea si ulterior desfasurarea sondajului.
-
-            SqlConnection Connection = new SqlConnection(connectionString);
             try
             {
-                SqlCommand sqlCount = new SqlCommand("SELECT COUNT(*) FROM MELODII", Connection);
-
-                Connection.Open();
-                int nrMelodii = (int)sqlCount.ExecuteScalar();
-                Connection.Close();
-
+                int nrMelodii = NrMelodii();
                 if (nrMelodii == 0)
                 {
                     lbError.Text = "Ne pare rau, nu exista melodii in baza de date pentru a incepe sondajul.";
@@ -391,11 +336,6 @@ namespace Melodii.Forms
             {
                 Debug.WriteLine(ex.Message);
                 lbError.Text = "Ne pare rau, s-a produs o eroare.";
-            }
-            finally
-            {
-                if (Connection.State == ConnectionState.Open)
-                    Connection.Close();
             }
         }
         #endregion

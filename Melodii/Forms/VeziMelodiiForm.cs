@@ -312,17 +312,9 @@ namespace Melodii.Forms
             if (Messagebox.DialogResult == DialogResult.OK)
             {
                 //Eliminarea melodiei din baza de date
-                string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" + Directory.GetCurrentDirectory() + @"\Database.mdf;Integrated Security=True";
-                SqlConnection Connection = new SqlConnection(connectionString);
                 try
                 {
-                    SqlCommand sqlcDelete = new SqlCommand("DELETE FROM MELODII WHERE IDMELODIE = @IdMelodie", Connection);
-                    SqlParameter parIdMelodie = new SqlParameter("@IdMelodie", idMelodie);
-                    sqlcDelete.Parameters.Add(parIdMelodie);
-
-                    Connection.Open();
-                    sqlcDelete.ExecuteNonQuery();
-                    Connection.Close();
+                    RemoveMelodie(idMelodie);
                     LoadData();
                     panelInfo.Controls.Clear();
                 }
@@ -330,11 +322,6 @@ namespace Melodii.Forms
                 {
                     Debug.WriteLine(ex.Message);
                     lbError.Text = "Ne pare rau, s-a produs o eroare, melodia nu a fost exclusa.";
-                }
-                finally
-                {
-                    if (Connection.State == ConnectionState.Open)
-                        Connection.Close();
                 }
             }
         }

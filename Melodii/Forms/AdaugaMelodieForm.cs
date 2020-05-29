@@ -12,9 +12,11 @@ using System.Diagnostics.Eventing.Reader;
 using System.Drawing.Drawing2D;
 using Melodii.Forms;
 using static Melodii.DesignFunctionalities;
+using static Melodii.DB_Methods;
 using System.Data.SqlClient;
 using System.IO;
 using System.Threading;
+using Melodii.Models;
 
 namespace Melodii.Forms
 {
@@ -49,39 +51,16 @@ namespace Melodii.Forms
 
                 try
                 {
-                    //Deschiderea unei conexiuni si construirea comenzii de insereare a datelor.
-                    string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" + Directory.GetCurrentDirectory() + @"\Database.mdf;Integrated Security=True";
-                    SqlConnection Connection = new SqlConnection(connectionString);
+                    Melodie melodie = new Melodie
+                    {
+                        Denumire = tbDenumire.Text,
+                        GenMuzical = tbGen.Text,
+                        Interpret = tbInterpret.Text,
+                        Puncte = int.Parse(tbPuncte.Text),
+                        Informatii = (tbInformatii.Text.Trim() == tbInformatii.Tag.ToString()) ? null : tbInformatii.Text,
+                    };
 
-                    //Vom folosi parametri sql pentru ca aplicatia sa fie imuna atacurilor de tip SQL Injection
-                    SqlCommand cmd = new SqlCommand("INSERT INTO MELODII" +
-                    "(Denumire, Interpret, Puncte, Informatii, GenMuzical)" +
-                    "VALUES" +
-                    "(@Denumire, @Interpret, @Puncte, @Informatii, @GenMuzical); ", Connection);
-                    SqlParameter parDenumire = new SqlParameter("@Denumire", tbDenumire.Text);
-                    cmd.Parameters.Add(parDenumire);
-                    
-                    SqlParameter parInterpret = new SqlParameter("@Interpret", tbInterpret.Text);
-                    cmd.Parameters.Add(parInterpret);
-                    
-                    SqlParameter parPuncte = new SqlParameter("@Puncte", int.Parse(tbPuncte.Text));
-                    cmd.Parameters.Add(parPuncte);
-                    
-                    SqlParameter parInformatii;
-                    if (tbInformatii.Text != tbInformatii.Tag.ToString())
-                        parInformatii = new SqlParameter("@Informatii", tbInformatii.Text);
-                    else
-                        parInformatii = new SqlParameter("@Informatii", DBNull.Value);
-                    cmd.Parameters.Add(parInformatii);
-                    
-                    SqlParameter parGenMuzical = new SqlParameter("@GenMuzical", tbGen.Text);
-                    cmd.Parameters.Add(parGenMuzical);
-
-                    //Executarea comenzii INSERT
-                    if (Connection.State != ConnectionState.Open)
-                        Connection.Open();
-                    cmd.ExecuteNonQuery();
-                    Connection.Close();
+                    InsertMelodie(melodie);
                 }
                 catch (Exception)
                 { 

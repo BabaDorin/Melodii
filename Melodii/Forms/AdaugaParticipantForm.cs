@@ -8,10 +8,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static Melodii.DesignFunctionalities;
+using static Melodii.DB_Methods;
 using System.Data.SqlClient;
 using System.IO;
 using System.Reflection.Emit;
 using System.Diagnostics;
+using Melodii.Models;
 
 namespace Melodii.Forms
 {
@@ -33,7 +35,6 @@ namespace Melodii.Forms
             //Valideaza datele
             //Daca totul este ok, datele sunt salvate in baza de date, iar in locul acestei forme
             //este afisat un mesaj de succes pentru 1 secunda, dupa care forma va reveni avand campurile goale.
-
             try
             {
                 //-----------------------------------< Validare >-----------------------------------
@@ -58,39 +59,18 @@ namespace Melodii.Forms
 
                 try
                 {
-                    string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" + Directory.GetCurrentDirectory() + @"\Database.mdf;Integrated Security=True";
-                    SqlConnection Connection = new SqlConnection(connectionString);
+                    int Scor;
+                    if (!int.TryParse(tbScor.Text, out Scor))
+                        Scor = 0;
+                    Participant participant = new Participant
+                    {
+                        Nume = tbNume.Text,
+                        Scor = Scor,
+                        Informatii = (tbInformatii.Text.Trim() == tbInformatii.Tag.ToString()) ? null : tbInformatii.Text,
+                        Varsta = int.Parse(tbVarsta.Text)
+                    };
 
-                    //Vom folosi parametri sql pentru ca aplicatia sa fie imuna atacurilor de tip SQL Injection
-                    SqlCommand cmd = new SqlCommand("INSERT INTO PARTICIPANTI" +
-                    "(Nume, Scor, Informatii, Varsta)" +
-                    "VALUES" +
-                    "(@Nume, @Scor, @Informatii, @Varsta); ", Connection);
-                    SqlParameter parNume = new SqlParameter("@Nume", tbNume.Text);
-                    cmd.Parameters.Add(parNume);
-
-                    SqlParameter parScor;
-                    if (tbScor.Text != tbScor.Tag.ToString())
-                        parScor = new SqlParameter("@Scor", tbScor.Text);
-                    else
-                        parScor = new SqlParameter("@Scor", "0");
-                    cmd.Parameters.Add(parScor);
-
-                    SqlParameter parInformatii;
-                    if (tbInformatii.Text != tbInformatii.Tag.ToString())
-                        parInformatii = new SqlParameter("@Informatii", tbInformatii.Text);
-                    else
-                        parInformatii = new SqlParameter("@Informatii", DBNull.Value);
-                    cmd.Parameters.Add(parInformatii);
-
-                    SqlParameter parVarsta = new SqlParameter("@Varsta", int.Parse(tbVarsta.Text));
-                    cmd.Parameters.Add(parVarsta);
-
-                    //Executarea comenzii INSERT
-                    if (Connection.State != ConnectionState.Open)
-                        Connection.Open();
-                    cmd.ExecuteNonQuery();
-                    Connection.Close();
+                    InsertParticipant(participant);
                 }
                 catch (Exception ex)
                 {
