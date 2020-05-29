@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.label = new System.Windows.Forms.Label();
             this.lbParticipant = new System.Windows.Forms.Label();
             this.lbMelodiiRamase = new System.Windows.Forms.Label();
@@ -35,6 +36,7 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.panelSondaj = new System.Windows.Forms.Panel();
             this.button1 = new System.Windows.Forms.Button();
+            this.SlidingPanel = new System.Windows.Forms.Timer(this.components);
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -111,6 +113,11 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // SlidingPanel
+            // 
+            this.SlidingPanel.Interval = 1;
+            this.SlidingPanel.Tick += new System.EventHandler(this.SlidingPanel_Tick);
+            // 
             // SondajForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -140,5 +147,6 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panelSondaj;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Timer SlidingPanel;
     }
 }

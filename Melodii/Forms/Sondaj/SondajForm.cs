@@ -16,13 +16,16 @@ namespace Melodii.Forms.Sondaj
     {
         private static List<Melodie> melodii = new List<Melodie>();
         private static int CurrentId = 0;
+        private static Panel UpgoingPanel;
+        private static Panel UpComingPanel;
+        private static int speed;
         public SondajForm(int IdParticipant)
         {
             InitializeComponent();
             label.Left = Width / 2 - label.Width / 2;
             lbMelodiiRamase.Left = Width / 2 - lbMelodiiRamase.Width / 2;
             lbParticipant.Left = Width / 2 - lbParticipant.Width / 2;
-            
+            speed = Width / 10;
             //Extragerea melodiilor din baza de date
             DB_Methods.LoadMelodii(ref melodii);
         }
@@ -42,10 +45,24 @@ namespace Melodii.Forms.Sondaj
                 int randomIndex = rnd.Next(0, melodii.Count - 1);
                 Melodie random = melodii[randomIndex];
 
+                Panel info = new Panel();
+
                 Label lb = new Label();
                 lb.Text = random.Denumire;
-                panelSondaj.Controls.Add(lb);
                 CurrentId = randomIndex;
+                info.Controls.Add(lb);
+
+                info.Left = (UpgoingPanel == null) ? 0 : this.Width;
+                panelSondaj.Controls.Add(info);
+
+                if (UpgoingPanel == null)
+                    UpgoingPanel = info;
+                else
+                {
+                    UpComingPanel = info;
+                    UpgoingPanel = UpComingPanel;
+                    SlidingPanel.Start();
+                }
             }
         }
 
@@ -62,6 +79,22 @@ namespace Melodii.Forms.Sondaj
         {
             ProcesareVot();
             RandomMelodie();
+        }
+
+        private void SlidingPanel_Tick(object sender, EventArgs e)
+        {
+            if(UpComingPanel != null)
+            {
+                if (UpComingPanel.Left <= 10)
+                {
+                    SlidingPanel.Stop();
+                }
+                UpComingPanel.Left += -speed;
+                UpgoingPanel.Left += -speed;
+                speed = UpComingPanel.Left / 20;
+                if (speed < 1)
+                    speed = 1;
+            }
         }
     }
 }
