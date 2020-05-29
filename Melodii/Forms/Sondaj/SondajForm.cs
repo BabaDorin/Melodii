@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Melodii.Models;
+using System.Diagnostics;
 using static Melodii.DB_Methods;
 
 namespace Melodii.Forms.Sondaj
@@ -43,12 +44,23 @@ namespace Melodii.Forms.Sondaj
             }
             else
             {
-                panelSondaj.Controls.Clear();
+                //UpgoingPanel este panoul care va iesi din limitele ecranului atunci cand
+                //se va trece la urmatoarea melodie
+                if (UpgoingPanel == null)
+                {
+                    Panel empty = new Panel();
+                    empty.Width = panelSondaj.Width;
+                    panelSondaj.Controls.Add(empty);
+                }else
+                    UpgoingPanel.Dispose();
+                UpgoingPanel = panelSondaj.Controls[0] as Panel;
+                UpgoingPanel.Dock = DockStyle.None;
 
                 //Melodiile for fi afisate in ordine aleatorie.
                 Random rnd = new Random();
-                int randomIndex = rnd.Next(0, melodii.Count - 1);
+                int randomIndex = rnd.Next(0, melodii.Count);
                 Melodie random = melodii[randomIndex];
+                Debug.WriteLine(randomIndex);
                 CurrentId = randomIndex;
 
                 //Panoul pentru afisarea informatiilor despre melodie
@@ -74,10 +86,11 @@ namespace Melodii.Forms.Sondaj
                 Gen.Text = String.Format($"Genul muzical: {random.GenMuzical}");
                 Gen.Font = new Font("Leelawadee", 13);
                 Gen.ForeColor = Color.LightGray;
+                Gen.MaximumSize = new Size(info.Width, 0);
                 Gen.Padding = new Padding(20);
                 Gen.AutoSize = true;
 
-                if (random.Informatii != null)
+                if (random.Informatii != "")
                 {
                     Label Informatii = new Label();
                     Informatii.Dock = DockStyle.Top;
@@ -86,29 +99,29 @@ namespace Melodii.Forms.Sondaj
                     Informatii.ForeColor = Color.LightGray;
                     Informatii.Padding = new Padding(20);
                     Informatii.AutoSize = true;
+                    Informatii.MaximumSize = new Size(panelSondaj.Width, 0);
 
                     info.Controls.Add(Informatii);
                 }
-                
+
+                Label bar = new Label();
+                bar.Height = 1;
+                bar.Dock = DockStyle.Top;
+                bar.Width = Denumire.Width;
+                bar.BackColor = Color.WhiteSmoke;
+
 
                 info.Controls.Add(Gen);
+                info.Controls.Add(bar);
                 info.Controls.Add(Interpret);
                 info.Controls.Add(Denumire);
-
-                info.Left = (UpgoingPanel == null) ? 0 : this.Width;
                 panelSondaj.Controls.Add(info);
+                speed = Width / 15;
 
-                if(UpComingPanel == null)
-                {
-                    UpComingPanel = info;
-                    UpComingPanel.Left = 10;
-                }else
-                {
-                    UpComingPanel = info;
-                    UpComingPanel.Left = Width;
-                    speed = Width / 15;
-                    SlidingPanel.Start();
-                }
+                //UpComingPanel va fi panoul ce se va deplasa din dreapta catre mijlocul ecranului.
+                UpComingPanel = info;
+                UpComingPanel.Left = Width;
+                SlidingPanel.Start();
             }
         }
 
@@ -129,17 +142,22 @@ namespace Melodii.Forms.Sondaj
 
         private void SlidingPanel_Tick(object sender, EventArgs e)
         {
-            if(UpComingPanel != null)
+            if (UpComingPanel.Left <= 10)
             {
-                if (UpComingPanel.Left <= 10)
-                {
-                    SlidingPanel.Stop();
-                    UpComingPanel.Dock = DockStyle.Fill;
-                }
+                UpgoingPanel.Dispose();
+                UpComingPanel.Dock = DockStyle.Fill;
+                SlidingPanel.Stop();
+            }
+            else
+            {
                 UpComingPanel.Left -= speed;
+                UpgoingPanel.Left -= speed+10;
                 speed = UpComingPanel.Left / 15;
-                if (speed < 1)
+
+                if (speed <= 1)
+                {
                     speed = 1;
+                }
             }
         }
     }

@@ -110,6 +110,7 @@
             this.panelSondaj.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelSondaj.Location = new System.Drawing.Point(0, 162);
             this.panelSondaj.Name = "panelSondaj";
+            this.panelSondaj.Padding = new System.Windows.Forms.Padding(10, 0, 10, 0);
             this.panelSondaj.Size = new System.Drawing.Size(771, 435);
             this.panelSondaj.TabIndex = 17;
             // 

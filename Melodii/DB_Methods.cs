@@ -47,7 +47,8 @@ namespace Melodii
                         Denumire = drMelodie["Denumire"].ToString(),
                         Interpret = drMelodie["Interpret"].ToString(),
                         Puncte = int.Parse(drMelodie["Puncte"].ToString()),
-                        Informatii = drMelodie["Informatii"].ToString()
+                        Informatii = drMelodie["Informatii"].ToString(),
+                        GenMuzical = drMelodie["GenMuzical"].ToString()
                     });
                 }
             }
