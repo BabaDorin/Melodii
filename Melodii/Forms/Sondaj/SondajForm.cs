@@ -24,6 +24,8 @@ namespace Melodii.Forms.Sondaj
         public SondajForm(int IdParticipant)
         {
             InitializeComponent();
+            panelSondaj.Controls.Clear();
+            UpgoingPanel = null;
             label.Left = Width / 2 - label.Width / 2;
             lbMelodiiRamase.Left = Width / 2 - lbMelodiiRamase.Width / 2;
             lbParticipant.Left = Width / 2 - lbParticipant.Width / 2;
@@ -65,14 +67,17 @@ namespace Melodii.Forms.Sondaj
 
                 //Panoul pentru afisarea informatiilor despre melodie
                 Panel info = new Panel();
+                info.AutoSize = true;
+                info.AutoScroll = true;
                 info.Width = panelSondaj.Width;
-                info.Height = panelSondaj.Height;
 
                 Label Denumire = new Label();
                 Denumire.Dock = DockStyle.Top;
                 Denumire.Text = random.Denumire;
                 Denumire.Font = new Font("Leelawadee", 20);
                 Denumire.AutoSize = true;
+                Denumire.MaximumSize = new Size(panelSondaj.Width, 0);
+
 
                 Label Interpret = new Label();
                 Interpret.Dock = DockStyle.Top;
@@ -80,6 +85,7 @@ namespace Melodii.Forms.Sondaj
                 Interpret.Font = new Font("Leelawadee", 15);
                 Interpret.ForeColor = Color.LightGray;
                 Interpret.AutoSize = true;
+                Interpret.MaximumSize = new Size(panelSondaj.Width, 0);
 
                 Label Gen = new Label();
                 Gen.Dock = DockStyle.Top;
@@ -89,6 +95,7 @@ namespace Melodii.Forms.Sondaj
                 Gen.MaximumSize = new Size(info.Width, 0);
                 Gen.Padding = new Padding(20);
                 Gen.AutoSize = true;
+                Gen.MaximumSize = new Size(panelSondaj.Width, 0);
 
                 if (random.Informatii != "")
                 {
