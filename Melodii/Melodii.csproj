@@ -85,6 +85,12 @@
     <Compile Include="Forms\AdaugaParticipantForm.Designer.cs">
       <DependentUpon>AdaugaParticipantForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\CreazaSondajForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CreazaSondajForm.Designer.cs">
+      <DependentUpon>CreazaSondajForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\HomeForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -111,6 +117,7 @@
     </Compile>
     <Compile Include="Models\Melodie.cs" />
     <Compile Include="Models\Participant.cs" />
+    <Compile Include="Models\Sondaj.cs" />
     <Compile Include="Models\Vot.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -122,6 +129,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\AdaugaParticipantForm.resx">
       <DependentUpon>AdaugaParticipantForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CreazaSondajForm.resx">
+      <DependentUpon>CreazaSondajForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\HomeForm.resx">
       <DependentUpon>HomeForm.cs</DependentUpon>

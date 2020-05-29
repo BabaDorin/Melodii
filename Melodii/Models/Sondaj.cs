@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Melodii.Models
 {
-    class Vot
+    class Sondaj
     {
-        public int IdVot { get; set; }
-        public int IdParticipant { get; set; }
-        public int IdMelodie { get; set; }
-        public int ScorVot { get; set; }
         public int IdSondaj { get; set; }
+        public DateTime Data { get; set; }
+        public IEnumerable<Vot> Voturi { get; set; }
     }
 }
