@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using Melodii.Models;
 using System.Diagnostics;
 using static Melodii.DB_Methods;
+using System.IO.IsolatedStorage;
 
 namespace Melodii.Forms.Sondaj
 {
@@ -21,6 +22,7 @@ namespace Melodii.Forms.Sondaj
         private static Panel UpgoingPanel;
         private static Panel UpComingPanel;
         private static int speed;
+
         public SondajForm(int IdParticipant)
         {
             InitializeComponent();
@@ -34,6 +36,11 @@ namespace Melodii.Forms.Sondaj
             //Extragerea melodiilor din baza de date
             DB_Methods.LoadMelodii(ref melodii);
             nrMelodiiInitial = melodii.Count();
+            lbMelodiiRamase.Text = "Melodii ramase: " + (nrMelodiiInitial-1);
+            lbProgessBar.Width = 0;
+            lbProgessBar.Tag = (100 / (nrMelodiiInitial-1)).ToString();
+            btNext.Enabled = false;
+
             RandomMelodie();
         }
 
@@ -67,9 +74,10 @@ namespace Melodii.Forms.Sondaj
 
                 //Panoul pentru afisarea informatiilor despre melodie
                 Panel info = new Panel();
-                info.AutoSize = true;
+                //info.AutoSize = true;
                 info.AutoScroll = true;
                 info.Width = panelSondaj.Width;
+                info.Height = panelSondaj.Height;
 
                 Label Denumire = new Label();
                 Denumire.Dock = DockStyle.Top;
@@ -96,6 +104,36 @@ namespace Melodii.Forms.Sondaj
                 Gen.Padding = new Padding(20);
                 Gen.AutoSize = true;
                 Gen.MaximumSize = new Size(panelSondaj.Width, 0);
+
+                Panel comboPanel = new Panel();
+                comboPanel.Dock = DockStyle.Top;
+                comboPanel.Padding = new Padding(20);
+                Label Text = new Label();
+                Text.Dock = DockStyle.Left;
+                Text.Text = "Pozitia in TOP: ";
+                Text.Font = new Font("Leelawadee", 15);
+                Text.ForeColor = Color.LightGray;
+                Text.AutoSize = true;
+
+                ComboBox cmbPozitieTop = new ComboBox();
+                cmbPozitieTop.Dock = DockStyle.Top;
+                cmbPozitieTop.MaximumSize = new Size(50, 50);
+                for(int i=1; i<=50; i++)
+                {
+                    cmbPozitieTop.Items.Add(i);
+                }
+                cmbPozitieTop.BackColor = Color.FromArgb(10, 7, 36);
+                cmbPozitieTop.Font = new Font("Leelawadee", 15);
+                cmbPozitieTop.ForeColor = Color.WhiteSmoke;
+                cmbPozitieTop.DropDownStyle = ComboBoxStyle.DropDownList;
+                cmbPozitieTop.Width = 50;
+                cmbPozitieTop.Dock = DockStyle.Left;
+                cmbPozitieTop.SelectedValueChanged += cmb_ValueChanged;
+
+                comboPanel.Controls.Add(cmbPozitieTop);
+                comboPanel.Controls.Add(Text);
+
+                info.Controls.Add(comboPanel);
 
                 if (random.Informatii != "")
                 {
@@ -139,14 +177,25 @@ namespace Melodii.Forms.Sondaj
             //insert vot into db and build sted by step the Sondaj object
             if (CurrentId != -1)
                 melodii.RemoveAt(CurrentId);
+            
+            if(melodii.Count() == 0)
+            {
+                lbMelodiiRamase.Text = "";
+            }
+            else
+                lbMelodiiRamase.Text = "Melodii ramase: " + (melodii.Count()-1);
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            ProcesareVot();
-            RandomMelodie();
+           
         }
 
+        private void cmb_ValueChanged(object sender, EventArgs e)
+        {
+            Debug.WriteLine("Dogto");
+            btNext.Enabled = true;
+        }
         private void SlidingPanel_Tick(object sender, EventArgs e)
         {
             if (UpComingPanel.Left <= 10)
@@ -166,6 +215,34 @@ namespace Melodii.Forms.Sondaj
                     speed = 1;
                 }
             }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            ProcesareVot();
+            RandomMelodie();
+            (sender as Button).Enabled = false;
+
+
+            if (melodii.Count() == 0)
+                lbProgessBar.Width = Width;
+            else
+                lbProgessBar.Width += (int)(Width / 100 * (double.Parse(lbProgessBar.Tag.ToString())));
+        }
+
+        private void SondajForm_Resize(object sender, EventArgs e)
+        {
+            lbProgessBar.Left = 0;
+            if (melodii.Count == 0)
+            {
+                lbProgessBar.Width = Width;
+            }
+            else
+            {
+                int IntrebariParcurse = nrMelodiiInitial - melodii.Count();
+                lbProgessBar.Width = IntrebariParcurse * (int)(Width / 100 * (double.Parse(lbProgessBar.Tag.ToString())));
+            }
+            
         }
     }
 }

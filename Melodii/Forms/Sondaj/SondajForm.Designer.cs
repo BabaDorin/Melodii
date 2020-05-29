@@ -33,11 +33,13 @@
             this.lbParticipant = new System.Windows.Forms.Label();
             this.lbMelodiiRamase = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.lbProgessBar = new System.Windows.Forms.Label();
+            this.btNext = new System.Windows.Forms.Button();
             this.panelSondaj = new System.Windows.Forms.Panel();
             this.SlidingPanel = new System.Windows.Forms.Timer(this.components);
             this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // label
@@ -76,7 +78,6 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.label);
             this.panel1.Controls.Add(this.lbMelodiiRamase);
             this.panel1.Controls.Add(this.lbParticipant);
@@ -86,33 +87,48 @@
             this.panel1.Size = new System.Drawing.Size(771, 162);
             this.panel1.TabIndex = 16;
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(513, 52);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(7)))), ((int)(((byte)(36)))));
+            this.panel2.Controls.Add(this.lbProgessBar);
+            this.panel2.Controls.Add(this.btNext);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(0, 597);
+            this.panel2.Location = new System.Drawing.Point(0, 527);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(771, 15);
+            this.panel2.Size = new System.Drawing.Size(771, 85);
             this.panel2.TabIndex = 16;
+            // 
+            // lbProgessBar
+            // 
+            this.lbProgessBar.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.lbProgessBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(190)))), ((int)(((byte)(0)))));
+            this.lbProgessBar.Location = new System.Drawing.Point(-3, 68);
+            this.lbProgessBar.Name = "lbProgessBar";
+            this.lbProgessBar.Size = new System.Drawing.Size(0, 5);
+            this.lbProgessBar.TabIndex = 0;
+            // 
+            // btNext
+            // 
+            this.btNext.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btNext.FlatAppearance.BorderSize = 0;
+            this.btNext.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btNext.Font = new System.Drawing.Font("Leelawadee", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btNext.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.btNext.Location = new System.Drawing.Point(0, 0);
+            this.btNext.Name = "btNext";
+            this.btNext.Size = new System.Drawing.Size(771, 52);
+            this.btNext.TabIndex = 0;
+            this.btNext.Text = "Urmatoarea melodie";
+            this.btNext.UseVisualStyleBackColor = true;
+            this.btNext.Click += new System.EventHandler(this.button2_Click);
             // 
             // panelSondaj
             // 
-            this.panelSondaj.AutoSize = true;
             this.panelSondaj.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelSondaj.Location = new System.Drawing.Point(0, 162);
             this.panelSondaj.Name = "panelSondaj";
             this.panelSondaj.Padding = new System.Windows.Forms.Padding(10, 0, 10, 0);
-            this.panelSondaj.Size = new System.Drawing.Size(771, 435);
+            this.panelSondaj.Size = new System.Drawing.Size(771, 365);
             this.panelSondaj.TabIndex = 17;
             // 
             // SlidingPanel
@@ -134,10 +150,11 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "SondajForm";
             this.Text = "SondajForm";
+            this.Resize += new System.EventHandler(this.SondajForm_Resize);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -149,7 +166,8 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panelSondaj;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Timer SlidingPanel;
+        private System.Windows.Forms.Button btNext;
+        private System.Windows.Forms.Label lbProgessBar;
     }
 }
