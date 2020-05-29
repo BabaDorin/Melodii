@@ -40,6 +40,7 @@
             this.timerSlidingBar = new System.Windows.Forms.Timer(this.components);
             this.timerSlideInDetails = new System.Windows.Forms.Timer(this.components);
             this.btVarsta18 = new System.Windows.Forms.Button();
+            this.btnTop5 = new System.Windows.Forms.Button();
             this.panelParticipanti.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -146,12 +147,29 @@
             this.btVarsta18.UseVisualStyleBackColor = false;
             this.btVarsta18.Click += new System.EventHandler(this.btVarsta18_Click);
             // 
+            // btnTop5
+            // 
+            this.btnTop5.AutoSize = true;
+            this.btnTop5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(7)))), ((int)(((byte)(36)))));
+            this.btnTop5.FlatAppearance.BorderSize = 0;
+            this.btnTop5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnTop5.Font = new System.Drawing.Font("Leelawadee", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTop5.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.btnTop5.Location = new System.Drawing.Point(152, 110);
+            this.btnTop5.Name = "btnTop5";
+            this.btnTop5.Size = new System.Drawing.Size(128, 26);
+            this.btnTop5.TabIndex = 17;
+            this.btnTop5.Text = "Top 5 participanti";
+            this.btnTop5.UseVisualStyleBackColor = false;
+            this.btnTop5.Click += new System.EventHandler(this.btnTop5_Click);
+            // 
             // VeziParticipantiForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(7)))), ((int)(((byte)(36)))));
             this.ClientSize = new System.Drawing.Size(771, 612);
+            this.Controls.Add(this.btnTop5);
             this.Controls.Add(this.btVarsta18);
             this.Controls.Add(this.lbError);
             this.Controls.Add(this.panelInfo);
@@ -183,5 +201,6 @@
         private System.Windows.Forms.Timer timerSlidingBar;
         private System.Windows.Forms.Timer timerSlideInDetails;
         private System.Windows.Forms.Button btVarsta18;
+        private System.Windows.Forms.Button btnTop5;
     }
 }

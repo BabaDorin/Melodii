@@ -159,6 +159,8 @@ namespace Melodii.Forms
             panelInfo.Left = panelParticipanti.Right + 50;
             panelInfo.Width = this.Right - panelInfo.Left - 20;
             btVarsta18.Left = panelParticipanti.Right - btVarsta18.Width;
+            btnTop5.Left = btVarsta18.Left - btnTop5.Width;
+
             if (lastParticipantWidth > panelParticipanti.Width)
                 formMinimized = true;
             else
@@ -407,6 +409,18 @@ namespace Melodii.Forms
             }
 
             GenerateButtons(participanti, panelParticipantiButtons);
+        }
+
+        private void btnTop5_Click(object sender, EventArgs e)
+        {
+            //Lista participantilor deja este sortata dupa scor in ordine crescatoare. Pentru a 
+            //ramane doar cu top 5 participanti, in lista trebuie sa ramana doar ultimii 5 participanti.
+
+            if (participanti.Count > 5)
+            {
+                participanti.RemoveRange(0, participanti.Count - 5);
+                GenerateButtons(participanti, panelParticipantiButtons);
+            }
         }
     }
 }
