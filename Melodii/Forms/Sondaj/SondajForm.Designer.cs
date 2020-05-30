@@ -93,16 +93,16 @@
             this.panel2.Controls.Add(this.lbProgessBar);
             this.panel2.Controls.Add(this.btNext);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(0, 527);
+            this.panel2.Location = new System.Drawing.Point(0, 548);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(771, 85);
+            this.panel2.Size = new System.Drawing.Size(771, 64);
             this.panel2.TabIndex = 16;
             // 
             // lbProgessBar
             // 
             this.lbProgessBar.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.lbProgessBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(190)))), ((int)(((byte)(0)))));
-            this.lbProgessBar.Location = new System.Drawing.Point(-3, 68);
+            this.lbProgessBar.Location = new System.Drawing.Point(-3, 47);
             this.lbProgessBar.Name = "lbProgessBar";
             this.lbProgessBar.Size = new System.Drawing.Size(0, 5);
             this.lbProgessBar.TabIndex = 0;
@@ -128,7 +128,7 @@
             this.panelSondaj.Location = new System.Drawing.Point(0, 162);
             this.panelSondaj.Name = "panelSondaj";
             this.panelSondaj.Padding = new System.Windows.Forms.Padding(10, 0, 10, 0);
-            this.panelSondaj.Size = new System.Drawing.Size(771, 365);
+            this.panelSondaj.Size = new System.Drawing.Size(771, 386);
             this.panelSondaj.TabIndex = 17;
             // 
             // SlidingPanel

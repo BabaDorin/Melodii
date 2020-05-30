@@ -17,7 +17,7 @@ namespace Melodii.Models
     class RezultateSondaj
     {
         public string Participant { get; set; }
-        public List<Rezultat> Rezultate { get; set; }
+        public List<Rezultat> Rezultate = new List<Rezultat>();
         public int ScorFinal { get; set; }
     }
 }

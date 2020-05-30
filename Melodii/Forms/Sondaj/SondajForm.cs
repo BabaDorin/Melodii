@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using Melodii.Models;
 using System.Diagnostics;
 using static Melodii.DB_Methods;
+using static Melodii.DesignFunctionalities;
 using System.IO.IsolatedStorage;
 
 namespace Melodii.Forms.Sondaj
@@ -24,7 +25,7 @@ namespace Melodii.Forms.Sondaj
         private static Panel UpComingPanel;
         private static int speed;
         private static Melodii.Models.Sondaj Sondaj;
-        private static Rezultat Rezultat;
+        private static RezultateSondaj rezultateSondaj;
 
         //BEFREE>> ProcesareVot, Inserare vot in BD, construire Sondaj, Inserare sondaj, Calcularea
         //rezultatelor, afisarea rezultatelor.
@@ -41,7 +42,7 @@ namespace Melodii.Forms.Sondaj
             lbParticipant.Left = Width / 2 - lbParticipant.Width / 2;
 
             //Viteza initiala pentru UpGoingPanel si UpComingPanel;
-            speed = Width / 10;
+            speed = Width / 6;
 
             //Extragerea melodiilor din baza de date
             DB_Methods.LoadMelodii(ref melodii);
@@ -69,7 +70,7 @@ namespace Melodii.Forms.Sondaj
             InsertSondaj(Sondaj);
             Sondaj.IdSondaj = LastInsertedID("Sondaje");
 
-            RezultateSondaj rezultateSondaj = new RezultateSondaj();
+            rezultateSondaj = new RezultateSondaj();
             rezultateSondaj.Participant = NumeParticipant;
 
             //Extragerea unei melodii aleatoare
@@ -83,7 +84,6 @@ namespace Melodii.Forms.Sondaj
 
             if (melodii.Count == 0)
             {
-                panelSondaj.BackColor = Color.Red;
                 CurrentId = -1;
             }
             else
@@ -223,31 +223,42 @@ namespace Melodii.Forms.Sondaj
             Vot vot = new Vot();
             vot.IdParticipant = Sondaj.IdParticipant;
             vot.IdMelodie = melodii[CurrentId].IdMelodie;
-            
+
+            Rezultat rezultat = new Rezultat();
+            rezultat.Melodie = melodii[CurrentId].Denumire;
+            rezultat.PozitieInTop = melodii[CurrentId].LoculInTop;
+            rezultat.Interpret = melodii[CurrentId].Interpret;
+            rezultat.PozitiaIndicata = pozitiaAleasa;
+
             //Verificarea raspunsului
-            if(pozitiaAleasa == melodii[CurrentId].LoculInTop)
+            if (pozitiaAleasa == melodii[CurrentId].LoculInTop)
             {
                 //A ghicit exact pozitia
                 vot.ScorVot = 10;
+                rezultat.PuncteAcumulate = 10;
             }
             else if(Math.Abs(pozitiaAleasa - melodii[CurrentId].LoculInTop) == 1)
             {
                 //A gresit pozitia cu o singura unitate
                 vot.ScorVot = 5;
+                rezultat.PuncteAcumulate = 5;
             }
             else if(Math.Abs(pozitiaAleasa - melodii[CurrentId].LoculInTop) == 2)
             {
                 //A gresit pozitia cu 2 unitati
                 vot.ScorVot = 3;
+                rezultat.PuncteAcumulate = 3;
             }
             else
             {
                 //A gresit pozitia cu mai mult de 2 unitati
                 vot.ScorVot = 0;
+                rezultat.PuncteAcumulate = 0;
             }
 
             vot.IdSondaj = Sondaj.IdSondaj;
             voturi.Add(vot);
+            rezultateSondaj.Rezultate.Add(rezultat);
 
             Sondaj.ScorFinal += vot.ScorVot;
 
@@ -260,6 +271,7 @@ namespace Melodii.Forms.Sondaj
             {
                 lbMelodiiRamase.Text = "";
                 SalveazaDate();
+                AfiseazaRezultate();
             }
             else
                 lbMelodiiRamase.Text = "Melodii ramase: " + (melodii.Count()-1);
@@ -275,8 +287,87 @@ namespace Melodii.Forms.Sondaj
 
             //Actualizarea sondajului (ScorFinal)
             UpdateScorFinalSondaj(Sondaj);
+        }
 
-            Debug.WriteLine("Totul actualizat.");
+        private void AfiseazaRezultate()
+        {
+            Panel panelRezultate = new Panel();
+            panelRezultate.AutoScroll = true;
+            panelRezultate.Dock = DockStyle.Fill;
+
+            Label lbText = new Label();
+            lbText.Dock = DockStyle.Top;
+            lbText.Font = new Font("Leelawadee", 15);
+            lbText.ForeColor = Color.WhiteSmoke;
+            lbText.TextAlign = ContentAlignment.MiddleCenter;
+            lbText.Text = "Rezultatele sondajului:";
+
+            for(int i= rezultateSondaj.Rezultate.Count-1; i>=0; i--)
+            {
+                Panel element = new Panel();
+                element.Dock = DockStyle.Top;
+                element.AutoSize = true;
+
+                Label lbMelodie = new Label();
+                lbMelodie.Font = new Font("Leelawadee", 15);
+                lbMelodie.ForeColor = Color.WhiteSmoke;
+                lbMelodie.TextAlign = ContentAlignment.MiddleCenter;
+                lbMelodie.Text = rezultateSondaj.Rezultate[i].Melodie;
+                lbMelodie.Dock = DockStyle.Top;
+                //lbMelodie.AutoSize = true;
+
+                Label lbInterpret = new Label();
+                lbInterpret.Font = new Font("Leelawadee", 10);
+                lbInterpret.ForeColor = Color.LightGray;
+                lbInterpret.TextAlign = ContentAlignment.MiddleCenter;
+                lbInterpret.Text = rezultateSondaj.Rezultate[i].Interpret;
+                lbInterpret.Dock = DockStyle.Top;
+                //lbInterpret.AutoSize = true;
+
+                Label lbPozitieTop = new Label();
+                lbPozitieTop.Font = new Font("Leelawadee", 13);
+                lbPozitieTop.ForeColor = Color.LightGray;
+                lbPozitieTop.TextAlign = ContentAlignment.MiddleCenter;
+                lbPozitieTop.Text = "Pozitie in TOP: " + rezultateSondaj.Rezultate[i].PozitieInTop;
+                lbPozitieTop.Dock = DockStyle.Top;
+                //lbPozitieTop.AutoSize = true;
+
+                Label lbPozitieIndicata = new Label();
+                lbPozitieIndicata.Font = new Font("Leelawadee", 13);
+                lbPozitieIndicata.ForeColor = Color.LightGray;
+                lbPozitieIndicata.TextAlign = ContentAlignment.MiddleCenter;
+                lbPozitieIndicata.Text = "Pozitia indicata: " + rezultateSondaj.Rezultate[i].PozitiaIndicata;
+                lbPozitieIndicata.Dock = DockStyle.Top;
+               // lbPozitieIndicata.AutoSize = true;
+
+                Label lbPuncte = new Label();
+                lbPuncte.Font = new Font("Leelawadee", 13);
+                lbPuncte.ForeColor = Color.LightGray;
+                lbPuncte.TextAlign = ContentAlignment.MiddleCenter;
+                lbPuncte.Text = "Puncte acumulate: " + rezultateSondaj.Rezultate[i].PuncteAcumulate;
+                lbPuncte.Dock = DockStyle.Top;
+                //lbPuncte.AutoSize = true;
+
+                Label spatiu = new Label();
+                spatiu.Height = 30;
+                spatiu.Dock = DockStyle.Top;
+
+                element.Controls.Add(lbPuncte);
+                element.Controls.Add(lbPozitieIndicata);
+                element.Controls.Add(lbPozitieTop);
+                element.Controls.Add(lbInterpret);
+                element.Controls.Add(lbMelodie);
+                element.Controls.Add(spatiu);
+
+                panelRezultate.Controls.Add(element);
+            }
+
+            panelSondaj.Padding = new Padding(0);
+            btNext.Text = "OK";
+            btNext.Enabled = true;
+            panelSondaj.Controls.Clear();
+            panelSondaj.Controls.Add(panelRezultate);
+            panelRezultate.Controls.Add(lbText);
         }
 
         private void cmb_ValueChanged(object sender, EventArgs e)
@@ -299,7 +390,7 @@ namespace Melodii.Forms.Sondaj
             {
                 UpComingPanel.Left -= speed;
                 UpGoingPanel.Left -= speed+10;
-                speed = UpComingPanel.Left / 15;
+                speed = UpComingPanel.Left / 6;
 
                 if (speed <= 1)
                 {
@@ -310,17 +401,31 @@ namespace Melodii.Forms.Sondaj
 
         private void btNext_Click(object sender, EventArgs e)
         {
-            //Procesarea votului curent si alegerea urmatoarei melodii
-            int optiuneAleasa = int.Parse(btNext.Tag.ToString());
-            ProcesareVot(optiuneAleasa);
-            RandomMelodie();
-            (sender as Button).Enabled = false;
-
-            //Incrementarea progressBar-ului
             if (melodii.Count() == 0)
-                lbProgessBar.Width = Width;
+            {
+                //Sondajul s-a terminat, se revine la fereastra 'Acasa'
+                Panel parent = this.Parent as Panel;
+                openChildForm(new HomeForm(), parent);
+            }
             else
-                lbProgessBar.Width += (int)(Width / 100 * (double.Parse(lbProgessBar.Tag.ToString())));
+            {
+                //Procesarea votului curent si alegerea urmatoarei melodii
+                int optiuneAleasa = int.Parse(btNext.Tag.ToString());
+                ProcesareVot(optiuneAleasa);
+                RandomMelodie();
+
+                if (melodii.Count >= 1)
+                    (sender as Button).Enabled = false;
+                else
+                    (sender as Button).FlatAppearance.BorderSize = 1;
+
+                //Incrementarea progressBar-ului
+                if (melodii.Count() == 0)
+                    lbProgessBar.Width = Width;
+                else
+                    lbProgessBar.Width += (int)(Width / 100 * (double.Parse(lbProgessBar.Tag.ToString())));
+            }
+            
         }
 
         private void SondajForm_Resize(object sender, EventArgs e)
