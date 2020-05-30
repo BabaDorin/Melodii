@@ -10,6 +10,7 @@ using System.Data;
 using System.Diagnostics;
 using System.CodeDom;
 using System.Linq.Expressions;
+using System.Net.NetworkInformation;
 
 namespace Melodii
 {
@@ -110,7 +111,32 @@ namespace Melodii
                     Connection.Close();
             }
         }
+        public static void ClearVoturi()
+        {
+            SqlConnection Connection = new SqlConnection(ConnectionString);
+            try
+            {
+                //----------------------------< Extragerea datelor din BD >-------------------------
 
+                //Stabilirea conexiunii
+                Connection.Open();
+
+                SqlCommand delete = new SqlCommand("Delete from Voturi", Connection);
+                delete.ExecuteNonQuery();
+                Connection.Close();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Eroare deletevoturi: " + ex.Message);
+                throw ex;
+                throw ex;
+            }
+            finally
+            {
+                if (Connection.State == ConnectionState.Open)
+                    Connection.Close();
+            }
+        }
         public static void InsertMelodie(Melodie melodie)
         {
             SqlConnection Connection = new SqlConnection(ConnectionString);
