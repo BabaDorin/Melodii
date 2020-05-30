@@ -199,7 +199,73 @@ namespace Melodii
                     Connection.Close();
             }
         }
+        public static void InsertVot(Vot vot)
+        {
+            SqlConnection Connection = new SqlConnection(ConnectionString);
+            try
+            {
+                //Vom folosi parametri sql pentru ca aplicatia sa fie imuna atacurilor de tip SQL Injection
+                SqlCommand cmd = new SqlCommand("INSERT INTO Voturi" +
+                "(IdParticipant, IdMelodie, ScorVot, IdSondaj)" +
+                "VALUES" +
+                "(@IdParticipant, @IdMelodie, @ScorVot, @IdSondaj); ", Connection);
 
+                SqlParameter parParticipant = new SqlParameter("@IdParticipant", vot.IdParticipant);
+                cmd.Parameters.Add(parParticipant);
+
+                SqlParameter parMelodie = new SqlParameter("@IdMelodie", vot.IdMelodie);
+                cmd.Parameters.Add(parMelodie);
+
+                SqlParameter parScor = new SqlParameter("@ScorVot", vot.ScorVot);
+                cmd.Parameters.Add(parScor);
+
+                SqlParameter parSondaj = new SqlParameter("@IdSondaj", vot.IdSondaj);
+                cmd.Parameters.Add(parSondaj);
+
+                Connection.Open();
+                cmd.ExecuteNonQuery();
+                Connection.Close();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Eroare InsertVot: " + ex.Message);
+                throw ex;
+            }
+            finally
+            {
+                if (Connection.State == ConnectionState.Open)
+                    Connection.Close();
+            }
+        }
+        public static void UpdateScorFinalSondaj(Sondaj sondaj)
+        {
+            SqlConnection Connection = new SqlConnection(ConnectionString);
+            try
+            {
+                //Vom folosi parametri sql pentru ca aplicatia sa fie imuna atacurilor de tip SQL Injection
+                SqlCommand cmd = new SqlCommand("UPDATE Sondaje SET ScorFinal = @ScorFinal WHERE IdSondaj = @IdSondaj", Connection);
+
+                SqlParameter parScor = new SqlParameter("@ScorFinal", sondaj.ScorFinal);
+                cmd.Parameters.Add(parScor);
+
+                SqlParameter parIdSondaj = new SqlParameter("@IdSondaj", sondaj.IdSondaj);
+                cmd.Parameters.Add(parIdSondaj);
+
+                Connection.Open();
+                cmd.ExecuteNonQuery();
+                Connection.Close();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Eroare Update Sondaj: " + ex.Message);
+                throw ex;
+            }
+            finally
+            {
+                if (Connection.State == ConnectionState.Open)
+                    Connection.Close();
+            }
+        }
         public static void RemoveParticipant(int IdParticipant)
         {
             SqlConnection Connection = new SqlConnection(ConnectionString);

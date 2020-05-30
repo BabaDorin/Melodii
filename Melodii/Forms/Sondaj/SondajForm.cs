@@ -17,6 +17,7 @@ namespace Melodii.Forms.Sondaj
     public partial class SondajForm : Form
     {
         private static List<Melodie> melodii = new List<Melodie>();
+        private static List<Vot> voturi = new List<Vot>();
         private static int nrMelodiiInitial = 0;
         private static int CurrentId = 0;
         private static Panel UpGoingPanel;
@@ -63,7 +64,6 @@ namespace Melodii.Forms.Sondaj
             Sondaj.ScorFinal = 0;
             InsertSondaj(Sondaj);
             Sondaj.IdSondaj = LastInsertedID("Sondaje");
-            Debug.WriteLine("Last inserted ID for Sondaje: " + Sondaj.IdSondaj);
 
             //Extragerea unei melodii aleatoare
             RandomMelodie();
@@ -208,7 +208,10 @@ namespace Melodii.Forms.Sondaj
 
         private void ProcesareVot(int pozitiaAleasa)
         {
-            //-----------------< Insereaza votul curent in baza de date si construieste pas cu pas obiectul [Sondaj] >-----------------
+            //-----------------< Proceseaza votul construieste pas cu pas obiectul [Sondaj] >-----------------
+
+            //Voturile vor fi stocate intr-o structura generica si vor fi inserate in baza de date
+            //la sfarsitul sondajului.
 
             Vot vot = new Vot();
             vot.IdParticipant = Sondaj.IdParticipant;
@@ -236,8 +239,10 @@ namespace Melodii.Forms.Sondaj
                 vot.ScorVot = 0;
             }
 
+            vot.IdSondaj = Sondaj.IdSondaj;
+            voturi.Add(vot);
 
-
+            Sondaj.ScorFinal += vot.ScorVot;
 
             if (CurrentId != -1)
                 melodii.RemoveAt(CurrentId);
@@ -245,9 +250,24 @@ namespace Melodii.Forms.Sondaj
             if(melodii.Count() == 0)
             {
                 lbMelodiiRamase.Text = "";
+                SalveazaDate();
             }
             else
                 lbMelodiiRamase.Text = "Melodii ramase: " + (melodii.Count()-1);
+        }
+        
+        private void SalveazaDate()
+        {
+            //Salvarea voturilor in baza de date
+            foreach(Vot v in voturi)
+            {
+                InsertVot(v);
+            }
+
+            //Actualizarea sondajului (ScorFinal)
+            UpdateScorFinalSondaj(Sondaj);
+
+            Debug.WriteLine("Totul actualizat.");
         }
 
         private void cmb_ValueChanged(object sender, EventArgs e)
