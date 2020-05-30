@@ -22,6 +22,10 @@ namespace Melodii.Forms.Sondaj
         private static Panel UpGoingPanel;
         private static Panel UpComingPanel;
         private static int speed;
+        private static Melodii.Models.Sondaj Sondaj;
+
+        //BEFREE>> ProcesareVot, Inserare vot in BD, construire Sondaj, Inserare sondaj, Calcularea
+        //rezultatelor, afisarea rezultatelor.
 
         public SondajForm(int IdParticipant)
         {
@@ -39,11 +43,22 @@ namespace Melodii.Forms.Sondaj
             //Extragerea melodiilor din baza de date
             DB_Methods.LoadMelodii(ref melodii);
 
+            //Stabilirea pozitiilor in top a melodiilor
+            melodii.Sort((x, y) => x.Puncte.CompareTo(y.Puncte));
+            for (int i = 0; i < melodii.Count; i++)
+            {
+                melodii[i].LoculInTop = melodii.Count - i;
+            }
+
             nrMelodiiInitial = melodii.Count();
             lbMelodiiRamase.Text = "Melodii ramase: " + (nrMelodiiInitial-1);
             lbProgessBar.Width = 0;
             lbProgessBar.Tag = (100 / (nrMelodiiInitial-1)).ToString();
             btNext.Enabled = false;
+
+            //Crearea unui obiect Sondaj
+            Sondaj = new Models.Sondaj();
+            Sondaj.IdParticipant = IdParticipant;
 
             //Extragerea unei melodii aleatoare
             RandomMelodie();
@@ -186,9 +201,38 @@ namespace Melodii.Forms.Sondaj
             }
         }
 
-        private void ProcesareVot()
+        private void ProcesareVot(int pozitiaAleasa)
         {
             //-----------------< Insereaza votul curent in baza de date si construieste pas cu pas obiectul [Sondaj] >-----------------
+
+            Vot vot = new Vot();
+            vot.IdParticipant = Sondaj.IdParticipant;
+            vot.IdMelodie = melodii[CurrentId].IdMelodie;
+            
+            //Verificarea raspunsului
+            if(pozitiaAleasa == melodii[CurrentId].LoculInTop)
+            {
+                //A ghicit exact pozitia
+                vot.ScorVot = 10;
+            }
+            else if(Math.Abs(pozitiaAleasa - melodii[CurrentId].LoculInTop) == 1)
+            {
+                //A gresit pozitia cu o singura unitate
+                vot.ScorVot = 5;
+            }
+            else if(Math.Abs(pozitiaAleasa - melodii[CurrentId].LoculInTop) == 2)
+            {
+                //A gresit pozitia cu 2 unitati
+                vot.ScorVot = 3;
+            }
+            else
+            {
+                //A gresit pozitia cu mai mult de 2 unitati
+                vot.ScorVot = 0;
+            }
+
+
+
 
             if (CurrentId != -1)
                 melodii.RemoveAt(CurrentId);
@@ -205,6 +249,7 @@ namespace Melodii.Forms.Sondaj
         {
             //Odata ce a fost aleasa pozitia pentru melodia curenta, putem trece la urmatoarea melodie
             btNext.Enabled = true;
+            btNext.Tag = (sender as ComboBox).SelectedItem;
         }
 
         private void SlidingPanel_Tick(object sender, EventArgs e)
@@ -232,7 +277,8 @@ namespace Melodii.Forms.Sondaj
         private void btNext_Click(object sender, EventArgs e)
         {
             //Procesarea votului curent si alegerea urmatoarei melodii
-            ProcesareVot();
+            int optiuneAleasa = int.Parse(btNext.Tag.ToString());
+            ProcesareVot(optiuneAleasa);
             RandomMelodie();
             (sender as Button).Enabled = false;
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Melodii.Models
 {
-    class Vot
+    public class Vot
     {
         public int IdVot { get; set; }
         public int IdParticipant { get; set; }

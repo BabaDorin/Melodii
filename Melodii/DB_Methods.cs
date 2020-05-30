@@ -9,6 +9,7 @@ using System.Data.SqlClient;
 using System.Data;
 using System.Diagnostics;
 using System.CodeDom;
+using System.Linq.Expressions;
 
 namespace Melodii
 {
@@ -247,6 +248,46 @@ namespace Melodii
                     Connection.Close();
             }
 
+        }
+        public static int LastInsertedID(string tableName)
+        {
+            SqlConnection connection = new SqlConnection(ConnectionString);
+            try
+            {
+                SqlCommand lastId;
+                switch (tableName)
+                {
+                    case "Melodii":
+                        lastId = new SqlCommand("SELECT MAX(IdMelodie) FROM Melodii", connection);
+                        break;
+                    case "Participanti":
+                        lastId = new SqlCommand("SELECT MAX(IdParticipant) FROM Participanti", connection);
+                        break;
+                    case "Voturi":
+                        lastId = new SqlCommand("SELECT MAX(IdVot) FROM Voturi", connection);
+                        break;
+                    case "Sondaje":
+                        lastId = new SqlCommand("SELECT MAX(IdSondaj) FROM Sondaje", connection);
+                        break;
+                    default:
+                        throw new Exception("Invalid table name");
+                }
+
+                connection.Open();
+                int LastInsertedId = (int)lastId.ExecuteScalar();
+                connection.Close();
+
+                return LastInsertedId;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                if (connection.State == ConnectionState.Open)
+                    connection.Close();
+
+                return -1;
+            }
         }
 
         public static int NrMelodii()
