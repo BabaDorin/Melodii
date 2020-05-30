@@ -289,7 +289,36 @@ namespace Melodii
                 return -1;
             }
         }
+        public static void InsertSondaj(Sondaj sondaj)
+        {
+            SqlConnection Connection = new SqlConnection(ConnectionString);
+            try
+            {
+                SqlCommand cmd = new SqlCommand("INSERT INTO Sondaje" +
+                    "(IdParticipant, ScorFinal, Data)" +
+                    "VALUES" +
+                    "(@IdParticipant, @ScorFinal, @Data)", Connection);
 
+                SqlParameter parParticipant = new SqlParameter("@IdParticipant", sondaj.IdParticipant);
+                cmd.Parameters.Add(parParticipant);
+
+                SqlParameter parScorFinal = new SqlParameter("@ScorFinal", sondaj.ScorFinal);
+                cmd.Parameters.Add(parScorFinal);
+
+                SqlParameter parData = new SqlParameter("@Data", sondaj.Data);
+                cmd.Parameters.Add(parData);
+
+                Connection.Open();
+                cmd.ExecuteNonQuery();
+                Connection.Close();
+            }
+            catch(Exception ex)
+            {
+                Debug.WriteLine("Error inserting Sondaj: " + ex.Message);
+                if (Connection.State == ConnectionState.Open)
+                    Connection.Close();
+            }
+        }
         public static int NrMelodii()
         {
             SqlConnection Connection = new SqlConnection(ConnectionString);

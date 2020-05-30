@@ -56,9 +56,14 @@ namespace Melodii.Forms.Sondaj
             lbProgessBar.Tag = (100 / (nrMelodiiInitial-1)).ToString();
             btNext.Enabled = false;
 
-            //Crearea unui obiect Sondaj
+            //Crearea unui obiect Sondaj si inserarea acestuia in BD;
             Sondaj = new Models.Sondaj();
             Sondaj.IdParticipant = IdParticipant;
+            Sondaj.Data = DateTime.Now;
+            Sondaj.ScorFinal = 0;
+            InsertSondaj(Sondaj);
+            Sondaj.IdSondaj = LastInsertedID("Sondaje");
+            Debug.WriteLine("Last inserted ID for Sondaje: " + Sondaj.IdSondaj);
 
             //Extragerea unei melodii aleatoare
             RandomMelodie();

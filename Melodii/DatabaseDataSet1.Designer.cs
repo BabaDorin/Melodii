@@ -38,6 +38,8 @@ namespace Melodii {
         
         private global::System.Data.DataRelation relationFK__Voturi__IdSondaj__37A5467C;
         
+        private global::System.Data.DataRelation relationFK__Sondaje__IdParti__4BAC3F29;
+        
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -275,6 +277,7 @@ namespace Melodii {
             this.relationFK__Voturi__IdMelodi__2E1BDC42 = this.Relations["FK__Voturi__IdMelodi__2E1BDC42"];
             this.relationFK__Voturi__IdPartic__2D27B809 = this.Relations["FK__Voturi__IdPartic__2D27B809"];
             this.relationFK__Voturi__IdSondaj__37A5467C = this.Relations["FK__Voturi__IdSondaj__37A5467C"];
+            this.relationFK__Sondaje__IdParti__4BAC3F29 = this.Relations["FK__Sondaje__IdParti__4BAC3F29"];
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -305,6 +308,10 @@ namespace Melodii {
                         this.tableSondaje.IdSondajColumn}, new global::System.Data.DataColumn[] {
                         this.tableVoturi.IdSondajColumn}, false);
             this.Relations.Add(this.relationFK__Voturi__IdSondaj__37A5467C);
+            this.relationFK__Sondaje__IdParti__4BAC3F29 = new global::System.Data.DataRelation("FK__Sondaje__IdParti__4BAC3F29", new global::System.Data.DataColumn[] {
+                        this.tableParticipanti.IdParticipantColumn}, new global::System.Data.DataColumn[] {
+                        this.tableSondaje.IdParticipantColumn}, false);
+            this.Relations.Add(this.relationFK__Sondaje__IdParti__4BAC3F29);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1404,6 +1411,8 @@ namespace Melodii {
             
             private global::System.Data.DataColumn columnScorFinal;
             
+            private global::System.Data.DataColumn columnIdParticipant;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public SondajeDataTable() {
@@ -1463,6 +1472,14 @@ namespace Melodii {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn IdParticipantColumn {
+                get {
+                    return this.columnIdParticipant;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -1498,12 +1515,16 @@ namespace Melodii {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public SondajeRow AddSondajeRow(System.DateTime Data, int ScorFinal) {
+            public SondajeRow AddSondajeRow(System.DateTime Data, int ScorFinal, ParticipantiRow parentParticipantiRowByFK__Sondaje__IdParti__4BAC3F29) {
                 SondajeRow rowSondajeRow = ((SondajeRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
                         Data,
-                        ScorFinal};
+                        ScorFinal,
+                        null};
+                if ((parentParticipantiRowByFK__Sondaje__IdParti__4BAC3F29 != null)) {
+                    columnValuesArray[3] = parentParticipantiRowByFK__Sondaje__IdParti__4BAC3F29[0];
+                }
                 rowSondajeRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowSondajeRow);
                 return rowSondajeRow;
@@ -1536,6 +1557,7 @@ namespace Melodii {
                 this.columnIdSondaj = base.Columns["IdSondaj"];
                 this.columnData = base.Columns["Data"];
                 this.columnScorFinal = base.Columns["ScorFinal"];
+                this.columnIdParticipant = base.Columns["IdParticipant"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1547,6 +1569,8 @@ namespace Melodii {
                 base.Columns.Add(this.columnData);
                 this.columnScorFinal = new global::System.Data.DataColumn("ScorFinal", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnScorFinal);
+                this.columnIdParticipant = new global::System.Data.DataColumn("IdParticipant", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnIdParticipant);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnIdSondaj}, true));
                 this.columnIdSondaj.AutoIncrement = true;
@@ -1557,6 +1581,7 @@ namespace Melodii {
                 this.columnIdSondaj.Unique = true;
                 this.columnData.AllowDBNull = false;
                 this.columnScorFinal.AllowDBNull = false;
+                this.columnIdParticipant.AllowDBNull = false;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1905,6 +1930,17 @@ namespace Melodii {
                     return ((VoturiRow[])(base.GetChildRows(this.Table.ChildRelations["FK__Voturi__IdPartic__2D27B809"])));
                 }
             }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public SondajeRow[] GetSondajeRows() {
+                if ((this.Table.ChildRelations["FK__Sondaje__IdParti__4BAC3F29"] == null)) {
+                    return new SondajeRow[0];
+                }
+                else {
+                    return ((SondajeRow[])(base.GetChildRows(this.Table.ChildRelations["FK__Sondaje__IdParti__4BAC3F29"])));
+                }
+            }
         }
         
         /// <summary>
@@ -2054,6 +2090,28 @@ namespace Melodii {
                 }
                 set {
                     this[this.tableSondaje.ScorFinalColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public int IdParticipant {
+                get {
+                    return ((int)(this[this.tableSondaje.IdParticipantColumn]));
+                }
+                set {
+                    this[this.tableSondaje.IdParticipantColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public ParticipantiRow ParticipantiRow {
+                get {
+                    return ((ParticipantiRow)(this.GetParentRow(this.Table.ParentRelations["FK__Sondaje__IdParti__4BAC3F29"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["FK__Sondaje__IdParti__4BAC3F29"]);
                 }
             }
             
@@ -3454,33 +3512,41 @@ SELECT IdVot, IdParticipant, IdMelodie, ScorVot, IdSondaj FROM Voturi WHERE (IdV
             tableMapping.ColumnMappings.Add("IdSondaj", "IdSondaj");
             tableMapping.ColumnMappings.Add("Data", "Data");
             tableMapping.ColumnMappings.Add("ScorFinal", "ScorFinal");
+            tableMapping.ColumnMappings.Add("IdParticipant", "IdParticipant");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = "DELETE FROM [dbo].[Sondaje] WHERE (([IdSondaj] = @Original_IdSondaj) AND ([Data] " +
-                "= @Original_Data) AND ([ScorFinal] = @Original_ScorFinal))";
+            this._adapter.DeleteCommand.CommandText = "DELETE FROM [Sondaje] WHERE (([IdSondaj] = @Original_IdSondaj) AND ([Data] = @Ori" +
+                "ginal_Data) AND ([ScorFinal] = @Original_ScorFinal) AND ([IdParticipant] = @Orig" +
+                "inal_IdParticipant))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_IdSondaj", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IdSondaj", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Data", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Data", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ScorFinal", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ScorFinal", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_IdParticipant", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IdParticipant", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[Sondaje] ([Data], [ScorFinal]) VALUES (@Data, @ScorFinal);\r\nSE" +
-                "LECT IdSondaj, Data, ScorFinal FROM Sondaje WHERE (IdSondaj = SCOPE_IDENTITY())";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO [Sondaje] ([IdSondaj], [Data], [ScorFinal], [IdParticipant]) VALUES (" +
+                "@IdSondaj, @Data, @ScorFinal, @IdParticipant);\r\nSELECT IdSondaj, Data, ScorFinal" +
+                ", IdParticipant FROM Sondaje WHERE (IdSondaj = @IdSondaj)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IdSondaj", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IdSondaj", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Data", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Data", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ScorFinal", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ScorFinal", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IdParticipant", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IdParticipant", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[Sondaje] SET [Data] = @Data, [ScorFinal] = @ScorFinal WHERE (([IdSondaj] = @Original_IdSondaj) AND ([Data] = @Original_Data) AND ([ScorFinal] = @Original_ScorFinal));
-SELECT IdSondaj, Data, ScorFinal FROM Sondaje WHERE (IdSondaj = @IdSondaj)";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE [Sondaje] SET [IdSondaj] = @IdSondaj, [Data] = @Data, [ScorFinal] = @ScorFinal, [IdParticipant] = @IdParticipant WHERE (([IdSondaj] = @Original_IdSondaj) AND ([Data] = @Original_Data) AND ([ScorFinal] = @Original_ScorFinal) AND ([IdParticipant] = @Original_IdParticipant));
+SELECT IdSondaj, Data, ScorFinal, IdParticipant FROM Sondaje WHERE (IdSondaj = @IdSondaj)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IdSondaj", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IdSondaj", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Data", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Data", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ScorFinal", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ScorFinal", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IdParticipant", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IdParticipant", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_IdSondaj", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IdSondaj", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Data", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Data", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ScorFinal", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ScorFinal", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IdSondaj", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "IdSondaj", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_IdParticipant", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IdParticipant", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3496,7 +3562,7 @@ SELECT IdSondaj, Data, ScorFinal FROM Sondaje WHERE (IdSondaj = @IdSondaj)";
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT IdSondaj, Data, ScorFinal FROM dbo.Sondaje";
+            this._commandCollection[0].CommandText = "SELECT IdSondaj, Data, ScorFinal, IdParticipant FROM Sondaje";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -3557,10 +3623,11 @@ SELECT IdSondaj, Data, ScorFinal FROM Sondaje WHERE (IdSondaj = @IdSondaj)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_IdSondaj, System.DateTime Original_Data, int Original_ScorFinal) {
+        public virtual int Delete(int Original_IdSondaj, System.DateTime Original_Data, int Original_ScorFinal, int Original_IdParticipant) {
             this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_IdSondaj));
             this.Adapter.DeleteCommand.Parameters[1].Value = ((System.DateTime)(Original_Data));
             this.Adapter.DeleteCommand.Parameters[2].Value = ((int)(Original_ScorFinal));
+            this.Adapter.DeleteCommand.Parameters[3].Value = ((int)(Original_IdParticipant));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -3581,9 +3648,11 @@ SELECT IdSondaj, Data, ScorFinal FROM Sondaje WHERE (IdSondaj = @IdSondaj)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(System.DateTime Data, int ScorFinal) {
-            this.Adapter.InsertCommand.Parameters[0].Value = ((System.DateTime)(Data));
-            this.Adapter.InsertCommand.Parameters[1].Value = ((int)(ScorFinal));
+        public virtual int Insert(int IdSondaj, System.DateTime Data, int ScorFinal, int IdParticipant) {
+            this.Adapter.InsertCommand.Parameters[0].Value = ((int)(IdSondaj));
+            this.Adapter.InsertCommand.Parameters[1].Value = ((System.DateTime)(Data));
+            this.Adapter.InsertCommand.Parameters[2].Value = ((int)(ScorFinal));
+            this.Adapter.InsertCommand.Parameters[3].Value = ((int)(IdParticipant));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -3604,13 +3673,15 @@ SELECT IdSondaj, Data, ScorFinal FROM Sondaje WHERE (IdSondaj = @IdSondaj)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(System.DateTime Data, int ScorFinal, int Original_IdSondaj, System.DateTime Original_Data, int Original_ScorFinal, int IdSondaj) {
-            this.Adapter.UpdateCommand.Parameters[0].Value = ((System.DateTime)(Data));
-            this.Adapter.UpdateCommand.Parameters[1].Value = ((int)(ScorFinal));
-            this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(Original_IdSondaj));
-            this.Adapter.UpdateCommand.Parameters[3].Value = ((System.DateTime)(Original_Data));
-            this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(Original_ScorFinal));
-            this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(IdSondaj));
+        public virtual int Update(int IdSondaj, System.DateTime Data, int ScorFinal, int IdParticipant, int Original_IdSondaj, System.DateTime Original_Data, int Original_ScorFinal, int Original_IdParticipant) {
+            this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(IdSondaj));
+            this.Adapter.UpdateCommand.Parameters[1].Value = ((System.DateTime)(Data));
+            this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(ScorFinal));
+            this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(IdParticipant));
+            this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(Original_IdSondaj));
+            this.Adapter.UpdateCommand.Parameters[5].Value = ((System.DateTime)(Original_Data));
+            this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(Original_ScorFinal));
+            this.Adapter.UpdateCommand.Parameters[7].Value = ((int)(Original_IdParticipant));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -3631,8 +3702,8 @@ SELECT IdSondaj, Data, ScorFinal FROM Sondaje WHERE (IdSondaj = @IdSondaj)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(System.DateTime Data, int ScorFinal, int Original_IdSondaj, System.DateTime Original_Data, int Original_ScorFinal) {
-            return this.Update(Data, ScorFinal, Original_IdSondaj, Original_Data, Original_ScorFinal, Original_IdSondaj);
+        public virtual int Update(System.DateTime Data, int ScorFinal, int IdParticipant, int Original_IdSondaj, System.DateTime Original_Data, int Original_ScorFinal, int Original_IdParticipant) {
+            return this.Update(Original_IdSondaj, Data, ScorFinal, IdParticipant, Original_IdSondaj, Original_Data, Original_ScorFinal, Original_IdParticipant);
         }
     }
     
@@ -3798,21 +3869,21 @@ SELECT IdSondaj, Data, ScorFinal FROM Sondaje WHERE (IdSondaj = @IdSondaj)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         private int UpdateUpdatedRows(DatabaseDataSet1 dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
-            if ((this._melodiiTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.Melodii.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._melodiiTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
             if ((this._participantiTableAdapter != null)) {
                 global::System.Data.DataRow[] updatedRows = dataSet.Participanti.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
                     result = (result + this._participantiTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._melodiiTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.Melodii.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._melodiiTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -3844,19 +3915,19 @@ SELECT IdSondaj, Data, ScorFinal FROM Sondaje WHERE (IdSondaj = @IdSondaj)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         private int UpdateInsertedRows(DatabaseDataSet1 dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
-            if ((this._melodiiTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.Melodii.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._melodiiTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
             if ((this._participantiTableAdapter != null)) {
                 global::System.Data.DataRow[] addedRows = dataSet.Participanti.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
                     result = (result + this._participantiTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._melodiiTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.Melodii.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._melodiiTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -3902,19 +3973,19 @@ SELECT IdSondaj, Data, ScorFinal FROM Sondaje WHERE (IdSondaj = @IdSondaj)";
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._participantiTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.Participanti.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._participantiTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
             if ((this._melodiiTableAdapter != null)) {
                 global::System.Data.DataRow[] deletedRows = dataSet.Melodii.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
                     result = (result + this._melodiiTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._participantiTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.Participanti.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._participantiTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
