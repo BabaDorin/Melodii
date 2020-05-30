@@ -261,6 +261,7 @@ namespace Melodii.Forms.Sondaj
             rezultateSondaj.Rezultate.Add(rezultat);
 
             Sondaj.ScorFinal += vot.ScorVot;
+            rezultateSondaj.ScorFinal += vot.ScorVot;
 
             //Construirea obiectului Rezultate, care va fi afisat la sfarsitul sondajului
 
@@ -287,6 +288,10 @@ namespace Melodii.Forms.Sondaj
 
             //Actualizarea sondajului (ScorFinal)
             UpdateScorFinalSondaj(Sondaj);
+
+            //Actualizarea numarului de puncte a participantului
+            if (Sondaj.ScorFinal > 0)
+                UpdateParticipantScor(Sondaj.IdParticipant, Sondaj.ScorFinal);
         }
 
         private void AfiseazaRezultate()
@@ -302,7 +307,14 @@ namespace Melodii.Forms.Sondaj
             lbText.TextAlign = ContentAlignment.MiddleCenter;
             lbText.Text = "Rezultatele sondajului:";
 
-            for(int i= rezultateSondaj.Rezultate.Count-1; i>=0; i--)
+            Label lbPuncteAcumulate = new Label();
+            lbPuncteAcumulate.Dock = DockStyle.Top;
+            lbPuncteAcumulate.Font = new Font("Leelawadee", 13);
+            lbPuncteAcumulate.ForeColor = Color.WhiteSmoke;
+            lbPuncteAcumulate.TextAlign = ContentAlignment.MiddleCenter;
+            lbPuncteAcumulate.Text = "Puncte acumulate in total: " + rezultateSondaj.ScorFinal;
+
+            for (int i= rezultateSondaj.Rezultate.Count-1; i>=0; i--)
             {
                 Panel element = new Panel();
                 element.Dock = DockStyle.Top;
@@ -366,6 +378,7 @@ namespace Melodii.Forms.Sondaj
             btNext.Text = "OK";
             btNext.Enabled = true;
             panelSondaj.Controls.Clear();
+            panelRezultate.Controls.Add(lbPuncteAcumulate);
             panelSondaj.Controls.Add(panelRezultate);
             panelRezultate.Controls.Add(lbText);
         }

@@ -137,6 +137,35 @@ namespace Melodii
                     Connection.Close();
             }
         }
+        public static void UpdateParticipantScor(int idParticipant, int ScorDeAdaugat)
+        {
+            SqlConnection Connection = new SqlConnection(ConnectionString);
+            try
+            {
+                SqlCommand updateScor = new SqlCommand("UPDATE Participanti SET SCOR = SCOR + @ScorDeAdaugat " +
+                    "WHERE IdParticipant = @IdParticipant", Connection);
+
+                SqlParameter parScor = new SqlParameter("@ScorDeAdaugat", ScorDeAdaugat);
+                updateScor.Parameters.Add(parScor);
+
+                SqlParameter parIdParticipant = new SqlParameter("@IdParticipant", idParticipant);
+                updateScor.Parameters.Add(parIdParticipant);
+
+                Connection.Open();
+                updateScor.ExecuteNonQuery();
+                Connection.Close();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Eroare UpdateParticipantScor: " + ex.Message);
+                throw ex;
+            }
+            finally
+            {
+                if (Connection.State == ConnectionState.Open)
+                    Connection.Close();
+            }
+        }
         public static void InsertMelodie(Melodie melodie)
         {
             SqlConnection Connection = new SqlConnection(ConnectionString);
