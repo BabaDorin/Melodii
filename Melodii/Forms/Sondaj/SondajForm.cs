@@ -24,6 +24,7 @@ namespace Melodii.Forms.Sondaj
         private static Panel UpComingPanel;
         private static int speed;
         private static Melodii.Models.Sondaj Sondaj;
+        private static Rezultat Rezultat;
 
         //BEFREE>> ProcesareVot, Inserare vot in BD, construire Sondaj, Inserare sondaj, Calcularea
         //rezultatelor, afisarea rezultatelor.
@@ -32,6 +33,7 @@ namespace Melodii.Forms.Sondaj
         {
             InitializeComponent();
             UpGoingPanel = null;
+            string NumeParticipant = ParticipantNumeByID(IdParticipant);
 
             //Pozitionarea label-urilor la mijlocul ferestrei
             label.Left = Width / 2 - label.Width / 2;
@@ -53,9 +55,11 @@ namespace Melodii.Forms.Sondaj
 
             nrMelodiiInitial = melodii.Count();
             lbMelodiiRamase.Text = "Melodii ramase: " + (nrMelodiiInitial-1);
+            lbParticipant.Text = "Participant: " + NumeParticipant;
             lbProgessBar.Width = 0;
             lbProgessBar.Tag = (100 / (nrMelodiiInitial-1)).ToString();
             btNext.Enabled = false;
+            
 
             //Crearea unui obiect Sondaj si inserarea acestuia in BD;
             Sondaj = new Models.Sondaj();
@@ -64,6 +68,9 @@ namespace Melodii.Forms.Sondaj
             Sondaj.ScorFinal = 0;
             InsertSondaj(Sondaj);
             Sondaj.IdSondaj = LastInsertedID("Sondaje");
+
+            RezultateSondaj rezultateSondaj = new RezultateSondaj();
+            rezultateSondaj.Participant = NumeParticipant;
 
             //Extragerea unei melodii aleatoare
             RandomMelodie();
@@ -243,6 +250,8 @@ namespace Melodii.Forms.Sondaj
             voturi.Add(vot);
 
             Sondaj.ScorFinal += vot.ScorVot;
+
+            //Construirea obiectului Rezultate, care va fi afisat la sfarsitul sondajului
 
             if (CurrentId != -1)
                 melodii.RemoveAt(CurrentId);

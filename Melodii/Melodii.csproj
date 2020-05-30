@@ -124,6 +124,7 @@
     </Compile>
     <Compile Include="Models\Melodie.cs" />
     <Compile Include="Models\Participant.cs" />
+    <Compile Include="Models\RezultateSondaj.cs" />
     <Compile Include="Models\Sondaj.cs" />
     <Compile Include="Models\Vot.cs" />
     <Compile Include="Program.cs" />

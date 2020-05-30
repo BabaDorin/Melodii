@@ -199,6 +199,35 @@ namespace Melodii
                     Connection.Close();
             }
         }
+        public static string ParticipantNumeByID(int idParticipant)
+        {
+            SqlConnection Connection = new SqlConnection(ConnectionString);
+            try
+            {
+                //Vom folosi parametri sql pentru ca aplicatia sa fie imuna atacurilor de tip SQL Injection
+                SqlCommand cmd = new SqlCommand("SELECT Nume FROM Participanti WHERE IdParticipant = @IdParticipant", Connection);
+                
+                SqlParameter parId = new SqlParameter("@IdParticipant", idParticipant);
+                cmd.Parameters.Add(parId);
+
+                string Nume;
+                Connection.Open();
+                Nume = cmd.ExecuteScalar().ToString();
+                Connection.Close();
+
+                return Nume;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Eroare InsertParticipant: " + ex.Message);
+                throw ex;
+            }
+            finally
+            {
+                if (Connection.State == ConnectionState.Open)
+                    Connection.Close();
+            }
+        }
         public static void InsertVot(Vot vot)
         {
             SqlConnection Connection = new SqlConnection(ConnectionString);
