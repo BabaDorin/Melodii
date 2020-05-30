@@ -37,9 +37,10 @@ namespace Melodii.Forms.Sondaj
             string NumeParticipant = ParticipantNumeByID(IdParticipant);
 
             //Pozitionarea label-urilor la mijlocul ferestrei
-            label.Left = Width / 2 - label.Width / 2;
-            lbMelodiiRamase.Left = Width / 2 - lbMelodiiRamase.Width / 2;
-            lbParticipant.Left = Width / 2 - lbParticipant.Width / 2;
+            label.Left = 0;
+            label.ForeColor = Color.FromArgb(255, 190, 0);
+            lbMelodiiRamase.Left = 0;
+            lbParticipant.Left = 0;
 
             //Viteza initiala pentru UpGoingPanel si UpComingPanel;
             speed = Width / 6;
@@ -314,6 +315,10 @@ namespace Melodii.Forms.Sondaj
             lbPuncteAcumulate.TextAlign = ContentAlignment.MiddleCenter;
             lbPuncteAcumulate.Text = "Puncte acumulate in total: " + rezultateSondaj.ScorFinal;
 
+            Label spatiu = new Label();
+            spatiu.Height = 30;
+            spatiu.Dock = DockStyle.Top;
+
             for (int i= rezultateSondaj.Rezultate.Count-1; i>=0; i--)
             {
                 Panel element = new Panel();
@@ -360,10 +365,6 @@ namespace Melodii.Forms.Sondaj
                 lbPuncte.Dock = DockStyle.Top;
                 //lbPuncte.AutoSize = true;
 
-                Label spatiu = new Label();
-                spatiu.Height = 30;
-                spatiu.Dock = DockStyle.Top;
-
                 element.Controls.Add(lbPuncte);
                 element.Controls.Add(lbPozitieIndicata);
                 element.Controls.Add(lbPozitieTop);
@@ -374,6 +375,7 @@ namespace Melodii.Forms.Sondaj
                 panelRezultate.Controls.Add(element);
             }
 
+            panel1.Dispose();
             panelSondaj.Padding = new Padding(0);
             btNext.Text = "OK";
             btNext.Enabled = true;
@@ -381,6 +383,7 @@ namespace Melodii.Forms.Sondaj
             panelRezultate.Controls.Add(lbPuncteAcumulate);
             panelSondaj.Controls.Add(panelRezultate);
             panelRezultate.Controls.Add(lbText);
+            panelRezultate.Controls.Add(spatiu);
         }
 
         private void cmb_ValueChanged(object sender, EventArgs e)
@@ -417,6 +420,14 @@ namespace Melodii.Forms.Sondaj
             if (melodii.Count() == 0)
             {
                 //Sondajul s-a terminat, se revine la fereastra 'Acasa'
+                //Eliberare resurse
+                melodii.Clear();
+                voturi.Clear();
+                UpComingPanel = UpComingPanel = null;
+                Sondaj = null;
+                rezultateSondaj.Rezultate.Clear();
+                rezultateSondaj = null;
+
                 Panel parent = this.Parent as Panel;
                 openChildForm(new HomeForm(), parent);
             }

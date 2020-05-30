@@ -37,10 +37,10 @@
             // 
             this.lbAdresare.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lbAdresare.AutoSize = true;
-            this.lbAdresare.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbAdresare.Font = new System.Drawing.Font("Leelawadee", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbAdresare.Location = new System.Drawing.Point(378, 230);
             this.lbAdresare.Name = "lbAdresare";
-            this.lbAdresare.Size = new System.Drawing.Size(0, 31);
+            this.lbAdresare.Size = new System.Drawing.Size(0, 32);
             this.lbAdresare.TabIndex = 12;
             this.lbAdresare.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -48,10 +48,10 @@
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Leelawadee", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(177, 272);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(475, 25);
+            this.label1.Size = new System.Drawing.Size(495, 24);
             this.label1.TabIndex = 13;
             this.label1.Text = "Sondajul consta in ghicirea pozitiilor in top a melodiilor";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -62,7 +62,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btOk.AutoSize = true;
             this.btOk.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btOk.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btOk.Font = new System.Drawing.Font("Leelawadee", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btOk.Location = new System.Drawing.Point(240, 463);
             this.btOk.Name = "btOk";
             this.btOk.Size = new System.Drawing.Size(266, 43);
@@ -82,7 +82,7 @@
             this.Controls.Add(this.lbAdresare);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "SondajStartForm";
             this.ResumeLayout(false);
             this.PerformLayout();

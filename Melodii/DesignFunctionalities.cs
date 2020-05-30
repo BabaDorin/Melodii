@@ -34,7 +34,7 @@ namespace Melodii
             if(parent.Controls.Count>0)
                 foreach(Form c in parent.Controls)
                 {
-                    c.Close();
+                    c.Dispose();
                 }
 
             //Inseram forma

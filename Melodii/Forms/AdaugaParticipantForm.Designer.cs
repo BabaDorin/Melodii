@@ -53,7 +53,7 @@
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.Location = new System.Drawing.Point(471, 9);
             this.label6.Name = "label6";
-            this.label6.Padding = new System.Windows.Forms.Padding(50);
+            this.label6.Padding = new System.Windows.Forms.Padding(50, 49, 50, 49);
             this.label6.Size = new System.Drawing.Size(288, 75);
             this.label6.TabIndex = 20;
             // 
@@ -106,6 +106,7 @@
             // btSave
             // 
             this.btSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btSave.Font = new System.Drawing.Font("Leelawadee", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btSave.Location = new System.Drawing.Point(76, 445);
             this.btSave.Name = "btSave";
             this.btSave.Size = new System.Drawing.Size(261, 41);
@@ -125,10 +126,10 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Leelawadee", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(70, 64);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(342, 31);
+            this.label1.Size = new System.Drawing.Size(338, 32);
             this.label1.TabIndex = 11;
             this.label1.Text = "Inregistreaza un participant";
             // 
@@ -141,10 +142,11 @@
             // lbEroare
             // 
             this.lbEroare.AutoSize = true;
+            this.lbEroare.Font = new System.Drawing.Font("Leelawadee", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbEroare.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.lbEroare.Location = new System.Drawing.Point(72, 514);
             this.lbEroare.Name = "lbEroare";
-            this.lbEroare.Size = new System.Drawing.Size(0, 20);
+            this.lbEroare.Size = new System.Drawing.Size(0, 19);
             this.lbEroare.TabIndex = 21;
             // 
             // timer2

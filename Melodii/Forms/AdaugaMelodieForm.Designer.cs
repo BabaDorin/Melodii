@@ -52,10 +52,10 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Leelawadee", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(70, 64);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(230, 31);
+            this.label1.Size = new System.Drawing.Size(234, 32);
             this.label1.TabIndex = 0;
             this.label1.Text = "Adauga o melodie";
             // 
@@ -76,6 +76,7 @@
             // btSave
             // 
             this.btSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btSave.Font = new System.Drawing.Font("Leelawadee", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btSave.Location = new System.Drawing.Point(76, 495);
             this.btSave.Name = "btSave";
             this.btSave.Size = new System.Drawing.Size(261, 41);
@@ -159,10 +160,11 @@
             // lbEroare
             // 
             this.lbEroare.AutoSize = true;
+            this.lbEroare.Font = new System.Drawing.Font("Leelawadee", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbEroare.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.lbEroare.Location = new System.Drawing.Point(76, 565);
             this.lbEroare.Name = "lbEroare";
-            this.lbEroare.Size = new System.Drawing.Size(0, 20);
+            this.lbEroare.Size = new System.Drawing.Size(0, 19);
             this.lbEroare.TabIndex = 9;
             // 
             // timer2

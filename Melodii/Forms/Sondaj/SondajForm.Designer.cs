@@ -44,7 +44,7 @@
             // 
             // label
             // 
-            this.label.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label.AutoSize = true;
             this.label.Font = new System.Drawing.Font("Leelawadee", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label.Location = new System.Drawing.Point(341, 32);
@@ -56,23 +56,23 @@
             // 
             // lbParticipant
             // 
-            this.lbParticipant.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lbParticipant.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lbParticipant.AutoSize = true;
-            this.lbParticipant.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbParticipant.Font = new System.Drawing.Font("Leelawadee", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbParticipant.Location = new System.Drawing.Point(364, 76);
             this.lbParticipant.Name = "lbParticipant";
-            this.lbParticipant.Size = new System.Drawing.Size(46, 18);
+            this.lbParticipant.Size = new System.Drawing.Size(51, 19);
             this.lbParticipant.TabIndex = 14;
             this.lbParticipant.Text = "label1";
             // 
             // lbMelodiiRamase
             // 
-            this.lbMelodiiRamase.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lbMelodiiRamase.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lbMelodiiRamase.AutoSize = true;
-            this.lbMelodiiRamase.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbMelodiiRamase.Font = new System.Drawing.Font("Leelawadee", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbMelodiiRamase.Location = new System.Drawing.Point(364, 105);
             this.lbMelodiiRamase.Name = "lbMelodiiRamase";
-            this.lbMelodiiRamase.Size = new System.Drawing.Size(46, 18);
+            this.lbMelodiiRamase.Size = new System.Drawing.Size(51, 19);
             this.lbMelodiiRamase.TabIndex = 15;
             this.lbMelodiiRamase.Text = "label1";
             // 

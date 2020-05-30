@@ -41,11 +41,6 @@ namespace Melodii
             openChildForm(new AdaugaMelodieForm(), panelFormsArea);
         }
 
-        private void btnExcludeMelodii_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnVeziMelodii_Click(object sender, EventArgs e)
         {
             openChildForm(new VeziMelodiiForm(), panelFormsArea);

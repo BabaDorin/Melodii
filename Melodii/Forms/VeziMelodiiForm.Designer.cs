@@ -107,6 +107,7 @@
             // panelInfo
             // 
             this.panelInfo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(7)))), ((int)(((byte)(36)))));
+            this.panelInfo.Font = new System.Drawing.Font("Leelawadee", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panelInfo.Location = new System.Drawing.Point(421, 96);
             this.panelInfo.Name = "panelInfo";
             this.panelInfo.Size = new System.Drawing.Size(333, 455);
@@ -125,10 +126,11 @@
             // lbError
             // 
             this.lbError.AutoSize = true;
+            this.lbError.Font = new System.Drawing.Font("Leelawadee", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbError.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.lbError.Location = new System.Drawing.Point(46, 573);
             this.lbError.Name = "lbError";
-            this.lbError.Size = new System.Drawing.Size(0, 20);
+            this.lbError.Size = new System.Drawing.Size(0, 19);
             this.lbError.TabIndex = 10;
             // 
             // btTop3

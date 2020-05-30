@@ -47,15 +47,17 @@
             // lbError
             // 
             this.lbError.AutoSize = true;
+            this.lbError.Font = new System.Drawing.Font("Leelawadee", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbError.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.lbError.Location = new System.Drawing.Point(47, 572);
             this.lbError.Name = "lbError";
-            this.lbError.Size = new System.Drawing.Size(0, 17);
+            this.lbError.Size = new System.Drawing.Size(0, 15);
             this.lbError.TabIndex = 15;
             // 
             // panelInfo
             // 
             this.panelInfo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(7)))), ((int)(((byte)(36)))));
+            this.panelInfo.Font = new System.Drawing.Font("Leelawadee", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panelInfo.Location = new System.Drawing.Point(422, 95);
             this.panelInfo.Name = "panelInfo";
             this.panelInfo.Size = new System.Drawing.Size(333, 455);
@@ -79,6 +81,7 @@
             this.panelParticipantiButtons.AutoScroll = true;
             this.panelParticipantiButtons.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.panelParticipantiButtons.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelParticipantiButtons.Font = new System.Drawing.Font("Leelawadee", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panelParticipantiButtons.Location = new System.Drawing.Point(1, 0);
             this.panelParticipantiButtons.Name = "panelParticipantiButtons";
             this.panelParticipantiButtons.Padding = new System.Windows.Forms.Padding(10);
@@ -114,10 +117,10 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Leelawadee", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(65, 56);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(215, 31);
+            this.label1.Size = new System.Drawing.Size(213, 32);
             this.label1.TabIndex = 11;
             this.label1.Text = "Vezi Participantii";
             // 
