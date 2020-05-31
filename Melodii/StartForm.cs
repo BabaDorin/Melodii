@@ -14,13 +14,14 @@ using System.Data.SqlClient;
 
 namespace Melodii
 {
-    public partial class Form1 : Form
+    public partial class StartForm : Form
     {
-        public Form1()
+        public StartForm()
         {
             InitializeComponent();
             panelMelodiiSubmenu.Visible = false;
             panelParticipantiSubmenu.Visible = false;
+            panelSondajSubmenu.Visible = false;
             openChildForm(new HomeForm(), panelFormsArea);
         }
 
@@ -59,6 +60,11 @@ namespace Melodii
         private void pictureBox1_Click(object sender, EventArgs e)
         {
             openChildForm(new HomeForm(), panelFormsArea);
+        }
+
+        private void btnSondaj_Click(object sender, EventArgs e)
+        {
+            Toggle(btnSondaj, panelSondajSubmenu);
         }
     }
 }

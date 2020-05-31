@@ -1,6 +1,6 @@
 ﻿namespace Melodii
 {
-    partial class Form1
+    partial class StartForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,10 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StartForm));
             this.panelMenu = new System.Windows.Forms.Panel();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
+            this.panelSondajSubmenu = new System.Windows.Forms.Panel();
+            this.button2 = new System.Windows.Forms.Button();
+            this.btnSondaj = new System.Windows.Forms.Button();
             this.panelParticipantiSubmenu = new System.Windows.Forms.Panel();
             this.btnVeziParticipanti = new System.Windows.Forms.Button();
             this.btnAdaugaParticipanti = new System.Windows.Forms.Button();
@@ -43,9 +44,8 @@
             this.panelLogo = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panelFormsArea = new System.Windows.Forms.Panel();
-            this.button2 = new System.Windows.Forms.Button();
             this.panelMenu.SuspendLayout();
-            this.panel1.SuspendLayout();
+            this.panelSondajSubmenu.SuspendLayout();
             this.panelParticipantiSubmenu.SuspendLayout();
             this.panelMelodiiSubmenu.SuspendLayout();
             this.panelLogo.SuspendLayout();
@@ -55,8 +55,8 @@
             // panelMenu
             // 
             this.panelMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(11)))), ((int)(((byte)(7)))), ((int)(((byte)(17)))));
-            this.panelMenu.Controls.Add(this.panel1);
-            this.panelMenu.Controls.Add(this.button1);
+            this.panelMenu.Controls.Add(this.panelSondajSubmenu);
+            this.panelMenu.Controls.Add(this.btnSondaj);
             this.panelMenu.Controls.Add(this.panelParticipantiSubmenu);
             this.panelMenu.Controls.Add(this.btnParticipanti);
             this.panelMenu.Controls.Add(this.panelMelodiiSubmenu);
@@ -69,31 +69,47 @@
             this.panelMenu.Size = new System.Drawing.Size(191, 651);
             this.panelMenu.TabIndex = 0;
             // 
-            // panel1
+            // panelSondajSubmenu
             // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(32)))), ((int)(((byte)(39)))));
-            this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.panel1.Controls.Add(this.button2);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 467);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(191, 42);
-            this.panel1.TabIndex = 6;
+            this.panelSondajSubmenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(32)))), ((int)(((byte)(39)))));
+            this.panelSondajSubmenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.panelSondajSubmenu.Controls.Add(this.button2);
+            this.panelSondajSubmenu.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelSondajSubmenu.Location = new System.Drawing.Point(0, 467);
+            this.panelSondajSubmenu.Name = "panelSondajSubmenu";
+            this.panelSondajSubmenu.Size = new System.Drawing.Size(191, 42);
+            this.panelSondajSubmenu.TabIndex = 6;
             // 
-            // button1
+            // button2
             // 
-            this.button1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.button1.Location = new System.Drawing.Point(0, 428);
-            this.button1.Name = "button1";
-            this.button1.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
-            this.button1.Size = new System.Drawing.Size(191, 39);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "Sondaj";
-            this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.UseVisualStyleBackColor = true;
+            this.button2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.button2.FlatAppearance.BorderSize = 0;
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button2.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.button2.Location = new System.Drawing.Point(0, 0);
+            this.button2.Name = "button2";
+            this.button2.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
+            this.button2.Size = new System.Drawing.Size(191, 39);
+            this.button2.TabIndex = 2;
+            this.button2.Text = "Vezi sondajele anterioare";
+            this.button2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // btnSondaj
+            // 
+            this.btnSondaj.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnSondaj.FlatAppearance.BorderSize = 0;
+            this.btnSondaj.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSondaj.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.btnSondaj.Location = new System.Drawing.Point(0, 428);
+            this.btnSondaj.Name = "btnSondaj";
+            this.btnSondaj.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
+            this.btnSondaj.Size = new System.Drawing.Size(191, 39);
+            this.btnSondaj.TabIndex = 5;
+            this.btnSondaj.Text = "Sondaj";
+            this.btnSondaj.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSondaj.UseVisualStyleBackColor = true;
+            this.btnSondaj.Click += new System.EventHandler(this.btnSondaj_Click);
             // 
             // panelParticipantiSubmenu
             // 
@@ -251,22 +267,7 @@
             this.panelFormsArea.Size = new System.Drawing.Size(787, 651);
             this.panelFormsArea.TabIndex = 1;
             // 
-            // button2
-            // 
-            this.button2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button2.FlatAppearance.BorderSize = 0;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.button2.Location = new System.Drawing.Point(0, 0);
-            this.button2.Name = "button2";
-            this.button2.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
-            this.button2.Size = new System.Drawing.Size(191, 39);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "Vezi sondajele anterioare";
-            this.button2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // Form1
+            // StartForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -278,11 +279,11 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
-            this.Name = "Form1";
+            this.Name = "StartForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Melodii";
             this.panelMenu.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
+            this.panelSondajSubmenu.ResumeLayout(false);
             this.panelParticipantiSubmenu.ResumeLayout(false);
             this.panelMelodiiSubmenu.ResumeLayout(false);
             this.panelLogo.ResumeLayout(false);
@@ -305,8 +306,8 @@
         private System.Windows.Forms.Button btnMelodii;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Panel panelFormsArea;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Panel panelSondajSubmenu;
+        private System.Windows.Forms.Button btnSondaj;
         private System.Windows.Forms.Button button2;
     }
 }

@@ -27,9 +27,6 @@ namespace Melodii.Forms.Sondaj
         private static Melodii.Models.Sondaj Sondaj;
         private static RezultateSondaj rezultateSondaj;
 
-        //BEFREE>> ProcesareVot, Inserare vot in BD, construire Sondaj, Inserare sondaj, Calcularea
-        //rezultatelor, afisarea rezultatelor.
-
         public SondajForm(int IdParticipant)
         {
             InitializeComponent();
