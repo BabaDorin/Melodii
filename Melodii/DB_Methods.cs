@@ -465,6 +465,8 @@ namespace Melodii
                 //Crerea unui obiect de tip DataAdapter pentru conectarea DataSet-ului
                 //cu baza de date.
                 SqlDataAdapter daVoturi = new SqlDataAdapter("SELECT * FROM Voturi WHERE IdSondaj = @IdSondaj", Connection);
+                SqlParameter parIdSondaj = new SqlParameter("@IdSondaj", idSondaj);
+                daVoturi.SelectCommand.Parameters.Add(parIdSondaj);
                 DataSet dsVoturi = new DataSet("Voturi");
                 daVoturi.Fill(dsVoturi, "Voturi");
                 DataTable tblVoturi = dsVoturi.Tables["Voturi"];
@@ -483,8 +485,8 @@ namespace Melodii
                         ScorVot = (int)drVot["ScorVot"],
                         DenumireMelodie = MelodieNameByID((int)drVot["IdMelodie"], false),
                         NumeParticipant = ParticipantNumeByID((int)drVot["IdParticipant"], false),
-                        PozitiaIndicata = (int)drVot["PozitieIndicata"],
-                        PozitieTop = (int)drVot["PozitiaTop"]
+                        PozitiaIndicata = (int)drVot["PozitiaIndicata"],
+                        PozitieTop = (int)drVot["PozitieTop"]
                     });
                 }
             }

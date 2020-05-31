@@ -258,18 +258,24 @@ namespace Melodii.Forms.Sondaj
 
         private void btVoturi_Click(object sender, EventArgs e)
         {
+
             //Extragerea voturilor
             List<Vot> voturi = new List<Vot>();
-
+            LoadVoturi(ref voturi, (int)(sender as Button).Tag);
 
             Panel parent = (sender as Button).Parent as Panel;
+            if (parent.Controls.Count > 5)
+            {
+                parent.Controls[5].Dispose();
+            }
 
-            Label spatiu = new Label();
-            spatiu.Height = 50;
-            spatiu.Dock = DockStyle.Top;
+            //Label spatiu = new Label();
+            //spatiu.Height = 50;
+            //spatiu.Dock = DockStyle.Top;
 
             //Vom construi un panel asemanator cu cel folosit pentru afisarea sondajelor
             Panel panelVoturi = new Panel();
+            panelVoturi.Tag = "PanelVoturi";
             panelVoturi.Width = parent.Width;
             panelVoturi.Height = parent.Height - (sender as Button).Top - 50;
             panelVoturi.Left = 0;
@@ -293,10 +299,69 @@ namespace Melodii.Forms.Sondaj
             //Inserarea voturilor
             Panel panelVoturiList = new Panel();
             panelVoturiList.Dock = DockStyle.Fill;
+            panelVoturiList.AutoScroll = true;
+            if (voturi.Count == 0)
+            {
+                Label lbEmpty = new Label();
+                lbEmpty.Font = new Font("Leelawadee", 13);
+                lbEmpty.Text = "  N-au fost gasite voturi spre afisare";
+                lbEmpty.Dock = DockStyle.Top;
+                panelVoturiList.Controls.Add(lbEmpty);
+            }
+            else
+            {
+                for(int i=0; i<voturi.Count; i++)
+                {
+                    Panel vot = new Panel();
+                    vot.AutoSize = true;
+                    vot.Dock = DockStyle.Top;
 
-            
+                    Label lbDenumire = new Label();
+                    lbDenumire.Font = new Font("Leelawadee", 13);
+                    lbDenumire.Text = voturi[i].DenumireMelodie;
+                    lbDenumire.Dock = DockStyle.Top;
+                    lbDenumire.ForeColor = Color.WhiteSmoke;
+                    lbDenumire.TextAlign = ContentAlignment.MiddleCenter;
+
+                    Label lbPozitie = new Label();
+                    lbPozitie.Font = new Font("Leelawadee", 10);
+                    lbPozitie.Text = String.Format($"Pozitia in TOP: {voturi[i].PozitieTop}      Pozitia indicata: {voturi[i].PozitiaIndicata}");
+                    lbPozitie.Dock = DockStyle.Top;
+                    lbPozitie.ForeColor = Color.LightGray;
+                    lbPozitie.TextAlign = ContentAlignment.MiddleCenter;
+
+                    Label lbScor = new Label();
+                    lbScor.Font = new Font("Leelawadee", 10);
+                    lbScor.Text = String.Format($"Scor vot: {voturi[i].ScorVot}");
+                    lbScor.Dock = DockStyle.Top;
+                    lbScor.ForeColor = Color.LightGray;
+                    lbScor.TextAlign = ContentAlignment.MiddleCenter;
+
+                    Label spatiere = new Label();
+                    spatiere.Height = 30;
+                    spatiere.Dock = DockStyle.Top;
+
+                    vot.Controls.Add(lbScor);
+                    vot.Controls.Add(lbPozitie);
+                    vot.Controls.Add(lbDenumire);
+                    vot.Controls.Add(spatiere);
+                    panelVoturiList.Controls.Add(vot);
+                }
+            }
+
+            //Label pentru nota informativa
+            Label lbNota = new Label();
+            lbNota.Font = new Font("Leelawadee", 10);
+            lbNota.ForeColor = Color.Gray;
+            lbNota.Text = "*Nota: Voturile pentru melodiile eliminate din baza de date au fost la fel eliminate.";
+            lbNota.MaximumSize = new Size(panelInfo.Width, 100);
+            lbNota.AutoSize = true;
+            lbNota.Padding = new Padding(10);
+            lbNota.Dock = DockStyle.Bottom;
+
+            panelVoturi.Controls.Add(panelVoturiList);
+            panelVoturi.Controls.Add(lbNota);
             parent.Controls.Add(panelVoturi);
-
         }
 
         #endregion
