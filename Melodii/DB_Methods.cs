@@ -1,22 +1,16 @@
-﻿using System;
+﻿using Melodii.Models;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
-using Melodii.Models;
-using System.Data.SqlClient;
 using System.Data;
+using System.Data.SqlClient;
 using System.Diagnostics;
-using System.CodeDom;
-using System.Linq.Expressions;
-using System.Net.NetworkInformation;
+using System.IO;
 
 namespace Melodii
 {
     class DB_Methods
     {
-
+        //BEFREE>> Add bool [success] for every method, or find another solution.
         public static string ConnectionString =  @"Data Source=(LocalDB)\MSSQLLocalDB; AttachDbFilename=" + Directory.GetCurrentDirectory() + @"\Database.mdf; Integrated Security=True; Pooling = true";
 
         #region Melodii
@@ -176,6 +170,42 @@ namespace Melodii
             }
 
         }
+
+        public static string MelodieNameByID(int idMelodie, bool CloseConnection)
+        {
+            //---------------------< Returneaza denumirea melodiei >---------------------------
+
+            SqlConnection Connection = new SqlConnection(ConnectionString);
+            try
+            {
+                //Vom folosi parametri sql pentru ca aplicatia sa fie imuna atacurilor de tip SQL Injection
+                SqlCommand cmd = new SqlCommand("SELECT Denumire FROM Melodii WHERE IdMelodie = @IdMelodie", Connection);
+
+                SqlParameter parId = new SqlParameter("@IdMelodie", idMelodie);
+                cmd.Parameters.Add(parId);
+
+                if (Connection.State == ConnectionState.Closed)
+                    Connection.Open();
+
+                string Nume;
+                Nume = cmd.ExecuteScalar().ToString();
+                
+                if(CloseConnection)
+                    Connection.Close();
+
+                return Nume;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Eroare MelodieNameByID: " + ex.Message);
+                throw ex;
+            }
+            finally
+            {
+                if (Connection.State == ConnectionState.Open)
+                    Connection.Close();
+            }
+        }
         #endregion
 
         #region Participanti
@@ -334,7 +364,7 @@ namespace Melodii
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Eroare InsertParticipant: " + ex.Message);
+                Debug.WriteLine("Eroare ParticipantNumeByID: " + ex.Message);
                 throw ex;
             }
             finally
@@ -383,9 +413,9 @@ namespace Melodii
             {
                 //Vom folosi parametri sql pentru ca aplicatia sa fie imuna atacurilor de tip SQL Injection
                 SqlCommand cmd = new SqlCommand("INSERT INTO Voturi" +
-                "(IdParticipant, IdMelodie, ScorVot, IdSondaj)" +
+                "(IdParticipant, IdMelodie, ScorVot, IdSondaj, PozitieTop, PozitiaIndicata)" +
                 "VALUES" +
-                "(@IdParticipant, @IdMelodie, @ScorVot, @IdSondaj); ", Connection);
+                "(@IdParticipant, @IdMelodie, @ScorVot, @IdSondaj, @PozitieTop, @PozitiaIndicata); ", Connection);
 
                 SqlParameter parParticipant = new SqlParameter("@IdParticipant", vot.IdParticipant);
                 cmd.Parameters.Add(parParticipant);
@@ -399,6 +429,12 @@ namespace Melodii
                 SqlParameter parSondaj = new SqlParameter("@IdSondaj", vot.IdSondaj);
                 cmd.Parameters.Add(parSondaj);
 
+                SqlParameter parPozitieTop = new SqlParameter("@PozitieTop", vot.PozitieTop);
+                cmd.Parameters.Add(parPozitieTop);
+
+                SqlParameter parPozitieIndicata = new SqlParameter("@PozitiaIndicata", vot.PozitiaIndicata);
+                cmd.Parameters.Add(parPozitieIndicata);
+
                 Connection.Open();
                 cmd.ExecuteNonQuery();
                 Connection.Close();
@@ -406,6 +442,81 @@ namespace Melodii
             catch (Exception ex)
             {
                 Debug.WriteLine("Eroare InsertVot: " + ex.Message);
+                throw ex;
+            }
+            finally
+            {
+                if (Connection.State == ConnectionState.Open)
+                    Connection.Close();
+            }
+        }
+        
+        public static void LoadVoturi(ref List<Vot> voturi, int idSondaj)
+        {
+            //--------------< Returneaza lista de voturi pentru sondajul indicat >---------------------
+            SqlConnection Connection = new SqlConnection(ConnectionString);
+            try
+            {
+                //----------------------------< Extragerea datelor din BD >-------------------------
+
+                //Stabilirea conexiunii
+                Connection.Open();
+
+                //Crerea unui obiect de tip DataAdapter pentru conectarea DataSet-ului
+                //cu baza de date.
+                SqlDataAdapter daVoturi = new SqlDataAdapter("SELECT * FROM Voturi WHERE IdSondaj = @IdSondaj", Connection);
+                DataSet dsVoturi = new DataSet("Voturi");
+                daVoturi.Fill(dsVoturi, "Voturi");
+                DataTable tblVoturi = dsVoturi.Tables["Voturi"];
+                Connection.Close();
+
+                //Trecem la popularea listei.
+                voturi.Clear();
+                foreach (DataRow drVot in tblVoturi.Rows)
+                {
+                    voturi.Add(new Vot
+                    {
+                        IdVot = (int)drVot["IdVot"],
+                        IdMelodie = (int)drVot["IdMelodie"],
+                        IdParticipant = (int)drVot["IdParticipant"],
+                        IdSondaj = (int)drVot["IdSondaj"],
+                        ScorVot = (int)drVot["ScorVot"],
+                        DenumireMelodie = MelodieNameByID((int)drVot["IdMelodie"], false),
+                        NumeParticipant = ParticipantNumeByID((int)drVot["IdParticipant"], false),
+                        PozitiaIndicata = (int)drVot["PozitieIndicata"],
+                        PozitieTop = (int)drVot["PozitiaTop"]
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Eroare LoadVoturi: " + ex.Message);
+                throw ex;
+            }
+            finally
+            {
+                if (Connection.State == ConnectionState.Open)
+                    Connection.Close();
+            }
+        }
+
+        public static void ClearVoturi()
+        {
+            //---------------------< Elimina toate inregistrarile din tabela Voturi >---------------------------
+
+            SqlConnection Connection = new SqlConnection(ConnectionString);
+            try
+            {
+                //Vom folosi parametri sql pentru ca aplicatia sa fie imuna atacurilor de tip SQL Injection
+                SqlCommand cmd = new SqlCommand("DELETE FROM VOTURI", Connection);
+
+                Connection.Open();
+                cmd.ExecuteNonQuery();
+                Connection.Close();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Eroare ClearVoturi: " + ex.Message);
                 throw ex;
             }
             finally

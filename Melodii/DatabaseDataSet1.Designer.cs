@@ -1084,6 +1084,10 @@ namespace Melodii {
             
             private global::System.Data.DataColumn columnIdSondaj;
             
+            private global::System.Data.DataColumn columnPozitieTop;
+            
+            private global::System.Data.DataColumn columnPozitiaIndicata;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public VoturiDataTable() {
@@ -1159,6 +1163,22 @@ namespace Melodii {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn PozitieTopColumn {
+                get {
+                    return this.columnPozitieTop;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn PozitiaIndicataColumn {
+                get {
+                    return this.columnPozitiaIndicata;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -1194,14 +1214,16 @@ namespace Melodii {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public VoturiRow AddVoturiRow(ParticipantiRow parentParticipantiRowByFK__Voturi__IdPartic__2D27B809, MelodiiRow parentMelodiiRowByFK__Voturi__IdMelodi__2E1BDC42, int ScorVot, SondajeRow parentSondajeRowByFK__Voturi__IdSondaj__37A5467C) {
+            public VoturiRow AddVoturiRow(ParticipantiRow parentParticipantiRowByFK__Voturi__IdPartic__2D27B809, MelodiiRow parentMelodiiRowByFK__Voturi__IdMelodi__2E1BDC42, int ScorVot, SondajeRow parentSondajeRowByFK__Voturi__IdSondaj__37A5467C, int PozitieTop, int PozitiaIndicata) {
                 VoturiRow rowVoturiRow = ((VoturiRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
                         null,
                         null,
                         ScorVot,
-                        null};
+                        null,
+                        PozitieTop,
+                        PozitiaIndicata};
                 if ((parentParticipantiRowByFK__Voturi__IdPartic__2D27B809 != null)) {
                     columnValuesArray[1] = parentParticipantiRowByFK__Voturi__IdPartic__2D27B809[0];
                 }
@@ -1245,6 +1267,8 @@ namespace Melodii {
                 this.columnIdMelodie = base.Columns["IdMelodie"];
                 this.columnScorVot = base.Columns["ScorVot"];
                 this.columnIdSondaj = base.Columns["IdSondaj"];
+                this.columnPozitieTop = base.Columns["PozitieTop"];
+                this.columnPozitiaIndicata = base.Columns["PozitiaIndicata"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1260,6 +1284,10 @@ namespace Melodii {
                 base.Columns.Add(this.columnScorVot);
                 this.columnIdSondaj = new global::System.Data.DataColumn("IdSondaj", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnIdSondaj);
+                this.columnPozitieTop = new global::System.Data.DataColumn("PozitieTop", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPozitieTop);
+                this.columnPozitiaIndicata = new global::System.Data.DataColumn("PozitiaIndicata", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPozitiaIndicata);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnIdVot}, true));
                 this.columnIdVot.AutoIncrement = true;
@@ -1272,6 +1300,8 @@ namespace Melodii {
                 this.columnIdMelodie.AllowDBNull = false;
                 this.columnScorVot.AllowDBNull = false;
                 this.columnIdSondaj.AllowDBNull = false;
+                this.columnPozitieTop.AllowDBNull = false;
+                this.columnPozitiaIndicata.AllowDBNull = false;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2009,6 +2039,28 @@ namespace Melodii {
                 }
                 set {
                     this[this.tableVoturi.IdSondajColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public int PozitieTop {
+                get {
+                    return ((int)(this[this.tableVoturi.PozitieTopColumn]));
+                }
+                set {
+                    this[this.tableVoturi.PozitieTopColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public int PozitiaIndicata {
+                get {
+                    return ((int)(this[this.tableVoturi.PozitiaIndicataColumn]));
+                }
+                set {
+                    this[this.tableVoturi.PozitiaIndicataColumn] = value;
                 }
             }
             
@@ -3188,42 +3240,49 @@ SELECT IdParticipant, Nume, Scor, Informatii, Varsta FROM Participanti WHERE (Id
             tableMapping.ColumnMappings.Add("IdMelodie", "IdMelodie");
             tableMapping.ColumnMappings.Add("ScorVot", "ScorVot");
             tableMapping.ColumnMappings.Add("IdSondaj", "IdSondaj");
+            tableMapping.ColumnMappings.Add("PozitieTop", "PozitieTop");
+            tableMapping.ColumnMappings.Add("PozitiaIndicata", "PozitiaIndicata");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = "DELETE FROM [Voturi] WHERE (([IdVot] = @Original_IdVot) AND ([IdParticipant] = @O" +
-                "riginal_IdParticipant) AND ([IdMelodie] = @Original_IdMelodie) AND ([ScorVot] = " +
-                "@Original_ScorVot) AND ([IdSondaj] = @Original_IdSondaj))";
+            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [Voturi] WHERE (([IdVot] = @Original_IdVot) AND ([IdParticipant] = @Original_IdParticipant) AND ([IdMelodie] = @Original_IdMelodie) AND ([ScorVot] = @Original_ScorVot) AND ([IdSondaj] = @Original_IdSondaj) AND ([PozitiaIndicata] = @Original_PozitiaIndicata) AND ([PozitieTop] = @Original_PozitieTop))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_IdVot", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IdVot", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_IdParticipant", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IdParticipant", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_IdMelodie", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IdMelodie", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ScorVot", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ScorVot", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_IdSondaj", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IdSondaj", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_PozitiaIndicata", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PozitiaIndicata", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_PozitieTop", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PozitieTop", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO [Voturi] ([IdParticipant], [IdMelodie], [ScorVot], [IdSondaj]) VALUES" +
-                " (@IdParticipant, @IdMelodie, @ScorVot, @IdSondaj);\r\nSELECT IdVot, IdParticipant" +
-                ", IdMelodie, ScorVot, IdSondaj FROM Voturi WHERE (IdVot = SCOPE_IDENTITY())";
+            this._adapter.InsertCommand.CommandText = @"INSERT INTO [Voturi] ([IdParticipant], [IdMelodie], [ScorVot], [IdSondaj], [PozitiaIndicata], [PozitieTop]) VALUES (@IdParticipant, @IdMelodie, @ScorVot, @IdSondaj, @PozitiaIndicata, @PozitieTop);
+SELECT IdVot, IdParticipant, IdMelodie, ScorVot, IdSondaj, PozitiaIndicata, PozitieTop FROM Voturi WHERE (IdVot = SCOPE_IDENTITY())";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IdParticipant", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IdParticipant", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IdMelodie", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IdMelodie", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ScorVot", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ScorVot", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IdSondaj", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IdSondaj", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PozitiaIndicata", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PozitiaIndicata", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PozitieTop", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PozitieTop", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [Voturi] SET [IdParticipant] = @IdParticipant, [IdMelodie] = @IdMelodie, [ScorVot] = @ScorVot, [IdSondaj] = @IdSondaj WHERE (([IdVot] = @Original_IdVot) AND ([IdParticipant] = @Original_IdParticipant) AND ([IdMelodie] = @Original_IdMelodie) AND ([ScorVot] = @Original_ScorVot) AND ([IdSondaj] = @Original_IdSondaj));
-SELECT IdVot, IdParticipant, IdMelodie, ScorVot, IdSondaj FROM Voturi WHERE (IdVot = @IdVot)";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE [Voturi] SET [IdParticipant] = @IdParticipant, [IdMelodie] = @IdMelodie, [ScorVot] = @ScorVot, [IdSondaj] = @IdSondaj, [PozitiaIndicata] = @PozitiaIndicata, [PozitieTop] = @PozitieTop WHERE (([IdVot] = @Original_IdVot) AND ([IdParticipant] = @Original_IdParticipant) AND ([IdMelodie] = @Original_IdMelodie) AND ([ScorVot] = @Original_ScorVot) AND ([IdSondaj] = @Original_IdSondaj) AND ([PozitiaIndicata] = @Original_PozitiaIndicata) AND ([PozitieTop] = @Original_PozitieTop));
+SELECT IdVot, IdParticipant, IdMelodie, ScorVot, IdSondaj, PozitiaIndicata, PozitieTop FROM Voturi WHERE (IdVot = @IdVot)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IdParticipant", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IdParticipant", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IdMelodie", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IdMelodie", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ScorVot", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ScorVot", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IdSondaj", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IdSondaj", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PozitiaIndicata", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PozitiaIndicata", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PozitieTop", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PozitieTop", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_IdVot", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IdVot", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_IdParticipant", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IdParticipant", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_IdMelodie", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IdMelodie", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ScorVot", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ScorVot", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_IdSondaj", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IdSondaj", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_PozitiaIndicata", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PozitiaIndicata", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_PozitieTop", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PozitieTop", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IdVot", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "IdVot", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
@@ -3240,7 +3299,8 @@ SELECT IdVot, IdParticipant, IdMelodie, ScorVot, IdSondaj FROM Voturi WHERE (IdV
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT IdVot, IdParticipant, IdMelodie, ScorVot, IdSondaj FROM Voturi";
+            this._commandCollection[0].CommandText = "SELECT IdVot, IdParticipant, IdMelodie, ScorVot, IdSondaj, PozitiaIndicata, Pozit" +
+                "ieTop FROM Voturi";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -3301,12 +3361,14 @@ SELECT IdVot, IdParticipant, IdMelodie, ScorVot, IdSondaj FROM Voturi WHERE (IdV
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_IdVot, int Original_IdParticipant, int Original_IdMelodie, int Original_ScorVot, int Original_IdSondaj) {
+        public virtual int Delete(int Original_IdVot, int Original_IdParticipant, int Original_IdMelodie, int Original_ScorVot, int Original_IdSondaj, int Original_PozitiaIndicata, int Original_PozitieTop) {
             this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_IdVot));
             this.Adapter.DeleteCommand.Parameters[1].Value = ((int)(Original_IdParticipant));
             this.Adapter.DeleteCommand.Parameters[2].Value = ((int)(Original_IdMelodie));
             this.Adapter.DeleteCommand.Parameters[3].Value = ((int)(Original_ScorVot));
             this.Adapter.DeleteCommand.Parameters[4].Value = ((int)(Original_IdSondaj));
+            this.Adapter.DeleteCommand.Parameters[5].Value = ((int)(Original_PozitiaIndicata));
+            this.Adapter.DeleteCommand.Parameters[6].Value = ((int)(Original_PozitieTop));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -3327,11 +3389,13 @@ SELECT IdVot, IdParticipant, IdMelodie, ScorVot, IdSondaj FROM Voturi WHERE (IdV
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(int IdParticipant, int IdMelodie, int ScorVot, int IdSondaj) {
+        public virtual int Insert(int IdParticipant, int IdMelodie, int ScorVot, int IdSondaj, int PozitiaIndicata, int PozitieTop) {
             this.Adapter.InsertCommand.Parameters[0].Value = ((int)(IdParticipant));
             this.Adapter.InsertCommand.Parameters[1].Value = ((int)(IdMelodie));
             this.Adapter.InsertCommand.Parameters[2].Value = ((int)(ScorVot));
             this.Adapter.InsertCommand.Parameters[3].Value = ((int)(IdSondaj));
+            this.Adapter.InsertCommand.Parameters[4].Value = ((int)(PozitiaIndicata));
+            this.Adapter.InsertCommand.Parameters[5].Value = ((int)(PozitieTop));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -3352,17 +3416,21 @@ SELECT IdVot, IdParticipant, IdMelodie, ScorVot, IdSondaj FROM Voturi WHERE (IdV
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(int IdParticipant, int IdMelodie, int ScorVot, int IdSondaj, int Original_IdVot, int Original_IdParticipant, int Original_IdMelodie, int Original_ScorVot, int Original_IdSondaj, int IdVot) {
+        public virtual int Update(int IdParticipant, int IdMelodie, int ScorVot, int IdSondaj, int PozitiaIndicata, int PozitieTop, int Original_IdVot, int Original_IdParticipant, int Original_IdMelodie, int Original_ScorVot, int Original_IdSondaj, int Original_PozitiaIndicata, int Original_PozitieTop, int IdVot) {
             this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(IdParticipant));
             this.Adapter.UpdateCommand.Parameters[1].Value = ((int)(IdMelodie));
             this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(ScorVot));
             this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(IdSondaj));
-            this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(Original_IdVot));
-            this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(Original_IdParticipant));
-            this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(Original_IdMelodie));
-            this.Adapter.UpdateCommand.Parameters[7].Value = ((int)(Original_ScorVot));
-            this.Adapter.UpdateCommand.Parameters[8].Value = ((int)(Original_IdSondaj));
-            this.Adapter.UpdateCommand.Parameters[9].Value = ((int)(IdVot));
+            this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(PozitiaIndicata));
+            this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(PozitieTop));
+            this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(Original_IdVot));
+            this.Adapter.UpdateCommand.Parameters[7].Value = ((int)(Original_IdParticipant));
+            this.Adapter.UpdateCommand.Parameters[8].Value = ((int)(Original_IdMelodie));
+            this.Adapter.UpdateCommand.Parameters[9].Value = ((int)(Original_ScorVot));
+            this.Adapter.UpdateCommand.Parameters[10].Value = ((int)(Original_IdSondaj));
+            this.Adapter.UpdateCommand.Parameters[11].Value = ((int)(Original_PozitiaIndicata));
+            this.Adapter.UpdateCommand.Parameters[12].Value = ((int)(Original_PozitieTop));
+            this.Adapter.UpdateCommand.Parameters[13].Value = ((int)(IdVot));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -3383,8 +3451,8 @@ SELECT IdVot, IdParticipant, IdMelodie, ScorVot, IdSondaj FROM Voturi WHERE (IdV
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(int IdParticipant, int IdMelodie, int ScorVot, int IdSondaj, int Original_IdVot, int Original_IdParticipant, int Original_IdMelodie, int Original_ScorVot, int Original_IdSondaj) {
-            return this.Update(IdParticipant, IdMelodie, ScorVot, IdSondaj, Original_IdVot, Original_IdParticipant, Original_IdMelodie, Original_ScorVot, Original_IdSondaj, Original_IdVot);
+        public virtual int Update(int IdParticipant, int IdMelodie, int ScorVot, int IdSondaj, int PozitiaIndicata, int PozitieTop, int Original_IdVot, int Original_IdParticipant, int Original_IdMelodie, int Original_ScorVot, int Original_IdSondaj, int Original_PozitiaIndicata, int Original_PozitieTop) {
+            return this.Update(IdParticipant, IdMelodie, ScorVot, IdSondaj, PozitiaIndicata, PozitieTop, Original_IdVot, Original_IdParticipant, Original_IdMelodie, Original_ScorVot, Original_IdSondaj, Original_PozitiaIndicata, Original_PozitieTop, Original_IdVot);
         }
     }
     

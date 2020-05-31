@@ -8,7 +8,7 @@
   <Shapes>
     <Shape ID="DesignTable:Melodii" ZOrder="8" X="321" Y="70" Height="191" Width="189" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="140" />
     <Shape ID="DesignTable:Participanti" ZOrder="7" X="321" Y="331" Height="172" Width="211" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="121" />
-    <Shape ID="DesignTable:Voturi" ZOrder="6" X="70" Y="70" Height="172" Width="181" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="121" />
+    <Shape ID="DesignTable:Voturi" ZOrder="6" X="70" Y="70" Height="210" Width="181" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="159" />
     <Shape ID="DesignTable:Sondaje" ZOrder="5" X="321" Y="573" Height="153" Width="191" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="102" />
   </Shapes>
   <Connectors>
@@ -36,7 +36,7 @@
         </Point>
         <Point>
           <X>234</X>
-          <Y>242</Y>
+          <Y>280</Y>
         </Point>
       </RoutePoints>
     </Connector>
@@ -52,7 +52,7 @@
         </Point>
         <Point>
           <X>226</X>
-          <Y>242</Y>
+          <Y>280</Y>
         </Point>
       </RoutePoints>
     </Connector>

@@ -219,6 +219,8 @@ namespace Melodii.Forms.Sondaj
             Vot vot = new Vot();
             vot.IdParticipant = Sondaj.IdParticipant;
             vot.IdMelodie = melodii[CurrentId].IdMelodie;
+            vot.PozitieTop = melodii[CurrentId].LoculInTop;
+            vot.PozitiaIndicata = pozitiaAleasa;
 
             //Instantierea unui obiect de tip Rezultat care va contine informatii despre
             //votul curent

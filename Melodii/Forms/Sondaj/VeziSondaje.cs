@@ -133,8 +133,9 @@ namespace Melodii.Forms.Sondaj
             // 2) Vom re-analiza modul in care este afisat numele participantului
             // Daca fereastra a fost marita, atunci denumirea va contine mai multe litere ca urmare
             // a maririi lungimii butoanelor, in caz contrar, denumirea va fi scurtata.
+            panelList.Width = Width / 100 * 45;
             panelInfo.Left = panelList.Right + 50;
-            panelList.Width = Width / 100 * 50;
+            panelInfo.Width = this.Right - panelInfo.Left - 20;
             formMinimized = !formMinimized;
 
             if (Sondaje.Count > 0)
@@ -257,13 +258,44 @@ namespace Melodii.Forms.Sondaj
 
         private void btVoturi_Click(object sender, EventArgs e)
         {
+            //Extragerea voturilor
+            List<Vot> voturi = new List<Vot>();
+
+
             Panel parent = (sender as Button).Parent as Panel;
 
             Label spatiu = new Label();
             spatiu.Height = 50;
             spatiu.Dock = DockStyle.Top;
 
-            //Vom folosi acelasi tip de panel pe care l-am folosit si la afisarea sondajelor.
+            //Vom construi un panel asemanator cu cel folosit pentru afisarea sondajelor
+            Panel panelVoturi = new Panel();
+            panelVoturi.Width = parent.Width;
+            panelVoturi.Height = parent.Height - (sender as Button).Top - 50;
+            panelVoturi.Left = 0;
+            panelVoturi.Top = (sender as Button).Top + 50;
+
+            //Bara din stanga
+            Label lbBarLeft = new Label();
+            lbBarLeft.BackColor = Color.WhiteSmoke;
+            lbBarLeft.Dock = DockStyle.Left;
+            lbBarLeft.Width = 1;
+
+            //Bara de jos
+            Label lbBarBottom = new Label();
+            lbBarBottom.BackColor = Color.WhiteSmoke;
+            lbBarBottom.Dock = DockStyle.Bottom;
+            lbBarBottom.Height = 1;
+
+            panelVoturi.Controls.Add(lbBarLeft);
+            panelVoturi.Controls.Add(lbBarBottom);
+
+            //Inserarea voturilor
+            Panel panelVoturiList = new Panel();
+            panelVoturiList.Dock = DockStyle.Fill;
+
+            
+            parent.Controls.Add(panelVoturi);
 
         }
 
