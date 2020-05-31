@@ -68,11 +68,11 @@
     </Compile>
     <Compile Include="DB_Methods.cs" />
     <Compile Include="DesignFunctionalities.cs" />
-    <Compile Include="Forms\Sondaj\VeziSondaje.cs">
+    <Compile Include="Forms\Sondaj\VeziSondajeForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Sondaj\VeziSondaje.Designer.cs">
-      <DependentUpon>VeziSondaje.cs</DependentUpon>
+    <Compile Include="Forms\Sondaj\VeziSondajeForm.Designer.cs">
+      <DependentUpon>VeziSondajeForm.cs</DependentUpon>
     </Compile>
     <Compile Include="StartForm.cs">
       <SubType>Form</SubType>
@@ -135,8 +135,8 @@
     <Compile Include="Models\Vot.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Forms\Sondaj\VeziSondaje.resx">
-      <DependentUpon>VeziSondaje.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\Sondaj\VeziSondajeForm.resx">
+      <DependentUpon>VeziSondajeForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="StartForm.resx">
       <DependentUpon>StartForm.cs</DependentUpon>

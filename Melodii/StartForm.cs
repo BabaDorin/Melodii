@@ -71,7 +71,7 @@ namespace Melodii
 
         private void btnVeziSondaje_Click(object sender, EventArgs e)
         {
-            openChildForm(new VeziSondaje(), panelFormsArea);
+            openChildForm(new VeziSondajeForm(), panelFormsArea);
         }
     }
 }

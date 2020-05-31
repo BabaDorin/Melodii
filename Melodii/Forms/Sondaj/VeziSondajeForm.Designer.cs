@@ -1,6 +1,6 @@
 ﻿namespace Melodii.Forms.Sondaj
 {
-    partial class VeziSondaje
+    partial class VeziSondajeForm
     {
         /// <summary>
         /// Required designer variable.
