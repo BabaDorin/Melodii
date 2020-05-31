@@ -31,7 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StartForm));
             this.panelMenu = new System.Windows.Forms.Panel();
             this.panelSondajSubmenu = new System.Windows.Forms.Panel();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnVeziSondaje = new System.Windows.Forms.Button();
             this.btnSondaj = new System.Windows.Forms.Button();
             this.panelParticipantiSubmenu = new System.Windows.Forms.Panel();
             this.btnVeziParticipanti = new System.Windows.Forms.Button();
@@ -73,28 +73,28 @@
             // 
             this.panelSondajSubmenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(32)))), ((int)(((byte)(39)))));
             this.panelSondajSubmenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.panelSondajSubmenu.Controls.Add(this.button2);
+            this.panelSondajSubmenu.Controls.Add(this.btnVeziSondaje);
             this.panelSondajSubmenu.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelSondajSubmenu.Location = new System.Drawing.Point(0, 467);
             this.panelSondajSubmenu.Name = "panelSondajSubmenu";
             this.panelSondajSubmenu.Size = new System.Drawing.Size(191, 42);
             this.panelSondajSubmenu.TabIndex = 6;
             // 
-            // button2
+            // btnVeziSondaje
             // 
-            this.button2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button2.FlatAppearance.BorderSize = 0;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.button2.Location = new System.Drawing.Point(0, 0);
-            this.button2.Name = "button2";
-            this.button2.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
-            this.button2.Size = new System.Drawing.Size(191, 39);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "Vezi sondajele anterioare";
-            this.button2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.btnVeziSondaje.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnVeziSondaje.FlatAppearance.BorderSize = 0;
+            this.btnVeziSondaje.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnVeziSondaje.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.btnVeziSondaje.Location = new System.Drawing.Point(0, 0);
+            this.btnVeziSondaje.Name = "btnVeziSondaje";
+            this.btnVeziSondaje.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
+            this.btnVeziSondaje.Size = new System.Drawing.Size(191, 39);
+            this.btnVeziSondaje.TabIndex = 2;
+            this.btnVeziSondaje.Text = "Vezi sondajele anterioare";
+            this.btnVeziSondaje.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnVeziSondaje.UseVisualStyleBackColor = true;
+            this.btnVeziSondaje.Click += new System.EventHandler(this.btnVeziSondaje_Click);
             // 
             // btnSondaj
             // 
@@ -309,7 +309,7 @@
         private System.Windows.Forms.Panel panelFormsArea;
         private System.Windows.Forms.Panel panelSondajSubmenu;
         private System.Windows.Forms.Button btnSondaj;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnVeziSondaje;
     }
 }
 

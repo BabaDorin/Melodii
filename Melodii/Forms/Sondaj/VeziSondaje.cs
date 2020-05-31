@@ -55,7 +55,7 @@ namespace Melodii.Forms.Sondaj
         #region DesignMethods
         private void GenerateButtons(List<Models.Sondaj> sondaje, Panel parentPanel)
         {
-            //Va fi creat cate un buton pentru fiecare participant.
+            //Va fi creat cate un buton pentru fiecare sondaj.
 
             parentPanel.Controls.Clear();
             try
@@ -105,6 +105,7 @@ namespace Melodii.Forms.Sondaj
                 }
                 else
                 {
+                    //In cazul in care nu exista sondaje, afisam un mesaj corespunzator.
                     System.Windows.Forms.Label label = new System.Windows.Forms.Label();
                     label.Font = new Font("Leelawadee", 13);
                     label.ForeColor = Color.WhiteSmoke;
@@ -128,7 +129,7 @@ namespace Melodii.Forms.Sondaj
             // In cazul in care are loc redimensionarea ferestrei:
             //
             // 1) Vom modifica pozitia si dimensiunile celor 2 panele, cel pentru afisarea listei
-            // participantilor, si cel pentru afisarea informatiei despre fiecare participant in parte.
+            // sondajelor, si cel pentru afisarea informatiei despre fiecare sondaj in parte.
             //
             // 2) Vom re-analiza modul in care este afisat numele participantului
             // Daca fereastra a fost marita, atunci denumirea va contine mai multe litere ca urmare
@@ -159,23 +160,6 @@ namespace Melodii.Forms.Sondaj
                         }
                     }
                 }
-        }
-
-        private void ScurtareDenumire(Button btn, int maxWidth)
-        {
-            //In cazul in care lungimea numelui este mai mare decat
-            //lungimea butonului, atunci vom afisa literele care incap, urmate de 
-            //3 puncte de suspensie [...].
-            Size size = TextRenderer.MeasureText(btn.Text, btn.Font);
-            if (size.Width > maxWidth - maxWidth * 0.35)
-            {
-                while (size.Width > maxWidth - maxWidth * 0.35)
-                {
-                    btn.Text = btn.Text.Substring(0, btn.Text.Length - 1);
-                    size = TextRenderer.MeasureText(btn.Text, btn.Font);
-                }
-                btn.Text += "...";
-            }
         }
         #endregion
 
@@ -258,20 +242,17 @@ namespace Melodii.Forms.Sondaj
 
         private void btVoturi_Click(object sender, EventArgs e)
         {
-
+            //--------------< Afiseaza toate voturile disponibile din cadrul sondajului ales >----------------------
             //Extragerea voturilor
             List<Vot> voturi = new List<Vot>();
             LoadVoturi(ref voturi, (int)(sender as Button).Tag);
 
             Panel parent = (sender as Button).Parent as Panel;
+            //Eliminam panoul precedent in care au fost afisate voturile (In cazul in care exista).
             if (parent.Controls.Count > 5)
             {
-                parent.Controls[5].Dispose();
+                parent.Controls[parent.Controls.Count-1].Dispose();
             }
-
-            //Label spatiu = new Label();
-            //spatiu.Height = 50;
-            //spatiu.Dock = DockStyle.Top;
 
             //Vom construi un panel asemanator cu cel folosit pentru afisarea sondajelor
             Panel panelVoturi = new Panel();

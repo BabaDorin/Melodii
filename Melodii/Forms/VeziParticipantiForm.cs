@@ -162,23 +162,6 @@ namespace Melodii.Forms
                     }
                 }
         }
-
-        private void ScurtareDenumire(Button btn, int maxWidth)
-        {
-            //In cazul in care lungimea numelui este mai mare decat
-            //lungimea butonului, atunci vom afisa literele care incap, urmate de 
-            //3 puncte de suspensie [...].
-            Size size = TextRenderer.MeasureText(btn.Text, btn.Font);
-            if (size.Width > maxWidth - maxWidth * 0.35)
-            {
-                while (size.Width > maxWidth - maxWidth * 0.35)
-                {
-                    btn.Text = btn.Text.Substring(0, btn.Text.Length - 1);
-                    size = TextRenderer.MeasureText(btn.Text, btn.Font);
-                }
-                btn.Text += "...";
-            }
-        }
         #endregion
 
         #region ButtonEvents

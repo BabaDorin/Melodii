@@ -213,82 +213,98 @@ namespace Melodii.Forms.Sondaj
         private void ProcesareVot(int pozitiaAleasa)
         {
             //-----------------< Proceseaza votul, construieste pas cu pas obiectul Sondaj >-----------------
-
-            //Voturile vor fi stocate intr-o structura generica si vor fi inserate in baza de date
-            //la sfarsitul sondajului.
-            Vot vot = new Vot();
-            vot.IdParticipant = Sondaj.IdParticipant;
-            vot.IdMelodie = melodii[CurrentId].IdMelodie;
-            vot.PozitieTop = melodii[CurrentId].LoculInTop;
-            vot.PozitiaIndicata = pozitiaAleasa;
-
-            //Instantierea unui obiect de tip Rezultat care va contine informatii despre
-            //votul curent
-            Rezultat rezultat = new Rezultat();
-            rezultat.Melodie = melodii[CurrentId].Denumire;
-            rezultat.PozitieInTop = melodii[CurrentId].LoculInTop;
-            rezultat.Interpret = melodii[CurrentId].Interpret;
-            rezultat.PozitiaIndicata = pozitiaAleasa;
-
-            //Verificarea raspunsului
-            if (pozitiaAleasa == melodii[CurrentId].LoculInTop)
+            try
             {
-                //A ghicit exact pozitia
-                vot.ScorVot = 10;
-                rezultat.PuncteAcumulate = 10;
-            }
-            else if(Math.Abs(pozitiaAleasa - melodii[CurrentId].LoculInTop) == 1)
-            {
-                //A gresit pozitia cu o singura unitate
-                vot.ScorVot = 5;
-                rezultat.PuncteAcumulate = 5;
-            }
-            else if(Math.Abs(pozitiaAleasa - melodii[CurrentId].LoculInTop) == 2)
-            {
-                //A gresit pozitia cu 2 unitati
-                vot.ScorVot = 3;
-                rezultat.PuncteAcumulate = 3;
-            }
-            else
-            {
-                //A gresit pozitia cu mai mult de 2 unitati
-                vot.ScorVot = 0;
-                rezultat.PuncteAcumulate = 0;
-            }
+                //Voturile vor fi stocate intr-o structura generica si vor fi inserate in baza de date
+                //la sfarsitul sondajului.
+                Vot vot = new Vot();
+                vot.IdParticipant = Sondaj.IdParticipant;
+                vot.IdMelodie = melodii[CurrentId].IdMelodie;
+                vot.PozitieTop = melodii[CurrentId].LoculInTop;
+                vot.PozitiaIndicata = pozitiaAleasa;
 
-            vot.IdSondaj = Sondaj.IdSondaj;
-            voturi.Add(vot);
-            rezultateSondaj.Rezultate.Add(rezultat);
-            Sondaj.ScorFinal += vot.ScorVot;
-            rezultateSondaj.ScorFinal += vot.ScorVot;
+                //Instantierea unui obiect de tip Rezultat care va contine informatii despre
+                //votul curent
+                Rezultat rezultat = new Rezultat();
+                rezultat.Melodie = melodii[CurrentId].Denumire;
+                rezultat.PozitieInTop = melodii[CurrentId].LoculInTop;
+                rezultat.Interpret = melodii[CurrentId].Interpret;
+                rezultat.PozitiaIndicata = pozitiaAleasa;
 
-            if (CurrentId != -1)
-                melodii.RemoveAt(CurrentId);
-            
-            if(melodii.Count() == 0)
-            {
-                //Am ajuns la finalul sondajului.
-                SalveazaDate();
-                AfiseazaRezultate();
+                //Verificarea raspunsului
+                if (pozitiaAleasa == melodii[CurrentId].LoculInTop)
+                {
+                    //A ghicit exact pozitia
+                    vot.ScorVot = 10;
+                    rezultat.PuncteAcumulate = 10;
+                }
+                else if (Math.Abs(pozitiaAleasa - melodii[CurrentId].LoculInTop) == 1)
+                {
+                    //A gresit pozitia cu o singura unitate
+                    vot.ScorVot = 5;
+                    rezultat.PuncteAcumulate = 5;
+                }
+                else if (Math.Abs(pozitiaAleasa - melodii[CurrentId].LoculInTop) == 2)
+                {
+                    //A gresit pozitia cu 2 unitati
+                    vot.ScorVot = 3;
+                    rezultat.PuncteAcumulate = 3;
+                }
+                else
+                {
+                    //A gresit pozitia cu mai mult de 2 unitati
+                    vot.ScorVot = 0;
+                    rezultat.PuncteAcumulate = 0;
+                }
+
+                vot.IdSondaj = Sondaj.IdSondaj;
+                voturi.Add(vot);
+                rezultateSondaj.Rezultate.Add(rezultat);
+                Sondaj.ScorFinal += vot.ScorVot;
+                rezultateSondaj.ScorFinal += vot.ScorVot;
+
+                if (CurrentId != -1)
+                    melodii.RemoveAt(CurrentId);
+
+                if (melodii.Count() == 0)
+                {
+                    //Am ajuns la finalul sondajului.
+                    SalveazaDate();
+                    AfiseazaRezultate();
+                }
+                else
+                    lbMelodiiRamase.Text = "Melodii ramase: " + (melodii.Count() - 1);
             }
-            else
-                lbMelodiiRamase.Text = "Melodii ramase: " + (melodii.Count()-1);
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Eroare procesare vot: " + ex.Message);
+                System.Windows.Forms.MessageBox.Show("S-a produs o eroare la procesarea votului.");
+            }
         }
         
         private void SalveazaDate()
         {
-            //Salvarea voturilor in baza de date
-            foreach(Vot v in voturi)
+            try
             {
-                InsertVot(v);
+                //Salvarea voturilor in baza de date
+                foreach (Vot v in voturi)
+                {
+                    InsertVot(v);
+                }
+
+                //Actualizarea sondajului (ScorFinal)
+                UpdateScorFinalSondaj(Sondaj);
+
+                //Actualizarea numarului de puncte a participantului
+                if (Sondaj.ScorFinal > 0)
+                    UpdateParticipantScor(Sondaj.IdParticipant, Sondaj.ScorFinal);
             }
-
-            //Actualizarea sondajului (ScorFinal)
-            UpdateScorFinalSondaj(Sondaj);
-
-            //Actualizarea numarului de puncte a participantului
-            if (Sondaj.ScorFinal > 0)
-                UpdateParticipantScor(Sondaj.IdParticipant, Sondaj.ScorFinal);
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Eroare Salvare date: " + ex.Message);
+                System.Windows.Forms.MessageBox.Show("S-a produs o eroare la salvarea datelor.");
+            }
+            
         }
 
         private void AfiseazaRezultate()

@@ -15,6 +15,7 @@ using System.Runtime.InteropServices;
 using System.Data.SqlClient;
 using System.IO;
 using static Melodii.DB_Methods;
+using static Melodii.DesignFunctionalities;
 
 namespace Melodii.Forms
 {
@@ -181,24 +182,6 @@ namespace Melodii.Forms
                         }
                     }
                 }
-        }
-
-        private void ScurtareDenumire(Button btn, int maxWidth)
-        {
-            //In cazul in care lungimea numelui melodiei este mai mare decat
-            //lungimea butonului, atunci vom afisa literele care incap, urmate de 
-            //3 puncte de suspensie [...].
-            //Exemplu, [Bine-i sade mesei mele imprejur cu nemurele] => [Bine-i sade mese mele...]
-            Size size = TextRenderer.MeasureText(btn.Text, btn.Font);
-            if (size.Width > maxWidth - maxWidth * 0.3)
-            {
-                while (size.Width > maxWidth - maxWidth * 0.35)
-                {
-                    btn.Text = btn.Text.Substring(0, btn.Text.Length - 1);
-                    size = TextRenderer.MeasureText(btn.Text, btn.Font);
-                }
-                btn.Text += "...";
-            }
         }
         #endregion
 

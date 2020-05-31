@@ -10,7 +10,7 @@ namespace Melodii
 {
     class DB_Methods
     {
-        //BEFREE>> Add bool [success] for every method, or find another solution.
+
         public static string ConnectionString =  @"Data Source=(LocalDB)\MSSQLLocalDB; AttachDbFilename=" + Directory.GetCurrentDirectory() + @"\Database.mdf; Integrated Security=True; Pooling = true";
 
         #region Melodii
@@ -294,7 +294,6 @@ namespace Melodii
             catch (Exception ex)
             {
                 Debug.WriteLine("Eroare LoadParticipanti: " + ex.Message);
-                throw ex;
                 throw ex;
             }
             finally

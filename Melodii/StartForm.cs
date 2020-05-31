@@ -65,10 +65,11 @@ namespace Melodii
 
         private void btnSondaj_Click(object sender, EventArgs e)
         {
+            //La fiecare click, submeniul va aparea sau va disparea.
             Toggle(btnSondaj, panelSondajSubmenu);
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void btnVeziSondaje_Click(object sender, EventArgs e)
         {
             openChildForm(new VeziSondaje(), panelFormsArea);
         }
