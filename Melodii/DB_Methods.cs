@@ -307,7 +307,7 @@ namespace Melodii
             }
         }
 
-        public static string ParticipantNumeByID(int idParticipant)
+        public static string ParticipantNumeByID(int idParticipant, bool CloseConnection)
         {
 
             //---------------------< Returneaza numele participantului >---------------------------
@@ -321,10 +321,14 @@ namespace Melodii
                 SqlParameter parId = new SqlParameter("@IdParticipant", idParticipant);
                 cmd.Parameters.Add(parId);
 
+                if(Connection.State == ConnectionState.Closed)
+                    Connection.Open();
+
                 string Nume;
-                Connection.Open();
                 Nume = cmd.ExecuteScalar().ToString();
-                Connection.Close();
+
+                if(CloseConnection)
+                    Connection.Close();
 
                 return Nume;
             }
@@ -471,6 +475,55 @@ namespace Melodii
             catch (Exception ex)
             {
                 Debug.WriteLine("Eroare Update Sondaj: " + ex.Message);
+                throw ex;
+            }
+            finally
+            {
+                if (Connection.State == ConnectionState.Open)
+                    Connection.Close();
+            }
+        }
+
+        public static void LoadSondaje(ref List<Sondaj> sondaje)
+        {
+
+            //---------------------< Extragerea sondajelor din baza de date >---------------------------
+
+            SqlConnection Connection = new SqlConnection(ConnectionString);
+            try
+            {
+                //----------------------------< Extragerea datelor din BD >-------------------------
+
+                //Stabilirea conexiunii
+                Connection.Open();
+
+                //Crerea unui obiect de tip DataAdapter pentru conectarea DataSet-ului
+                //cu baza de date.
+                SqlDataAdapter daSondaje = new SqlDataAdapter("SELECT * FROM SONDAJE", Connection);
+                DataSet dsSondaje = new DataSet("Sondaje");
+                daSondaje.Fill(dsSondaje, "Sondaje");
+                DataTable tblSondaje = dsSondaje.Tables["Sondaje"];
+                Connection.Close();
+
+                //Acum avem datele din tabela Melodii din baza de date in obiectul tblMelodii.
+                //Trecem la popularea listei.
+
+                sondaje.Clear();
+                foreach (DataRow drSondaj in tblSondaje.Rows)
+                {
+                    sondaje.Add(new Sondaj
+                    {
+                        IdSondaj = (int)drSondaj["IdSondaj"],
+                        IdParticipant = (int)drSondaj["IdParticipant"],
+                        NumeParticipant = ParticipantNumeByID((int)drSondaj["IdParticipant"], false),
+                        Data = (DateTime)drSondaj["Data"],
+                        ScorFinal = (int)drSondaj["ScorFinal"]
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Eroare LoadMelodii: " + ex.Message);
                 throw ex;
             }
             finally

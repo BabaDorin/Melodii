@@ -18,6 +18,7 @@ namespace Melodii.Forms
     {
         private static List<Participant> participanti = new List<Participant>();
         bool formMinimized = false;
+
         public VeziParticipantiForm()
         {
             InitializeComponent();

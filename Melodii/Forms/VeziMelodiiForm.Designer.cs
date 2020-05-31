@@ -48,7 +48,7 @@
             this.slidingBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.slidingBar.Location = new System.Drawing.Point(70, 96);
             this.slidingBar.Name = "slidingBar";
-            this.slidingBar.Size = new System.Drawing.Size(174, 2);
+            this.slidingBar.Size = new System.Drawing.Size(119, 2);
             this.slidingBar.TabIndex = 3;
             // 
             // label1
@@ -57,9 +57,9 @@
             this.label1.Font = new System.Drawing.Font("Leelawadee", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(64, 57);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(183, 32);
+            this.label1.Size = new System.Drawing.Size(125, 32);
             this.label1.TabIndex = 2;
-            this.label1.Text = "Vezi melodiile";
+            this.label1.Text = "Melodiile";
             // 
             // label2
             // 

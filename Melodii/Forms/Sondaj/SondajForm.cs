@@ -31,7 +31,7 @@ namespace Melodii.Forms.Sondaj
         {
             InitializeComponent();
             UpGoingPanel = null;
-            string NumeParticipant = ParticipantNumeByID(IdParticipant);
+            string NumeParticipant = ParticipantNumeByID(IdParticipant, true);
 
             //Pozitionarea label-urilor
             label.Left = 0;

@@ -49,7 +49,7 @@
             this.lbError.AutoSize = true;
             this.lbError.Font = new System.Drawing.Font("Leelawadee", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbError.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lbError.Location = new System.Drawing.Point(47, 572);
+            this.lbError.Location = new System.Drawing.Point(46, 573);
             this.lbError.Name = "lbError";
             this.lbError.Size = new System.Drawing.Size(0, 15);
             this.lbError.TabIndex = 15;
@@ -58,7 +58,7 @@
             // 
             this.panelInfo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(7)))), ((int)(((byte)(36)))));
             this.panelInfo.Font = new System.Drawing.Font("Leelawadee", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.panelInfo.Location = new System.Drawing.Point(422, 95);
+            this.panelInfo.Location = new System.Drawing.Point(421, 96);
             this.panelInfo.Name = "panelInfo";
             this.panelInfo.Size = new System.Drawing.Size(333, 455);
             this.panelInfo.TabIndex = 14;
@@ -71,7 +71,7 @@
             this.panelParticipanti.Controls.Add(this.panelParticipantiButtons);
             this.panelParticipanti.Controls.Add(this.label3);
             this.panelParticipanti.Controls.Add(this.label2);
-            this.panelParticipanti.Location = new System.Drawing.Point(51, 142);
+            this.panelParticipanti.Location = new System.Drawing.Point(50, 143);
             this.panelParticipanti.Name = "panelParticipanti";
             this.panelParticipanti.Size = new System.Drawing.Size(329, 408);
             this.panelParticipanti.TabIndex = 13;
@@ -109,20 +109,20 @@
             // slidingBar
             // 
             this.slidingBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.slidingBar.Location = new System.Drawing.Point(71, 95);
+            this.slidingBar.Location = new System.Drawing.Point(70, 96);
             this.slidingBar.Name = "slidingBar";
-            this.slidingBar.Size = new System.Drawing.Size(209, 2);
+            this.slidingBar.Size = new System.Drawing.Size(150, 2);
             this.slidingBar.TabIndex = 12;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Leelawadee", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(65, 56);
+            this.label1.Location = new System.Drawing.Point(64, 57);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(213, 32);
+            this.label1.Size = new System.Drawing.Size(156, 32);
             this.label1.TabIndex = 11;
-            this.label1.Text = "Vezi Participantii";
+            this.label1.Text = "Participantii";
             // 
             // timerSlidingBar
             // 
@@ -142,7 +142,7 @@
             this.btVarsta18.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btVarsta18.Font = new System.Drawing.Font("Leelawadee", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btVarsta18.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.btVarsta18.Location = new System.Drawing.Point(276, 110);
+            this.btVarsta18.Location = new System.Drawing.Point(275, 111);
             this.btVarsta18.Name = "btVarsta18";
             this.btVarsta18.Size = new System.Drawing.Size(104, 26);
             this.btVarsta18.TabIndex = 16;
@@ -158,7 +158,7 @@
             this.btnTop5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnTop5.Font = new System.Drawing.Font("Leelawadee", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnTop5.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.btnTop5.Location = new System.Drawing.Point(152, 110);
+            this.btnTop5.Location = new System.Drawing.Point(151, 111);
             this.btnTop5.Name = "btnTop5";
             this.btnTop5.Size = new System.Drawing.Size(128, 26);
             this.btnTop5.TabIndex = 17;

@@ -11,6 +11,7 @@ using static Melodii.DesignFunctionalities;
 using Melodii.Forms;
 using System.Diagnostics;
 using System.Data.SqlClient;
+using Melodii.Forms.Sondaj;
 
 namespace Melodii
 {
@@ -65,6 +66,11 @@ namespace Melodii
         private void btnSondaj_Click(object sender, EventArgs e)
         {
             Toggle(btnSondaj, panelSondajSubmenu);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            openChildForm(new VeziSondaje(), panelFormsArea);
         }
     }
 }
