@@ -45,5 +45,27 @@ namespace Melodii
             child.BringToFront();
             child.Show();
         }
+
+        public static void tb_Enter(object sender, EventArgs e)
+        {
+            //Efectul de placeholder
+            TextBox tb = sender as TextBox;
+            if (tb.Tag.ToString() == tb.Text)
+            {
+                tb.Text = "";
+                tb.ForeColor = Color.WhiteSmoke;
+            }
+        }
+
+        public static void tb_Leave(object sender, EventArgs e)
+        {
+            //Efectul de placeholder
+            TextBox tb = sender as TextBox;
+            if (tb.Text.Trim() == "")
+            {
+                tb.Text = tb.Tag.ToString();
+                tb.ForeColor = Color.Gray;
+            }
+        }
     }
 }

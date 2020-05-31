@@ -29,6 +29,18 @@ namespace Melodii.Forms
             label6.Visible = false;
             slidingBar.Left = -slidingBar.Width;
             speed = (label1.Left - slidingBar.Left) / 6;
+
+            //Efectul de placeholder
+            tbDenumire.Enter += tb_Enter;
+            tbDenumire.Leave += tb_Leave;
+            tbInterpret.Enter += tb_Enter;
+            tbInterpret.Leave += tb_Leave;
+            tbGen.Enter += tb_Enter;
+            tbGen.Leave += tb_Leave;
+            tbPuncte.Enter += tb_Enter;
+            tbPuncte.Leave += tb_Leave;
+            tbInformatii.Enter += tb_Enter;
+            tbInformatii.Leave += tb_Leave;
         }
 
         #region ButtonEvents
@@ -77,9 +89,10 @@ namespace Melodii.Forms
             {
                 //----------------------< Atentionarea utilizatorului privind invaliditatea datelor>-----------------------------------
 
+                lbEroare.Text = ex.Message;
+
                 //Zguduirea campurilor lipsa
                 speed = 1;
-                lbEroare.Text = ex.Message;
                 Shakes = 0;
                 tbInterpret.Left = tbDenumire.Left = tbGen.Left = tbPuncte.Left = label4.Left;
                 InvalidTextBoxes = new List<TextBox>();
@@ -94,34 +107,17 @@ namespace Melodii.Forms
                 timer2.Start();
             }
         }
-
-        private void tb_Enter(object sender, EventArgs e)
-        {
-            TextBox tb = sender as TextBox;
-            if(tb.Tag.ToString() == tb.Text)
-            {
-                tb.Text = "";
-                tb.ForeColor = Color.WhiteSmoke;
-            }
-        }
-
-        private void tb_Leave(object sender, EventArgs e)
-        {
-            TextBox tb = sender as TextBox;
-            if (tb.Text.Trim() == "")
-            {
-                tb.Text = tb.Tag.ToString();
-                tb.ForeColor = Color.Gray;
-            }
-        }
         #endregion
 
         #region TimerEvents
         private static bool slideIn = true;
         private List<TextBox> InvalidTextBoxes;
         private static int Shakes = 0;
+
         private void timer2_Tick(object sender, EventArgs e)
         {
+            //Zguduirea campurilor invalide
+
             if(InvalidTextBoxes == null)
             {
                 timer2.Stop();
@@ -149,6 +145,8 @@ namespace Melodii.Forms
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+            //Sliding bar
+
             if (slideIn)
             {
                 //Bara vine
@@ -201,6 +199,7 @@ namespace Melodii.Forms
 
         private void timer3_Tick(object sender, EventArgs e)
         {
+            //Afisarea mesajului de confirmare pentru 1 secunda.
             label6.Dispose();
             timer3.Stop();
             this.DialogResult = DialogResult.OK;

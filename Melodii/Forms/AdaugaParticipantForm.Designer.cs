@@ -77,8 +77,6 @@
             this.tbScor.TabIndex = 16;
             this.tbScor.Tag = "Scorul (optional, Implicit 0)";
             this.tbScor.Text = "Scorul (optional, Implicit 0)";
-            this.tbScor.Enter += new System.EventHandler(this.tb_Enter);
-            this.tbScor.Leave += new System.EventHandler(this.tb_Leave);
             // 
             // label3
             // 
@@ -100,8 +98,6 @@
             this.tbNume.TabIndex = 14;
             this.tbNume.Tag = "Numele";
             this.tbNume.Text = "Numele";
-            this.tbNume.Enter += new System.EventHandler(this.tb_Enter);
-            this.tbNume.Leave += new System.EventHandler(this.tb_Leave);
             // 
             // btSave
             // 
@@ -179,8 +175,6 @@
             this.tbInformatii.TabIndex = 22;
             this.tbInformatii.Tag = "Informatii (optional)";
             this.tbInformatii.Text = "Informatii (optional)";
-            this.tbInformatii.Enter += new System.EventHandler(this.tb_Enter);
-            this.tbInformatii.Leave += new System.EventHandler(this.tb_Leave);
             // 
             // label5
             // 
@@ -202,8 +196,6 @@
             this.tbVarsta.TabIndex = 24;
             this.tbVarsta.Tag = "Varsta";
             this.tbVarsta.Text = "Varsta";
-            this.tbVarsta.Enter += new System.EventHandler(this.tb_Enter);
-            this.tbVarsta.Leave += new System.EventHandler(this.tb_Leave);
             // 
             // AdaugaParticipantForm
             // 

@@ -26,6 +26,8 @@ namespace Melodii.Forms
         public VeziMelodiiForm()
         {
             InitializeComponent();
+
+            //Amplasarea elementelor vizuale
             slidingBar.Left = -slidingBar.Width;
             speedSlidingBar = (label1.Left - slidingBar.Left) / 6;
             panelInfo.Left = panelMelodii.Right + 50;
@@ -38,6 +40,9 @@ namespace Melodii.Forms
 
         private void LoadData()
         {
+
+            //-----------------< Extrage melodiile din baza de date si stabileste locurile in top >----------------
+
             try
             {
                 LoadMelodii(ref melodii);
@@ -65,6 +70,8 @@ namespace Melodii.Forms
         #region DesignMethods
         private void GenerateButtons(List<Melodie> melodii, Panel parentPanel)
         {
+            //Genereaza cate un buton pentru fiecare melodie. Butonul va contine info despre melodie
+
             panelMelodiiButtons.Controls.Clear();
             try
             {
@@ -185,7 +192,7 @@ namespace Melodii.Forms
             Size size = TextRenderer.MeasureText(btn.Text, btn.Font);
             if (size.Width > maxWidth - maxWidth * 0.3)
             {
-                while (size.Width > maxWidth - maxWidth * 0.3)
+                while (size.Width > maxWidth - maxWidth * 0.35)
                 {
                     btn.Text = btn.Text.Substring(0, btn.Text.Length - 1);
                     size = TextRenderer.MeasureText(btn.Text, btn.Font);
@@ -325,6 +332,17 @@ namespace Melodii.Forms
                 }
             }
         }
+
+        private void btTop3_Click(object sender, EventArgs e)
+        {
+            //Lista deja este sortata. Ultimele 3 melodii sunt cele mai populare.
+            if (melodii.Count > 3)
+            {
+                melodii.RemoveRange(0, melodii.Count - 3);
+            }
+
+            GenerateButtons(melodii, panelMelodiiButtons);
+        }
         #endregion
 
         #region TimerEvents
@@ -384,16 +402,5 @@ namespace Melodii.Forms
             }
         }
         #endregion
-
-        private void btTop3_Click(object sender, EventArgs e)
-        {
-            //Lista deja este sortata. Ultimele 3 melodii sunt cele mai populare.
-            if (melodii.Count > 3)
-            {
-                melodii.RemoveRange(0, melodii.Count-3);
-            }
-
-            GenerateButtons(melodii,panelMelodiiButtons);
-        }
     }
 }

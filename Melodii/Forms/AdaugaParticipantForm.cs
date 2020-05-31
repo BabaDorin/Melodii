@@ -21,12 +21,24 @@ namespace Melodii.Forms
     {
         private static int speed = 1;
         private static List<TextBox> InvalidTextBoxes = new List<TextBox>();
+
         public AdaugaParticipantForm()
         {
             InitializeComponent();
+
             label6.Visible = false;
             label2.Left = -label2.Width;
             speed = (label1.Left - label2.Left) / 10;
+
+            //Efectul de placeholder
+            tbNume.Enter += tb_Enter;
+            tbNume.Leave += tb_Leave;
+            tbScor.Enter += tb_Enter;
+            tbScor.Leave += tb_Leave;
+            tbInformatii.Enter += tb_Enter;
+            tbInformatii.Leave += tb_Leave;
+            tbVarsta.Enter += tb_Enter;
+            tbVarsta.Leave += tb_Leave;
         }
 
         #region ButtonEvents
@@ -39,14 +51,13 @@ namespace Melodii.Forms
             {
                 //-----------------------------------< Validare >-----------------------------------
 
-                //Validarea datelor.
-
                 if (tbNume.Text == tbNume.Tag.ToString())
                     InvalidTextBoxes.Add(tbNume);
                 int validare;
                 if (tbScor.Text != tbScor.Tag.ToString() && !int.TryParse(tbScor.Text, out validare))
                     InvalidTextBoxes.Add(tbScor);
-                if (tbVarsta.Text == tbVarsta.Tag.ToString() || !int.TryParse(tbVarsta.Text, out validare))
+                if (tbVarsta.Text == tbVarsta.Tag.ToString() || !int.TryParse(tbVarsta.Text, out validare)
+                    || int.Parse(tbVarsta.Text) < 0)
                     InvalidTextBoxes.Add(tbVarsta);
 
                 if (InvalidTextBoxes.Count > 0)
@@ -62,6 +73,7 @@ namespace Melodii.Forms
                     int Scor;
                     if (!int.TryParse(tbScor.Text, out Scor))
                         Scor = 0;
+
                     Participant participant = new Participant
                     {
                         Nume = tbNume.Text,
@@ -96,26 +108,6 @@ namespace Melodii.Forms
                 }
 
                 lbEroare.Text = ex.Message;
-            }
-        }
-
-        private void tb_Enter(object sender, EventArgs e)
-        {
-            TextBox tb = sender as TextBox;
-            if (tb.Tag.ToString() == tb.Text)
-            {
-                tb.Text = "";
-                tb.ForeColor = Color.WhiteSmoke;
-            }
-        }
-
-        private void tb_Leave(object sender, EventArgs e)
-        {
-            TextBox tb = sender as TextBox;
-            if (tb.Text.Trim() == "")
-            {
-                tb.Text = tb.Tag.ToString();
-                tb.ForeColor = Color.Gray;
             }
         }
         #endregion

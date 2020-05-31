@@ -98,8 +98,6 @@
             this.tbDenumire.TabIndex = 3;
             this.tbDenumire.Tag = "Denumirea";
             this.tbDenumire.Text = "Denumirea";
-            this.tbDenumire.Enter += new System.EventHandler(this.tb_Enter);
-            this.tbDenumire.Leave += new System.EventHandler(this.tb_Leave);
             // 
             // label3
             // 
@@ -130,8 +128,6 @@
             this.tbInterpret.TabIndex = 5;
             this.tbInterpret.Tag = "Interpretul";
             this.tbInterpret.Text = "Interpretul";
-            this.tbInterpret.Enter += new System.EventHandler(this.tb_Enter);
-            this.tbInterpret.Leave += new System.EventHandler(this.tb_Leave);
             // 
             // label5
             // 
@@ -154,8 +150,6 @@
             this.tbGen.TabIndex = 7;
             this.tbGen.Tag = "Genul muzical";
             this.tbGen.Text = "Genul muzical";
-            this.tbGen.Enter += new System.EventHandler(this.tb_Enter);
-            this.tbGen.Leave += new System.EventHandler(this.tb_Leave);
             // 
             // lbEroare
             // 
@@ -207,8 +201,6 @@
             this.tbPuncte.TabIndex = 11;
             this.tbPuncte.Tag = "Puncte";
             this.tbPuncte.Text = "Puncte";
-            this.tbPuncte.Enter += new System.EventHandler(this.tb_Enter);
-            this.tbPuncte.Leave += new System.EventHandler(this.tb_Leave);
             // 
             // label8
             // 
@@ -231,8 +223,6 @@
             this.tbInformatii.TabIndex = 13;
             this.tbInformatii.Tag = "Informatii (optional)";
             this.tbInformatii.Text = "Informatii (optional)";
-            this.tbInformatii.Enter += new System.EventHandler(this.tb_Enter);
-            this.tbInformatii.Leave += new System.EventHandler(this.tb_Leave);
             // 
             // AdaugaMelodieForm
             // 

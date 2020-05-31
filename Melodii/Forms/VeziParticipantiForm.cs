@@ -21,6 +21,8 @@ namespace Melodii.Forms
         public VeziParticipantiForm()
         {
             InitializeComponent();
+
+            //Pozitionarea elementelor vizuale
             slidingBar.Left = -slidingBar.Width;
             speedSlidingBar = (label1.Left - slidingBar.Left) / 6;
             panelInfo.Left = panelParticipanti.Right + 50;
@@ -33,6 +35,7 @@ namespace Melodii.Forms
 
         private void LoadData()
         {
+            //Extragerea participantilor din baza de date. Sortarea dupa puncte.
             try
             {
                 LoadParticipanti(ref participanti);
@@ -54,6 +57,8 @@ namespace Melodii.Forms
         #region DesignMethods
         private void GenerateButtons(List<Participant> participanti, Panel parentPanel)
         {
+            //Va fi creat cate un buton pentru fiecare participant.
+
             panelParticipantiButtons.Controls.Clear();
             try
             {
@@ -163,9 +168,9 @@ namespace Melodii.Forms
             //lungimea butonului, atunci vom afisa literele care incap, urmate de 
             //3 puncte de suspensie [...].
             Size size = TextRenderer.MeasureText(btn.Text, btn.Font);
-            if (size.Width > maxWidth - maxWidth * 0.3)
+            if (size.Width > maxWidth - maxWidth * 0.35)
             {
-                while (size.Width > maxWidth - maxWidth * 0.3)
+                while (size.Width > maxWidth - maxWidth * 0.35)
                 {
                     btn.Text = btn.Text.Substring(0, btn.Text.Length - 1);
                     size = TextRenderer.MeasureText(btn.Text, btn.Font);
@@ -338,6 +343,31 @@ namespace Melodii.Forms
                 lbError.Text = "Ne pare rau, s-a produs o eroare.";
             }
         }
+
+        private void btVarsta18_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < participanti.Count; i++)
+            {
+                if (participanti[i].Varsta > 18)
+                {
+                    participanti.RemoveAt(i);
+                }
+            }
+
+            GenerateButtons(participanti, panelParticipantiButtons);
+        }
+
+        private void btnTop5_Click(object sender, EventArgs e)
+        {
+            //Lista participantilor deja este sortata dupa scor in ordine crescatoare. Pentru a 
+            //ramane doar cu top 5 participanti, in lista trebuie sa ramana doar ultimii 5 participanti.
+
+            if (participanti.Count > 5)
+            {
+                participanti.RemoveRange(0, participanti.Count - 5);
+                GenerateButtons(participanti, panelParticipantiButtons);
+            }
+        }
         #endregion
 
         #region TimerEvents
@@ -397,30 +427,5 @@ namespace Melodii.Forms
             }
         }
         #endregion
-
-        private void btVarsta18_Click(object sender, EventArgs e)
-        {
-            for(int i=0; i<participanti.Count; i++)
-            {
-                if (participanti[i].Varsta > 18)
-                {
-                    participanti.RemoveAt(i);
-                }
-            }
-
-            GenerateButtons(participanti, panelParticipantiButtons);
-        }
-
-        private void btnTop5_Click(object sender, EventArgs e)
-        {
-            //Lista participantilor deja este sortata dupa scor in ordine crescatoare. Pentru a 
-            //ramane doar cu top 5 participanti, in lista trebuie sa ramana doar ultimii 5 participanti.
-
-            if (participanti.Count > 5)
-            {
-                participanti.RemoveRange(0, participanti.Count - 5);
-                GenerateButtons(participanti, panelParticipantiButtons);
-            }
-        }
     }
 }
