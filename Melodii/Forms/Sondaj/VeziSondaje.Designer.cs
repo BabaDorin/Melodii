@@ -30,15 +30,16 @@
         {
             this.components = new System.ComponentModel.Container();
             this.lbError = new System.Windows.Forms.Label();
-            this.panelSondaje = new System.Windows.Forms.Panel();
-            this.panelSondajeButtons = new System.Windows.Forms.Panel();
+            this.panelList = new System.Windows.Forms.Panel();
+            this.panelListButtons = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.slidingBar = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.timerSlidingBar = new System.Windows.Forms.Timer(this.components);
             this.timerSlideInDetails = new System.Windows.Forms.Timer(this.components);
-            this.panelSondaje.SuspendLayout();
+            this.panelInfo = new System.Windows.Forms.Panel();
+            this.panelList.SuspendLayout();
             this.SuspendLayout();
             // 
             // lbError
@@ -51,31 +52,31 @@
             this.lbError.Size = new System.Drawing.Size(0, 19);
             this.lbError.TabIndex = 16;
             // 
-            // panelSondaje
+            // panelList
             // 
-            this.panelSondaje.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.panelList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelSondaje.AutoScroll = true;
-            this.panelSondaje.Controls.Add(this.panelSondajeButtons);
-            this.panelSondaje.Controls.Add(this.label3);
-            this.panelSondaje.Controls.Add(this.label2);
-            this.panelSondaje.Font = new System.Drawing.Font("Leelawadee", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.panelSondaje.Location = new System.Drawing.Point(50, 143);
-            this.panelSondaje.Name = "panelSondaje";
-            this.panelSondaje.Size = new System.Drawing.Size(652, 408);
-            this.panelSondaje.TabIndex = 14;
+            this.panelList.AutoScroll = true;
+            this.panelList.Controls.Add(this.panelListButtons);
+            this.panelList.Controls.Add(this.label3);
+            this.panelList.Controls.Add(this.label2);
+            this.panelList.Font = new System.Drawing.Font("Leelawadee", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.panelList.Location = new System.Drawing.Point(50, 143);
+            this.panelList.Name = "panelList";
+            this.panelList.Size = new System.Drawing.Size(329, 408);
+            this.panelList.TabIndex = 14;
             // 
-            // panelSondajeButtons
+            // panelListButtons
             // 
-            this.panelSondajeButtons.AutoScroll = true;
-            this.panelSondajeButtons.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.panelSondajeButtons.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelSondajeButtons.Location = new System.Drawing.Point(1, 0);
-            this.panelSondajeButtons.Name = "panelSondajeButtons";
-            this.panelSondajeButtons.Padding = new System.Windows.Forms.Padding(10);
-            this.panelSondajeButtons.Size = new System.Drawing.Size(651, 407);
-            this.panelSondajeButtons.TabIndex = 8;
+            this.panelListButtons.AutoScroll = true;
+            this.panelListButtons.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.panelListButtons.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelListButtons.Location = new System.Drawing.Point(1, 0);
+            this.panelListButtons.Name = "panelListButtons";
+            this.panelListButtons.Padding = new System.Windows.Forms.Padding(10);
+            this.panelListButtons.Size = new System.Drawing.Size(328, 407);
+            this.panelListButtons.TabIndex = 8;
             // 
             // label3
             // 
@@ -83,7 +84,7 @@
             this.label3.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.label3.Location = new System.Drawing.Point(1, 407);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(651, 1);
+            this.label3.Size = new System.Drawing.Size(328, 1);
             this.label3.TabIndex = 7;
             // 
             // label2
@@ -116,10 +117,21 @@
             // timerSlidingBar
             // 
             this.timerSlidingBar.Interval = 2;
+            this.timerSlidingBar.Tick += new System.EventHandler(this.timerSlidingBar_Tick);
             // 
             // timerSlideInDetails
             // 
             this.timerSlideInDetails.Interval = 2;
+            this.timerSlideInDetails.Tick += new System.EventHandler(this.timerSlideInDetails_Tick);
+            // 
+            // panelInfo
+            // 
+            this.panelInfo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(7)))), ((int)(((byte)(36)))));
+            this.panelInfo.Font = new System.Drawing.Font("Leelawadee", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.panelInfo.Location = new System.Drawing.Point(422, 96);
+            this.panelInfo.Name = "panelInfo";
+            this.panelInfo.Size = new System.Drawing.Size(333, 455);
+            this.panelInfo.TabIndex = 17;
             // 
             // VeziSondaje
             // 
@@ -127,8 +139,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(7)))), ((int)(((byte)(36)))));
             this.ClientSize = new System.Drawing.Size(771, 612);
+            this.Controls.Add(this.panelInfo);
             this.Controls.Add(this.lbError);
-            this.Controls.Add(this.panelSondaje);
+            this.Controls.Add(this.panelList);
             this.Controls.Add(this.slidingBar);
             this.Controls.Add(this.label1);
             this.Font = new System.Drawing.Font("Leelawadee", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -136,7 +149,8 @@
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "VeziSondaje";
             this.Text = "VeziSondaje";
-            this.panelSondaje.ResumeLayout(false);
+            this.Resize += new System.EventHandler(this.VeziSondajeForm_Resize);
+            this.panelList.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -144,13 +158,14 @@
 
         #endregion
         private System.Windows.Forms.Label lbError;
-        private System.Windows.Forms.Panel panelSondaje;
-        private System.Windows.Forms.Panel panelSondajeButtons;
+        private System.Windows.Forms.Panel panelList;
+        private System.Windows.Forms.Panel panelListButtons;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label slidingBar;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Timer timerSlidingBar;
         private System.Windows.Forms.Timer timerSlideInDetails;
+        private System.Windows.Forms.Panel panelInfo;
     }
 }

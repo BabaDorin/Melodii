@@ -26,6 +26,8 @@ namespace Melodii.Forms.Sondaj
             //Pozitionarea elementelor vizuale
             slidingBar.Left = -slidingBar.Width;
             speedSlidingBar = (label1.Left - slidingBar.Left) / 6;
+            panelInfo.Left = panelList.Right + 50;
+            panelList.Width = Width / 100 * 50;
 
             //Extragerea datelor din BD
             LoadData();
@@ -41,7 +43,7 @@ namespace Melodii.Forms.Sondaj
 
                 // Pentru fiecare sondaj va fi creat un buton care va contine informatii
                 // privind Numele participantului, data, scorul final.
-                GenerateButtons(Sondaje, panelSondajeButtons);
+                GenerateButtons(Sondaje, panelListButtons);
             }
             catch (Exception ex)
             {
@@ -76,6 +78,7 @@ namespace Melodii.Forms.Sondaj
                         btn.Height = 60;
                         btn.TextAlign = ContentAlignment.MiddleLeft;
                         btn.Font = new Font("Leelawadee", 13);
+                        btn.Click += btInfo_Click;
 
                         //Label pentru afisarea scorului final al sondajului.
                         System.Windows.Forms.Label lbScor = new System.Windows.Forms.Label();
@@ -110,7 +113,7 @@ namespace Melodii.Forms.Sondaj
                     label.Text = "Nu exista sondaje spre afisare.";
                     label.Image = Properties.Resources.shrug;
                     label.ImageAlign = ContentAlignment.MiddleCenter;
-                    panelSondajeButtons.Controls.Add(label);
+                    panelListButtons.Controls.Add(label);
                 }
             }
             catch (Exception ex)
@@ -120,7 +123,7 @@ namespace Melodii.Forms.Sondaj
             }
         }
 
-        private void VeziMelodiiForm_Resize(object sender, EventArgs e)
+        private void VeziSondajeForm_Resize(object sender, EventArgs e)
         {
             // In cazul in care are loc redimensionarea ferestrei:
             //
@@ -130,16 +133,17 @@ namespace Melodii.Forms.Sondaj
             // 2) Vom re-analiza modul in care este afisat numele participantului
             // Daca fereastra a fost marita, atunci denumirea va contine mai multe litere ca urmare
             // a maririi lungimii butoanelor, in caz contrar, denumirea va fi scurtata.
-
+            panelInfo.Left = panelList.Right + 50;
+            panelList.Width = Width / 100 * 50;
             formMinimized = !formMinimized;
 
             if (Sondaje.Count > 0)
-                foreach (Button btn in panelSondajeButtons.Controls)
+                foreach (Button btn in panelListButtons.Controls)
                 {
                     if (formMinimized)
                     {
                         //In cazul in care forma este minimizata, denumirea este scurtata.
-                        ScurtareDenumire(btn, panelSondaje.Width);
+                        ScurtareDenumire(btn, panelList.Width);
                     }
                     else
                     {
@@ -150,7 +154,7 @@ namespace Melodii.Forms.Sondaj
                         if (btn.Text.Length < initialButtonText.Length)
                         {
                             btn.Text = initialButtonText;
-                            ScurtareDenumire(btn, panelSondaje.Width);
+                            ScurtareDenumire(btn, panelList.Width);
                         }
                     }
                 }
@@ -172,6 +176,97 @@ namespace Melodii.Forms.Sondaj
                 btn.Text += "...";
             }
         }
+        #endregion
+
+        #region ButtonEvents
+        private void btInfo_Click(object sender, EventArgs e)
+        {
+            // Evenimentul declansat de catre un click pe butonul destinat unui sondaj
+            // Acesta va crea un nou panel in care va introduce toate datele disponibile
+            // despre sondajul respectiv.
+
+            panelInfo.Controls.Clear();
+            Panel panelSondaj = new Panel();
+            panelSondaj.Width = panelInfo.Width;
+            panelSondaj.Height = panelInfo.Height;
+
+            // Id-ul sondajului se afla in propritatea [Tag] a butonului, drept urmare
+            Models.Sondaj sondaj = Sondaje.First(m => m.IdSondaj == int.Parse((sender as Button).Tag.ToString()));
+
+            //Label pentru Numele participantului
+            System.Windows.Forms.Label Nume = new System.Windows.Forms.Label();
+            Nume.Text = sondaj.NumeParticipant;
+            Nume.Font = new Font("Leelawadee", 16);
+            Nume.AutoSize = true;
+            Nume.Width = panelInfo.Width;
+            Nume.Dock = DockStyle.Top;
+            Nume.MaximumSize = new Size(Nume.Width, 0);
+
+            //Label pentru Data
+            System.Windows.Forms.Label Data = new System.Windows.Forms.Label();
+            Data.Text = sondaj.Data.ToString("MMM dd yyyy   HH:mm");
+            Data.ForeColor = Color.LightGray;
+            Data.Font = new Font("Leelawadee", 12);
+            Data.AutoSize = true;
+            Data.Width = Nume.Width;
+            Data.Dock = DockStyle.Top;
+            Data.MaximumSize = new Size(Data.Width, 0);
+            Data.Padding = new Padding(5);
+
+            //Butonul de afisare a voturilor.
+            Button voturi = new Button();
+            voturi.Padding = new Padding(10);
+            voturi.Dock = DockStyle.Top;
+            voturi.FlatStyle = FlatStyle.Flat;
+            voturi.ForeColor = Color.WhiteSmoke;
+            voturi.FlatAppearance.BorderSize = 0;
+            voturi.Text = "Vezi voturile";
+            voturi.AutoSize = true;
+            voturi.Click += btVoturi_Click;
+            voturi.Tag = sondaj.IdSondaj;
+            panelSondaj.Controls.Add(voturi);
+
+            System.Windows.Forms.Label Spatiu = new System.Windows.Forms.Label();
+            Spatiu.Height = 50;
+            Spatiu.Dock = DockStyle.Top;
+            Spatiu.AutoSize = true;
+            panelSondaj.Controls.Add(Spatiu);
+
+            //Label pentru afisarea punctelor
+            System.Windows.Forms.Label ScorFinal = new System.Windows.Forms.Label();
+            ScorFinal.Text = String.Format("Puncte: " + sondaj.ScorFinal.ToString());
+            ScorFinal.ForeColor = Color.LightGray;
+            ScorFinal.Font = new Font("Leelawadee", 10);
+            ScorFinal.AutoSize = true;
+            ScorFinal.Width = Nume.Width;
+            ScorFinal.Dock = DockStyle.Top;
+            ScorFinal.MaximumSize = new Size(Data.Width, 0);
+            ScorFinal.Padding = new Padding(5);
+            panelSondaj.Controls.Add(ScorFinal);
+
+            panelSondaj.Controls.Add(Data);
+            panelSondaj.Controls.Add(Nume);
+
+            //Deplasarea panelului spre stanga si pregatirea terenului pentru slide.
+            panelSondaj.Left = -panelSondaj.Width;
+            speedMovingPanel = (panelSondaj.Left) / 3;
+            panelInfo.Controls.Add(panelSondaj);
+            movingPanel = panelSondaj;
+            timerSlideInDetails.Start();
+        }
+
+        private void btVoturi_Click(object sender, EventArgs e)
+        {
+            Panel parent = (sender as Button).Parent as Panel;
+
+            Label spatiu = new Label();
+            spatiu.Height = 50;
+            spatiu.Dock = DockStyle.Top;
+
+            //Vom folosi acelasi tip de panel pe care l-am folosit si la afisarea sondajelor.
+
+        }
+
         #endregion
 
         #region TimerEvents
