@@ -36,7 +36,7 @@ namespace Melodii.Forms.Sondaj
             UpGoingPanel = null;
             string NumeParticipant = ParticipantNumeByID(IdParticipant);
 
-            //Pozitionarea label-urilor la mijlocul ferestrei
+            //Pozitionarea label-urilor
             label.Left = 0;
             label.ForeColor = Color.FromArgb(255, 190, 0);
             lbMelodiiRamase.Left = 0;
@@ -46,7 +46,7 @@ namespace Melodii.Forms.Sondaj
             speed = Width / 6;
 
             //Extragerea melodiilor din baza de date
-            DB_Methods.LoadMelodii(ref melodii);
+            LoadMelodii(ref melodii);
 
             //Stabilirea pozitiilor in top a melodiilor
             melodii.Sort((x, y) => x.Puncte.CompareTo(y.Puncte));
@@ -61,7 +61,6 @@ namespace Melodii.Forms.Sondaj
             lbProgessBar.Width = 0;
             lbProgessBar.Tag = (100 / (nrMelodiiInitial-1)).ToString();
             btNext.Enabled = false;
-            
 
             //Crearea unui obiect Sondaj si inserarea acestuia in BD;
             Sondaj = new Models.Sondaj();
@@ -131,7 +130,7 @@ namespace Melodii.Forms.Sondaj
                 Interpret.AutoSize = true;
                 Interpret.MaximumSize = new Size(panelSondaj.Width, 0);
 
-                //Label care va servi ca o bara de subliniere
+                //Label care va servi drept bara de subliniere
                 Label bar = new Label();
                 bar.Height = 1;
                 bar.Dock = DockStyle.Top;
@@ -216,15 +215,16 @@ namespace Melodii.Forms.Sondaj
 
         private void ProcesareVot(int pozitiaAleasa)
         {
-            //-----------------< Proceseaza votul construieste pas cu pas obiectul [Sondaj] >-----------------
+            //-----------------< Proceseaza votul, construieste pas cu pas obiectul Sondaj >-----------------
 
             //Voturile vor fi stocate intr-o structura generica si vor fi inserate in baza de date
             //la sfarsitul sondajului.
-
             Vot vot = new Vot();
             vot.IdParticipant = Sondaj.IdParticipant;
             vot.IdMelodie = melodii[CurrentId].IdMelodie;
 
+            //Instantierea unui obiect de tip Rezultat care va contine informatii despre
+            //votul curent
             Rezultat rezultat = new Rezultat();
             rezultat.Melodie = melodii[CurrentId].Denumire;
             rezultat.PozitieInTop = melodii[CurrentId].LoculInTop;
@@ -260,18 +260,15 @@ namespace Melodii.Forms.Sondaj
             vot.IdSondaj = Sondaj.IdSondaj;
             voturi.Add(vot);
             rezultateSondaj.Rezultate.Add(rezultat);
-
             Sondaj.ScorFinal += vot.ScorVot;
             rezultateSondaj.ScorFinal += vot.ScorVot;
-
-            //Construirea obiectului Rezultate, care va fi afisat la sfarsitul sondajului
 
             if (CurrentId != -1)
                 melodii.RemoveAt(CurrentId);
             
             if(melodii.Count() == 0)
             {
-                lbMelodiiRamase.Text = "";
+                //Am ajuns la finalul sondajului.
                 SalveazaDate();
                 AfiseazaRezultate();
             }
@@ -297,6 +294,10 @@ namespace Melodii.Forms.Sondaj
 
         private void AfiseazaRezultate()
         {
+
+            //--------------------< Afiseaza rezumatul sondajului >------------------------
+
+            //Panoul ce va contine informatiile despre sondaj
             Panel panelRezultate = new Panel();
             panelRezultate.AutoScroll = true;
             panelRezultate.Dock = DockStyle.Fill;
@@ -315,10 +316,13 @@ namespace Melodii.Forms.Sondaj
             lbPuncteAcumulate.TextAlign = ContentAlignment.MiddleCenter;
             lbPuncteAcumulate.Text = "Puncte acumulate in total: " + rezultateSondaj.ScorFinal;
 
-            Label spatiu = new Label();
-            spatiu.Height = 30;
-            spatiu.Dock = DockStyle.Top;
-
+            //Pentru fiecare raspuns dat in cadrul sondajului, se va crea un nou panel in care
+            //vor fi include urmatoarele:
+            //  Numele Melodiei
+            //  Interpretul
+            //  Pozitia in TOP
+            //  Pozitia indicata (pozitia pe care a ales-o participantul)
+            //  Punctele acumulate pentru acest raspuns (0, 3, 5, 10).
             for (int i= rezultateSondaj.Rezultate.Count-1; i>=0; i--)
             {
                 Panel element = new Panel();
@@ -331,7 +335,6 @@ namespace Melodii.Forms.Sondaj
                 lbMelodie.TextAlign = ContentAlignment.MiddleCenter;
                 lbMelodie.Text = rezultateSondaj.Rezultate[i].Melodie;
                 lbMelodie.Dock = DockStyle.Top;
-                //lbMelodie.AutoSize = true;
 
                 Label lbInterpret = new Label();
                 lbInterpret.Font = new Font("Leelawadee", 10);
@@ -339,7 +342,6 @@ namespace Melodii.Forms.Sondaj
                 lbInterpret.TextAlign = ContentAlignment.MiddleCenter;
                 lbInterpret.Text = rezultateSondaj.Rezultate[i].Interpret;
                 lbInterpret.Dock = DockStyle.Top;
-                //lbInterpret.AutoSize = true;
 
                 Label lbPozitieTop = new Label();
                 lbPozitieTop.Font = new Font("Leelawadee", 13);
@@ -347,7 +349,6 @@ namespace Melodii.Forms.Sondaj
                 lbPozitieTop.TextAlign = ContentAlignment.MiddleCenter;
                 lbPozitieTop.Text = "Pozitie in TOP: " + rezultateSondaj.Rezultate[i].PozitieInTop;
                 lbPozitieTop.Dock = DockStyle.Top;
-                //lbPozitieTop.AutoSize = true;
 
                 Label lbPozitieIndicata = new Label();
                 lbPozitieIndicata.Font = new Font("Leelawadee", 13);
@@ -355,7 +356,6 @@ namespace Melodii.Forms.Sondaj
                 lbPozitieIndicata.TextAlign = ContentAlignment.MiddleCenter;
                 lbPozitieIndicata.Text = "Pozitia indicata: " + rezultateSondaj.Rezultate[i].PozitiaIndicata;
                 lbPozitieIndicata.Dock = DockStyle.Top;
-               // lbPozitieIndicata.AutoSize = true;
 
                 Label lbPuncte = new Label();
                 lbPuncte.Font = new Font("Leelawadee", 13);
@@ -363,7 +363,10 @@ namespace Melodii.Forms.Sondaj
                 lbPuncte.TextAlign = ContentAlignment.MiddleCenter;
                 lbPuncte.Text = "Puncte acumulate: " + rezultateSondaj.Rezultate[i].PuncteAcumulate;
                 lbPuncte.Dock = DockStyle.Top;
-                //lbPuncte.AutoSize = true;
+
+                Label spatiu = new Label();
+                spatiu.Height = 30;
+                spatiu.Dock = DockStyle.Top;
 
                 element.Controls.Add(lbPuncte);
                 element.Controls.Add(lbPozitieIndicata);
@@ -375,7 +378,9 @@ namespace Melodii.Forms.Sondaj
                 panelRezultate.Controls.Add(element);
             }
 
-            panel1.Dispose();
+            //Panoul panelTop este eliminat pentru a avea mai mult spatiu de afisare si
+            //afisam panoul ce contine rezultatele sondajului.
+            panelTop.Dispose();
             panelSondaj.Padding = new Padding(0);
             btNext.Text = "OK";
             btNext.Enabled = true;
@@ -383,7 +388,12 @@ namespace Melodii.Forms.Sondaj
             panelRezultate.Controls.Add(lbPuncteAcumulate);
             panelSondaj.Controls.Add(panelRezultate);
             panelRezultate.Controls.Add(lbText);
-            panelRezultate.Controls.Add(spatiu);
+
+            Label PaddingTop = new Label();
+            PaddingTop.Height = 50;
+            PaddingTop.Dock = DockStyle.Top;
+
+            panelRezultate.Controls.Add(PaddingTop);
         }
 
         private void cmb_ValueChanged(object sender, EventArgs e)

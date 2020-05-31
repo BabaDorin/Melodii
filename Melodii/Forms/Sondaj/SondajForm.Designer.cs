@@ -32,13 +32,13 @@
             this.label = new System.Windows.Forms.Label();
             this.lbParticipant = new System.Windows.Forms.Label();
             this.lbMelodiiRamase = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.panelTop = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.lbProgessBar = new System.Windows.Forms.Label();
             this.btNext = new System.Windows.Forms.Button();
             this.panelSondaj = new System.Windows.Forms.Panel();
             this.SlidingPanel = new System.Windows.Forms.Timer(this.components);
-            this.panel1.SuspendLayout();
+            this.panelTop.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -47,7 +47,7 @@
             this.label.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label.AutoSize = true;
             this.label.Font = new System.Drawing.Font("Leelawadee", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label.Location = new System.Drawing.Point(341, 32);
+            this.label.Location = new System.Drawing.Point(12, 19);
             this.label.Name = "label";
             this.label.Size = new System.Drawing.Size(97, 32);
             this.label.TabIndex = 13;
@@ -59,7 +59,7 @@
             this.lbParticipant.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lbParticipant.AutoSize = true;
             this.lbParticipant.Font = new System.Drawing.Font("Leelawadee", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbParticipant.Location = new System.Drawing.Point(364, 76);
+            this.lbParticipant.Location = new System.Drawing.Point(35, 63);
             this.lbParticipant.Name = "lbParticipant";
             this.lbParticipant.Size = new System.Drawing.Size(51, 19);
             this.lbParticipant.TabIndex = 14;
@@ -70,22 +70,22 @@
             this.lbMelodiiRamase.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lbMelodiiRamase.AutoSize = true;
             this.lbMelodiiRamase.Font = new System.Drawing.Font("Leelawadee", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbMelodiiRamase.Location = new System.Drawing.Point(364, 105);
+            this.lbMelodiiRamase.Location = new System.Drawing.Point(35, 92);
             this.lbMelodiiRamase.Name = "lbMelodiiRamase";
             this.lbMelodiiRamase.Size = new System.Drawing.Size(51, 19);
             this.lbMelodiiRamase.TabIndex = 15;
             this.lbMelodiiRamase.Text = "label1";
             // 
-            // panel1
+            // panelTop
             // 
-            this.panel1.Controls.Add(this.label);
-            this.panel1.Controls.Add(this.lbMelodiiRamase);
-            this.panel1.Controls.Add(this.lbParticipant);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(771, 162);
-            this.panel1.TabIndex = 16;
+            this.panelTop.Controls.Add(this.label);
+            this.panelTop.Controls.Add(this.lbMelodiiRamase);
+            this.panelTop.Controls.Add(this.lbParticipant);
+            this.panelTop.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelTop.Location = new System.Drawing.Point(0, 0);
+            this.panelTop.Name = "panelTop";
+            this.panelTop.Size = new System.Drawing.Size(771, 162);
+            this.panelTop.TabIndex = 16;
             // 
             // panel2
             // 
@@ -144,15 +144,15 @@
             this.ClientSize = new System.Drawing.Size(771, 612);
             this.Controls.Add(this.panelSondaj);
             this.Controls.Add(this.panel2);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.panelTop);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "SondajForm";
             this.Text = "SondajForm";
             this.Resize += new System.EventHandler(this.SondajForm_Resize);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.panelTop.ResumeLayout(false);
+            this.panelTop.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -163,7 +163,7 @@
         private System.Windows.Forms.Label label;
         private System.Windows.Forms.Label lbParticipant;
         private System.Windows.Forms.Label lbMelodiiRamase;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panelTop;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panelSondaj;
         private System.Windows.Forms.Timer SlidingPanel;
