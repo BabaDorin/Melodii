@@ -422,10 +422,8 @@ namespace Melodii
             try
             {
                 //Vom folosi parametri sql pentru ca aplicatia sa fie imuna atacurilor de tip SQL Injection
-                SqlCommand cmd = new SqlCommand("INSERT INTO Voturi" +
-                "(IdParticipant, IdMelodie, ScorVot, IdSondaj, PozitieTop, PozitiaIndicata)" +
-                "VALUES" +
-                "(@IdParticipant, @IdMelodie, @ScorVot, @IdSondaj, @PozitieTop, @PozitiaIndicata); ", Connection);
+                SqlCommand cmd = new SqlCommand("sp_InsertVot", Connection);
+                cmd.CommandType = CommandType.StoredProcedure;
 
                 SqlParameter parParticipant = new SqlParameter("@IdParticipant", vot.IdParticipant);
                 cmd.Parameters.Add(parParticipant);
@@ -474,7 +472,8 @@ namespace Melodii
 
                 //Crerea unui obiect de tip DataAdapter pentru conectarea DataSet-ului
                 //cu baza de date.
-                SqlDataAdapter daVoturi = new SqlDataAdapter("SELECT * FROM Voturi WHERE IdSondaj = @IdSondaj", Connection);
+                SqlDataAdapter daVoturi = new SqlDataAdapter("sp_LoadVoturi", Connection);
+                daVoturi.SelectCommand.CommandType = CommandType.StoredProcedure;
                 SqlParameter parIdSondaj = new SqlParameter("@IdSondaj", idSondaj);
                 daVoturi.SelectCommand.Parameters.Add(parIdSondaj);
                 DataSet dsVoturi = new DataSet("Voturi");
@@ -503,32 +502,6 @@ namespace Melodii
             catch (Exception ex)
             {
                 Debug.WriteLine("Eroare LoadVoturi: " + ex.Message);
-                throw ex;
-            }
-            finally
-            {
-                if (Connection.State == ConnectionState.Open)
-                    Connection.Close();
-            }
-        }
-
-        public static void ClearVoturi()
-        {
-            //---------------------< Elimina toate inregistrarile din tabela Voturi >---------------------------
-
-            SqlConnection Connection = new SqlConnection(ConnectionString);
-            try
-            {
-                //Vom folosi parametri sql pentru ca aplicatia sa fie imuna atacurilor de tip SQL Injection
-                SqlCommand cmd = new SqlCommand("DELETE FROM VOTURI", Connection);
-
-                Connection.Open();
-                cmd.ExecuteNonQuery();
-                Connection.Close();
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine("Eroare ClearVoturi: " + ex.Message);
                 throw ex;
             }
             finally
