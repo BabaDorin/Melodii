@@ -521,10 +521,8 @@ namespace Melodii
             SqlConnection Connection = new SqlConnection(ConnectionString);
             try
             {
-                SqlCommand cmd = new SqlCommand("INSERT INTO Sondaje" +
-                    "(IdParticipant, ScorFinal, Data)" +
-                    "VALUES" +
-                    "(@IdParticipant, @ScorFinal, @Data)", Connection);
+                SqlCommand cmd = new SqlCommand("sp_InsertSondaj", Connection);
+                cmd.CommandType = CommandType.StoredProcedure;
 
                 SqlParameter parParticipant = new SqlParameter("@IdParticipant", sondaj.IdParticipant);
                 cmd.Parameters.Add(parParticipant);
@@ -556,7 +554,8 @@ namespace Melodii
             try
             {
                 //Vom folosi parametri sql pentru ca aplicatia sa fie imuna atacurilor de tip SQL Injection
-                SqlCommand cmd = new SqlCommand("UPDATE Sondaje SET ScorFinal = @ScorFinal WHERE IdSondaj = @IdSondaj", Connection);
+                SqlCommand cmd = new SqlCommand("sp_UpdateScorFinalSondaj", Connection);
+                cmd.CommandType = CommandType.StoredProcedure;
 
                 SqlParameter parScor = new SqlParameter("@ScorFinal", sondaj.ScorFinal);
                 cmd.Parameters.Add(parScor);
@@ -595,7 +594,8 @@ namespace Melodii
 
                 //Crerea unui obiect de tip DataAdapter pentru conectarea DataSet-ului
                 //cu baza de date.
-                SqlDataAdapter daSondaje = new SqlDataAdapter("SELECT * FROM SONDAJE", Connection);
+                SqlDataAdapter daSondaje = new SqlDataAdapter("sp_LoadSondaje", Connection);
+                daSondaje.SelectCommand.CommandType = CommandType.StoredProcedure;
                 DataSet dsSondaje = new DataSet("Sondaje");
                 daSondaje.Fill(dsSondaje, "Sondaje");
                 DataTable tblSondaje = dsSondaje.Tables["Sondaje"];
@@ -642,16 +642,20 @@ namespace Melodii
                 switch (tableName)
                 {
                     case "Melodii":
-                        lastId = new SqlCommand("SELECT MAX(IdMelodie) FROM Melodii", connection);
+                        lastId = new SqlCommand("sp_LastInsertedIdMelodii", connection);
+                        lastId.CommandType = CommandType.StoredProcedure;
                         break;
                     case "Participanti":
-                        lastId = new SqlCommand("SELECT MAX(IdParticipant) FROM Participanti", connection);
+                        lastId = new SqlCommand("sp_LastInsertedIdParticipanti", connection);
+                        lastId.CommandType = CommandType.StoredProcedure;
                         break;
                     case "Voturi":
-                        lastId = new SqlCommand("SELECT MAX(IdVot) FROM Voturi", connection);
+                        lastId = new SqlCommand("sp_LastInsertedIdVoturi", connection);
+                        lastId.CommandType = CommandType.StoredProcedure;
                         break;
                     case "Sondaje":
-                        lastId = new SqlCommand("SELECT MAX(IdSondaj) FROM Sondaje", connection);
+                        lastId = new SqlCommand("sp_LastInsertedIdSondaje", connection);
+                        lastId.CommandType = CommandType.StoredProcedure;
                         break;
                     default:
                         throw new Exception("Invalid table name");
