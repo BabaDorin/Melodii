@@ -1,21 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
-using System.Diagnostics.Eventing.Reader;
-using System.Drawing.Drawing2D;
-using Melodii.Forms;
 using static Melodii.DesignFunctionalities;
 using static Melodii.DB_Methods;
-using System.Data.SqlClient;
-using System.IO;
-using System.Threading;
 using Melodii.Models;
 
 namespace Melodii.Forms
@@ -26,7 +15,7 @@ namespace Melodii.Forms
         public AdaugaMelodieForm()
         {
             InitializeComponent();
-            label6.Visible = false;
+            SlidingBar.Visible = false;
             slidingBar.Left = -slidingBar.Width;
             speed = (label1.Left - slidingBar.Left) / 6;
 
@@ -114,6 +103,59 @@ namespace Melodii.Forms
         private List<TextBox> InvalidTextBoxes;
         private static int Shakes = 0;
 
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            //Sliding bar
+            if (slideIn)
+            {
+                //Bara vine
+                if (slidingBar.Left >= label1.Left)
+                {
+                    timer1.Stop();
+                }
+                else
+                {
+                    slidingBar.Left += speed;
+                    speed = (label1.Left - slidingBar.Left) / 6;
+                    if (speed < 1) speed = 1;
+                }
+            }
+            else
+            {
+                //Bara pleaca
+                if (slidingBar.Left <= this.Width)
+                {
+                    slidingBar.Left += speed;
+                    speed += slidingBar.Left / 30;
+                }
+                else
+                {
+                    //Bara iese din limitele ferestrei, este distrusa pentru a elibera resursele
+                    //dupa care este afisat mesajul de confirmare.
+                    timer1.Stop();
+                    slidingBar.Dispose();
+                    slideIn = true;
+
+                    SlidingBar.Top = 0;
+                    SlidingBar.Left = 0;
+                    SlidingBar.Width = this.Width;
+                    SlidingBar.Height = this.Height;
+                    SlidingBar.BringToFront();
+                    SlidingBar.TextAlign = ContentAlignment.MiddleCenter;
+                    SlidingBar.Text = "Melodia a fost inregistrata cu succes!";
+                    SlidingBar.Visible = true;
+                    timer3.Start();
+                }
+
+                //Totodata sterge treptat si mesajul de eroare, in caz in care acesta exista
+                if (lbEroare.Text.Length > 0)
+                {
+                    int lungime = (lbEroare.Text.Length - 6 < 0) ? 0 : lbEroare.Text.Length - 6;
+                    lbEroare.Text = lbEroare.Text.Substring(0, lungime);
+                }
+            }
+        }
+
         private void timer2_Tick(object sender, EventArgs e)
         {
             //Zguduirea campurilor invalide
@@ -152,66 +194,12 @@ namespace Melodii.Forms
             
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            //Sliding bar
-
-            if (slideIn)
-            {
-                //Bara vine
-                if (slidingBar.Left >= label1.Left)
-                {
-                    timer1.Stop();
-                }
-                else
-                {
-                    slidingBar.Left += speed;
-                    speed = (label1.Left - slidingBar.Left) / 6;
-                    if (speed < 1) speed = 1;
-                }
-            }
-            else
-            {
-                //bara pleaca
-                if (slidingBar.Left <= this.Width)
-                {
-                    slidingBar.Left += speed;
-                    speed += slidingBar.Left / 30;
-                }
-                else
-                {
-                    //Bara iese din limitele ferestrei, este distrusa pentru a elibera resursele
-                    //dupa care este afisat mesajul de confirmare.
-                    timer1.Stop();
-                    slidingBar.Dispose();
-                    slideIn = true;
-
-                    label6.Top = 0;
-                    label6.Left = 0;
-                    label6.Width = this.Width;
-                    label6.Height = this.Height;
-                    label6.BringToFront();
-                    label6.TextAlign = ContentAlignment.MiddleCenter;
-                    label6.Text = "Melodia a fost inregistrata cu succes!";
-                    label6.Visible = true;
-                    timer3.Start();
-                }
-
-                //Totodata sterge treptat si mesajul de eroare, in caz in care acesta exista
-                if (lbEroare.Text.Length > 0)
-                {
-                    int lungime = (lbEroare.Text.Length - 6 < 0) ? 0 : lbEroare.Text.Length - 6;
-                    lbEroare.Text = lbEroare.Text.Substring(0, lungime);
-                }
-            }
-        }
-
         private void timer3_Tick(object sender, EventArgs e)
         {
-            //Afisarea mesajului de confirmare pentru 1 secunda.
-            label6.Dispose();
+            //Afisarea mesajului de confirmare pentru 2 secunde.
+            SlidingBar.Dispose();
             timer3.Stop();
-            this.DialogResult = DialogResult.OK;
+
             Panel parent = (Panel)this.Parent;
             this.Close();
             openChildForm(new AdaugaMelodieForm(), parent);

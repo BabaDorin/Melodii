@@ -185,11 +185,11 @@ namespace Melodii
             SqlConnection Connection = new SqlConnection(ConnectionString);
             try
             {
-                SqlCommand sqlCount = new SqlCommand("sp_NrMelodii", Connection);
-                sqlCount.CommandType = CommandType.StoredProcedure;
+                SqlCommand cmd = new SqlCommand("sp_NrMelodii", Connection);
+                cmd.CommandType = CommandType.StoredProcedure;
 
                 Connection.Open();
-                int nrMelodii = (int)sqlCount.ExecuteScalar();
+                int nrMelodii = (int)cmd.ExecuteScalar();
                 Connection.Close();
                 return nrMelodii;
             }
@@ -213,14 +213,14 @@ namespace Melodii
             SqlConnection Connection = new SqlConnection(ConnectionString);
             try
             {
-                SqlCommand sqlcDelete = new SqlCommand("sp_RemoveMelodie", Connection);
-                sqlcDelete.CommandType = CommandType.StoredProcedure;
+                SqlCommand cmd = new SqlCommand("sp_RemoveMelodie", Connection);
+                cmd.CommandType = CommandType.StoredProcedure;
 
                 SqlParameter parIdMelodie = new SqlParameter("@IdMelodie", idMelodie);
-                sqlcDelete.Parameters.Add(parIdMelodie);
+                cmd.Parameters.Add(parIdMelodie);
 
                 Connection.Open();
-                sqlcDelete.ExecuteNonQuery();
+                cmd.ExecuteNonQuery();
                 Connection.Close();
             }
             catch (Exception ex)
@@ -377,17 +377,17 @@ namespace Melodii
             SqlConnection Connection = new SqlConnection(ConnectionString);
             try
             {
-                SqlCommand updateScor = new SqlCommand("sp_UpdateParticipantScor", Connection);
-                updateScor.CommandType = CommandType.StoredProcedure;
+                SqlCommand cmd = new SqlCommand("sp_UpdateParticipantScor", Connection);
+                cmd.CommandType = CommandType.StoredProcedure;
 
                 SqlParameter parScor = new SqlParameter("@ScorDeAdaugat", ScorDeAdaugat);
-                updateScor.Parameters.Add(parScor);
+                cmd.Parameters.Add(parScor);
 
                 SqlParameter parIdParticipant = new SqlParameter("@IdParticipant", idParticipant);
-                updateScor.Parameters.Add(parIdParticipant);
+                cmd.Parameters.Add(parIdParticipant);
 
                 Connection.Open();
-                updateScor.ExecuteNonQuery();
+                cmd.ExecuteNonQuery();
                 Connection.Close();
             }
             catch (Exception ex)
@@ -448,14 +448,14 @@ namespace Melodii
             SqlConnection Connection = new SqlConnection(ConnectionString);
             try
             {
-                SqlCommand sqlcDelete = new SqlCommand("sp_RemoveParticipant", Connection);
-                sqlcDelete.CommandType = CommandType.StoredProcedure;
+                SqlCommand cmd = new SqlCommand("sp_RemoveParticipant", Connection);
+                cmd.CommandType = CommandType.StoredProcedure;
 
                 SqlParameter parIdParticipant = new SqlParameter("@IdParticipant", IdParticipant);
-                sqlcDelete.Parameters.Add(parIdParticipant);
+                cmd.Parameters.Add(parIdParticipant);
 
                 Connection.Open();
-                sqlcDelete.ExecuteNonQuery();
+                cmd.ExecuteNonQuery();
                 Connection.Close();
             }
             catch (Exception ex)
@@ -696,31 +696,31 @@ namespace Melodii
             SqlConnection connection = new SqlConnection(ConnectionString);
             try
             {
-                SqlCommand lastId;
+                SqlCommand cmd;
                 switch (tableName)
                 {
                     case "Melodii":
-                        lastId = new SqlCommand("sp_LastInsertedIdMelodii", connection);
-                        lastId.CommandType = CommandType.StoredProcedure;
+                        cmd = new SqlCommand("sp_LastInsertedIdMelodii", connection);
+                        cmd.CommandType = CommandType.StoredProcedure;
                         break;
                     case "Participanti":
-                        lastId = new SqlCommand("sp_LastInsertedIdParticipanti", connection);
-                        lastId.CommandType = CommandType.StoredProcedure;
+                        cmd = new SqlCommand("sp_LastInsertedIdParticipanti", connection);
+                        cmd.CommandType = CommandType.StoredProcedure;
                         break;
                     case "Voturi":
-                        lastId = new SqlCommand("sp_LastInsertedIdVoturi", connection);
-                        lastId.CommandType = CommandType.StoredProcedure;
+                        cmd = new SqlCommand("sp_LastInsertedIdVoturi", connection);
+                        cmd.CommandType = CommandType.StoredProcedure;
                         break;
                     case "Sondaje":
-                        lastId = new SqlCommand("sp_LastInsertedIdSondaje", connection);
-                        lastId.CommandType = CommandType.StoredProcedure;
+                        cmd = new SqlCommand("sp_LastInsertedIdSondaje", connection);
+                        cmd.CommandType = CommandType.StoredProcedure;
                         break;
                     default:
                         throw new Exception("Invalid table name");
                 }
 
                 connection.Open();
-                int LastInsertedId = (int)lastId.ExecuteScalar();
+                int LastInsertedId = (int)cmd.ExecuteScalar();
                 connection.Close();
 
                 return LastInsertedId;

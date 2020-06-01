@@ -41,7 +41,7 @@
             this.tbGen = new System.Windows.Forms.TextBox();
             this.lbEroare = new System.Windows.Forms.Label();
             this.timer2 = new System.Windows.Forms.Timer(this.components);
-            this.label6 = new System.Windows.Forms.Label();
+            this.SlidingBar = new System.Windows.Forms.Label();
             this.timer3 = new System.Windows.Forms.Timer(this.components);
             this.label7 = new System.Windows.Forms.Label();
             this.tbPuncte = new System.Windows.Forms.TextBox();
@@ -168,13 +168,13 @@
             // 
             // label6
             // 
-            this.label6.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(471, 9);
-            this.label6.Name = "label6";
-            this.label6.Padding = new System.Windows.Forms.Padding(50);
-            this.label6.Size = new System.Drawing.Size(288, 75);
-            this.label6.TabIndex = 10;
+            this.SlidingBar.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.SlidingBar.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SlidingBar.Location = new System.Drawing.Point(471, 9);
+            this.SlidingBar.Name = "label6";
+            this.SlidingBar.Padding = new System.Windows.Forms.Padding(50);
+            this.SlidingBar.Size = new System.Drawing.Size(288, 75);
+            this.SlidingBar.TabIndex = 10;
             // 
             // timer3
             // 
@@ -235,7 +235,7 @@
             this.Controls.Add(this.tbInformatii);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.tbPuncte);
-            this.Controls.Add(this.label6);
+            this.Controls.Add(this.SlidingBar);
             this.Controls.Add(this.lbEroare);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.tbGen);
@@ -271,7 +271,7 @@
         private System.Windows.Forms.TextBox tbGen;
         private System.Windows.Forms.Label lbEroare;
         private System.Windows.Forms.Timer timer2;
-        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label SlidingBar;
         private System.Windows.Forms.Timer timer3;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
