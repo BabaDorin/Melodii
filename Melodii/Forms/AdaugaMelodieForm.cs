@@ -15,7 +15,7 @@ namespace Melodii.Forms
         public AdaugaMelodieForm()
         {
             InitializeComponent();
-            SlidingBar.Visible = false;
+            label6.Visible = false;
             slidingBar.Left = -slidingBar.Width;
             speed = (label1.Left - slidingBar.Left) / 6;
 
@@ -136,14 +136,14 @@ namespace Melodii.Forms
                     slidingBar.Dispose();
                     slideIn = true;
 
-                    SlidingBar.Top = 0;
-                    SlidingBar.Left = 0;
-                    SlidingBar.Width = this.Width;
-                    SlidingBar.Height = this.Height;
-                    SlidingBar.BringToFront();
-                    SlidingBar.TextAlign = ContentAlignment.MiddleCenter;
-                    SlidingBar.Text = "Melodia a fost inregistrata cu succes!";
-                    SlidingBar.Visible = true;
+                    label6.Top = 0;
+                    label6.Left = 0;
+                    label6.Width = this.Width;
+                    label6.Height = this.Height;
+                    label6.BringToFront();
+                    label6.TextAlign = ContentAlignment.MiddleCenter;
+                    label6.Text = "Melodia a fost inregistrata cu succes!";
+                    label6.Visible = true;
                     timer3.Start();
                 }
 
@@ -197,9 +197,9 @@ namespace Melodii.Forms
         private void timer3_Tick(object sender, EventArgs e)
         {
             //Afisarea mesajului de confirmare pentru 2 secunde.
-            SlidingBar.Dispose();
+            label6.Dispose();
             timer3.Stop();
-
+            this.DialogResult = DialogResult.OK;
             Panel parent = (Panel)this.Parent;
             this.Close();
             openChildForm(new AdaugaMelodieForm(), parent);

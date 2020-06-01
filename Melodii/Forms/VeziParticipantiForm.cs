@@ -2,11 +2,8 @@
 using Melodii.Models;
 using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using static Melodii.DesignFunctionalities;
@@ -44,8 +41,7 @@ namespace Melodii.Forms
                 //Sortarea listei participantilor
                 participanti.Sort((x, y) => x.Scor.CompareTo(y.Scor));
 
-                // Pentru fiecare melodie va fi creat un buton care va contine informatii
-                // privind Denumirea, Interpretul si numarul de puncte ale acesteia.
+                // Pentru fiecare participant va fi creat cate un buton
                 GenerateButtons(participanti, panelParticipantiButtons);
             }
             catch (Exception ex)
@@ -99,6 +95,7 @@ namespace Melodii.Forms
                 }
                 else
                 {
+                    //Nu exista participanti inregistrati in baza de date. Afisam un mesaj corespunzator.
                     System.Windows.Forms.Label label = new System.Windows.Forms.Label();
                     label.Font = new Font("Leelawadee", 13);
                     label.ForeColor = Color.WhiteSmoke;
@@ -167,116 +164,124 @@ namespace Melodii.Forms
         #region ButtonEvents
         private void btInfo_Click(object sender, EventArgs e)
         {
-            // Evenimentul declansat de catre un click pe butonul destinat unui participant.
-            // Acesta va crea un nou panel in care va introduce toate datele disponibile
-            // despre participantul selectat.
-
-            panelInfo.Controls.Clear();
-            Panel panelParticipant = new Panel();
-            panelParticipant.Width = panelInfo.Width;
-            panelParticipant.Height = panelInfo.Height;
-
-            // Id-ul persoanei se afla in propritatea [Tag] a butonului, drept urmare
-            Participant participant = participanti.First(m => m.IdParticipant == int.Parse((sender as Button).Tag.ToString()));
-
-            //Label pentru denumire
-            System.Windows.Forms.Label Nume = new System.Windows.Forms.Label();
-            Nume.Text = participant.Nume;
-            Nume.Font = new Font("Leelawadee", 16);
-            Nume.AutoSize = true;
-            Nume.Width = panelInfo.Width;
-            Nume.Dock = DockStyle.Top;
-            Nume.MaximumSize = new Size(Nume.Width, 0);
-
-            //butonul de excludere a persoanei
-            Button exclude = new Button();
-            exclude.Padding = new Padding(10);
-            exclude.Dock = DockStyle.Top;
-            exclude.FlatStyle = FlatStyle.Flat;
-            exclude.ForeColor = Color.WhiteSmoke;
-            exclude.FlatAppearance.BorderSize = 0;
-            exclude.Text = "Exclude participantul";
-            exclude.AutoSize = true;
-            exclude.Click += btExclude_Click;
-            exclude.Tag = participant.IdParticipant;
-            panelParticipant.Controls.Add(exclude);
-
-            //butonul de creare a unui sondaj
-            Button sondaj = new Button();
-            sondaj.Padding = new Padding(10);
-            sondaj.Dock = DockStyle.Top;
-            sondaj.FlatStyle = FlatStyle.Flat;
-            sondaj.ForeColor = Color.WhiteSmoke;
-            sondaj.FlatAppearance.BorderSize = 0;
-            sondaj.Text = "Creaza un sondaj";
-            sondaj.AutoSize = true;
-            sondaj.Click += btSondaj_Click;
-            sondaj.Tag = participant.IdParticipant;
-            panelParticipant.Controls.Add(sondaj);
-
-            System.Windows.Forms.Label Spatiu = new System.Windows.Forms.Label();
-            Spatiu.Height = 50;
-            Spatiu.Dock = DockStyle.Top;
-            Spatiu.AutoSize = true;
-            panelParticipant.Controls.Add(Spatiu);
-
-            //Label pentru afisarea scorului
-            System.Windows.Forms.Label Scor = new System.Windows.Forms.Label();
-            Scor.Text = String.Format("Puncte: " + participant.Scor.ToString());
-            Scor.ForeColor = Color.LightGray;
-            Scor.Font = new Font("Leelawadee", 10);
-            Scor.AutoSize = true;
-            Scor.Width = Nume.Width;
-            Scor.Dock = DockStyle.Top;
-            Scor.MaximumSize = new Size(Nume.Width, 0);
-            Scor.Padding = new Padding(5);
-            panelParticipant.Controls.Add(Scor);
-
-            if (participant.Informatii != "")
+            try
             {
-                //Label pentru afisarea informatiilor aditionale, in cazul in care acestea exista.
-                System.Windows.Forms.Label Informatii = new System.Windows.Forms.Label();
-                Informatii.Text = String.Format($"Informatii: {participant.Informatii}");
-                Informatii.ForeColor = Color.LightGray;
-                Informatii.Font = new Font("Leelawadee", 10);
-                Informatii.AutoSize = true;
-                Informatii.Width = Nume.Width;
-                Informatii.Dock = DockStyle.Top;
-                Informatii.MaximumSize = new Size(panelInfo.Width, 0);
-                Informatii.Padding = new Padding(5);
-                panelParticipant.Controls.Add(Informatii);
+                // Evenimentul declansat de catre un click pe butonul destinat unui participant.
+                // Acesta va crea un nou panel in care va introduce toate datele disponibile
+                // despre participantul selectat.
+
+                panelInfo.Controls.Clear();
+                Panel panelParticipant = new Panel();
+                panelParticipant.Width = panelInfo.Width;
+                panelParticipant.Height = panelInfo.Height;
+
+                // Id-ul persoanei se afla in propritatea [Tag] a butonului, drept urmare
+                Participant participant = participanti.First(m => m.IdParticipant == int.Parse((sender as Button).Tag.ToString()));
+
+                //Label pentru Nume
+                System.Windows.Forms.Label Nume = new System.Windows.Forms.Label();
+                Nume.Text = participant.Nume;
+                Nume.Font = new Font("Leelawadee", 16);
+                Nume.AutoSize = true;
+                Nume.Width = panelInfo.Width;
+                Nume.Dock = DockStyle.Top;
+                Nume.MaximumSize = new Size(Nume.Width, 0);
+
+                //butonul de excludere a persoanei
+                Button exclude = new Button();
+                exclude.Padding = new Padding(10);
+                exclude.Dock = DockStyle.Top;
+                exclude.FlatStyle = FlatStyle.Flat;
+                exclude.ForeColor = Color.WhiteSmoke;
+                exclude.FlatAppearance.BorderSize = 0;
+                exclude.Text = "Exclude participantul";
+                exclude.AutoSize = true;
+                exclude.Click += btExclude_Click;
+                exclude.Tag = participant.IdParticipant;
+                panelParticipant.Controls.Add(exclude);
+
+                //butonul de creare a unui sondaj
+                Button sondaj = new Button();
+                sondaj.Padding = new Padding(10);
+                sondaj.Dock = DockStyle.Top;
+                sondaj.FlatStyle = FlatStyle.Flat;
+                sondaj.ForeColor = Color.WhiteSmoke;
+                sondaj.FlatAppearance.BorderSize = 0;
+                sondaj.Text = "Creaza un sondaj";
+                sondaj.AutoSize = true;
+                sondaj.Click += btSondaj_Click;
+                sondaj.Tag = participant.IdParticipant;
+                panelParticipant.Controls.Add(sondaj);
+
+                System.Windows.Forms.Label Spatiu = new System.Windows.Forms.Label();
+                Spatiu.Height = 50;
+                Spatiu.Dock = DockStyle.Top;
+                Spatiu.AutoSize = true;
+                panelParticipant.Controls.Add(Spatiu);
+
+                //Label pentru afisarea scorului
+                System.Windows.Forms.Label Scor = new System.Windows.Forms.Label();
+                Scor.Text = String.Format("Puncte: " + participant.Scor.ToString());
+                Scor.ForeColor = Color.LightGray;
+                Scor.Font = new Font("Leelawadee", 10);
+                Scor.AutoSize = true;
+                Scor.Width = Nume.Width;
+                Scor.Dock = DockStyle.Top;
+                Scor.MaximumSize = new Size(Nume.Width, 0);
+                Scor.Padding = new Padding(5);
+                panelParticipant.Controls.Add(Scor);
+
+                if (participant.Informatii != "")
+                {
+                    //Label pentru afisarea informatiilor aditionale, in cazul in care acestea exista.
+                    System.Windows.Forms.Label Informatii = new System.Windows.Forms.Label();
+                    Informatii.Text = String.Format($"Informatii: {participant.Informatii}");
+                    Informatii.ForeColor = Color.LightGray;
+                    Informatii.Font = new Font("Leelawadee", 10);
+                    Informatii.AutoSize = true;
+                    Informatii.Width = Nume.Width;
+                    Informatii.Dock = DockStyle.Top;
+                    Informatii.MaximumSize = new Size(panelInfo.Width, 0);
+                    Informatii.Padding = new Padding(5);
+                    panelParticipant.Controls.Add(Informatii);
+                }
+
+                //Label pentru afisarea varstei
+                System.Windows.Forms.Label Varsta = new System.Windows.Forms.Label();
+                Varsta.Text = String.Format($"Varsta: {participant.Varsta}");
+                Varsta.ForeColor = Color.LightGray;
+                Varsta.Font = new Font("Leelawadee", 10);
+                Varsta.AutoSize = true;
+                Varsta.Width = Nume.Width;
+                Varsta.Dock = DockStyle.Top;
+                Varsta.MaximumSize = new Size(panelInfo.Width, 0);
+                Varsta.Padding = new Padding(5);
+                panelParticipant.Controls.Add(Varsta);
+
+                panelParticipant.Controls.Add(Nume);
+
+                //Deplasarea panelului spre stanga si pregatirea terenului pentru slide.
+                panelParticipant.Left = -panelParticipant.Width;
+                speedMovingPanel = (panelParticipant.Left) / 3;
+                panelInfo.Controls.Add(panelParticipant);
+                movingPanel = panelParticipant;
+                timerSlideInDetails.Start();
             }
-
-            //Label pentru afisarea varstei
-            System.Windows.Forms.Label Varsta = new System.Windows.Forms.Label();
-            Varsta.Text = String.Format($"Varsta: {participant.Varsta}");
-            Varsta.ForeColor = Color.LightGray;
-            Varsta.Font = new Font("Leelawadee", 10);
-            Varsta.AutoSize = true;
-            Varsta.Width = Nume.Width;
-            Varsta.Dock = DockStyle.Top;
-            Varsta.MaximumSize = new Size(panelInfo.Width, 0);
-            Varsta.Padding = new Padding(5);
-            panelParticipant.Controls.Add(Varsta);
-
-            panelParticipant.Controls.Add(Nume);
-
-            //Deplasarea panelului spre stanga si pregatirea terenului pentru slide.
-            panelParticipant.Left = -panelParticipant.Width;
-            speedMovingPanel = (panelParticipant.Left) / 3;
-            panelInfo.Controls.Add(panelParticipant);
-            movingPanel = panelParticipant;
-            timerSlideInDetails.Start();
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Eroare btInfo: " + ex.Message);
+                lbError.Text = "S-a produs o eroare la accesarea datelor despre participantul ales.";
+            }
         }
 
         private void btExclude_Click(object sender, EventArgs e)
         {
             //In urma apasarii butonului [Exclude], va aparea un messagebox pentru confirmare.
-            //In cazul in care raspunstul este OK, atunci se va purcede la eliminarea melodiei din baza de date.
+            //In cazul in care raspunstul este OK, atunci se va purcede la eliminarea participantului din baza de date.
             Form Messagebox = new MessageBox();
             int idParticipant = int.Parse((sender as Button).Tag.ToString());
             string Denumire = participanti.First(m => m.IdParticipant == idParticipant).Nume;
-            Messagebox.Tag = String.Format("Sunteti sigur ca doriti sa excludeti participantul {0}?", Denumire);
+            Messagebox.Tag = String.Format($"Sunteti sigur ca doriti sa excludeti participantul {Denumire}?");
             Messagebox.ShowDialog();
 
             if (Messagebox.DialogResult == DialogResult.OK)
@@ -330,6 +335,7 @@ namespace Melodii.Forms
 
         private void btVarsta18_Click(object sender, EventArgs e)
         {
+            //Afiseaza doar participantii cu varsta sub 18 ani
             for (int i = 0; i < participanti.Count; i++)
             {
                 if (participanti[i].Varsta > 18)
@@ -343,6 +349,7 @@ namespace Melodii.Forms
 
         private void btnTop5_Click(object sender, EventArgs e)
         {
+            //Afiseaza top 5 participanti, dupa punctele acumulate.
             //Lista participantilor deja este sortata dupa scor in ordine crescatoare. Pentru a 
             //ramane doar cu top 5 participanti, in lista trebuie sa ramana doar ultimii 5 participanti.
 

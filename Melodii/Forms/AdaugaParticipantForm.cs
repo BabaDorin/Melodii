@@ -1,17 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using static Melodii.DesignFunctionalities;
 using static Melodii.DB_Methods;
-using System.Data.SqlClient;
-using System.IO;
-using System.Reflection.Emit;
 using System.Diagnostics;
 using Melodii.Models;
 
@@ -46,7 +38,7 @@ namespace Melodii.Forms
         {
             //Valideaza datele
             //Daca totul este ok, datele sunt salvate in baza de date, iar in locul acestei forme
-            //este afisat un mesaj de succes pentru 1 secunda, dupa care forma va reveni avand campurile goale.
+            //este afisat un mesaj de succes pentru 2 secunde, dupa care forma va reveni avand campurile goale.
             try
             {
                 //-----------------------------------< Validare >-----------------------------------
@@ -168,6 +160,7 @@ namespace Melodii.Forms
 
         private void timer2_Tick(object sender, EventArgs e)
         {
+            //Zguduirea campurilor invalide
             if (Shakes == 3 && InvalidTextBoxes[0].Left == label4.Left)
             {
                 Shakes = 0;
@@ -191,6 +184,7 @@ namespace Melodii.Forms
 
         private void timer3_Tick(object sender, EventArgs e)
         {
+            //Afisarea mesajului de confirmare pentru 2 secunde.
             label6.Dispose();
             timer3.Stop();
             Panel parent = (Panel)this.Parent;

@@ -1,17 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Melodii.Models;
 using System.Diagnostics;
 using static Melodii.DB_Methods;
 using static Melodii.DesignFunctionalities;
-using System.IO.IsolatedStorage;
 
 namespace Melodii.Forms.Sondaj
 {
@@ -56,10 +51,12 @@ namespace Melodii.Forms.Sondaj
             lbMelodiiRamase.Text = "Melodii ramase: " + (nrMelodiiInitial-1);
             lbParticipant.Text = "Participant: " + NumeParticipant;
             lbProgessBar.Width = 0;
-            lbProgessBar.Tag = (100 / (nrMelodiiInitial-1)).ToString();
+            lbProgessBar.Tag = ((double)( 100 / nrMelodiiInitial)).ToString();
             btNext.Enabled = false;
 
             //Crearea unui obiect Sondaj si inserarea acestuia in BD;
+            //Sondajul va fi inregistrat in baza de date, initial avand 0 puncte.
+            //La sfarsitul sondajului, scorul va fi actualizat in dependenta de punctele acumulate.
             Sondaj = new Models.Sondaj();
             Sondaj.IdParticipant = IdParticipant;
             Sondaj.Data = DateTime.Now;
@@ -269,6 +266,7 @@ namespace Melodii.Forms.Sondaj
                 if (melodii.Count() == 0)
                 {
                     //Am ajuns la finalul sondajului.
+                    //Datele sunt salvate si este afisat un rezumat al sondajului.
                     SalveazaDate();
                     AfiseazaRezultate();
                 }
@@ -413,7 +411,8 @@ namespace Melodii.Forms.Sondaj
 
         private void cmb_ValueChanged(object sender, EventArgs e)
         {
-            //Odata ce a fost aleasa pozitia pentru melodia curenta, putem trece la urmatoarea melodie
+            //Odata ce a fost aleasa pozitia pentru melodia curenta, putem trece la urmatoarea melodie,
+            //Adica butonul btNext va fi activat
             btNext.Enabled = true;
             btNext.Tag = (sender as ComboBox).SelectedItem;
         }
@@ -472,7 +471,7 @@ namespace Melodii.Forms.Sondaj
                 if (melodii.Count() == 0)
                     lbProgessBar.Width = Width;
                 else
-                    lbProgessBar.Width += (int)(Width / 100 * (double.Parse(lbProgessBar.Tag.ToString())));
+                    lbProgessBar.Width += (int)((Width / 100) * (double.Parse(lbProgessBar.Tag.ToString())));
             }
             
         }

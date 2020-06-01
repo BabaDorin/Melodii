@@ -1,19 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Net.NetworkInformation;
-using System.Reflection.Emit;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Melodii.Models;
 using System.Diagnostics;
-using System.Runtime.InteropServices;
-using System.Data.SqlClient;
-using System.IO;
 using static Melodii.DB_Methods;
 using static Melodii.DesignFunctionalities;
 
@@ -36,6 +27,7 @@ namespace Melodii.Forms
 
             //Extragerea datelor din BD
             LoadData();
+
             timerSlidingBar.Start();
         }
 
@@ -71,8 +63,8 @@ namespace Melodii.Forms
         #region DesignMethods
         private void GenerateButtons(List<Melodie> melodii, Panel parentPanel)
         {
-            //Genereaza cate un buton pentru fiecare melodie. Butonul va contine info despre melodie
-
+            //Genereaza cate un buton pentru fiecare melodie. Butonul va contine informatii despre melodie,
+            //precum: Denumirea, interpretul, numarul de puncte.
             panelMelodiiButtons.Controls.Clear();
             try
             {
@@ -121,6 +113,7 @@ namespace Melodii.Forms
                 }
                 else
                 {
+                    //Baza de date nu contine melodii inregistrate, Afisam un mesaj informativ
                     System.Windows.Forms.Label label = new System.Windows.Forms.Label();
                     label.Font = new Font("Leelawadee", 13);
                     label.ForeColor = Color.WhiteSmoke;
@@ -171,7 +164,7 @@ namespace Melodii.Forms
                     }
                     else
                     {
-                        // In cazul in care forma este maximizata, atunci verificam daca 
+                        // In cazul in care forma este maximizata, verificam daca 
                         // denumirea care este afisata este scurtata. In caz afirmativ,
                         // marim numarul de caractere ce vor fi afisate.
                         string initialButtonText = melodii.First(x => x.IdMelodie == int.Parse(btn.Tag.ToString())).Denumire;
@@ -292,7 +285,7 @@ namespace Melodii.Forms
         private void btExclude_Click(object sender, EventArgs e)
         {
             //In urma apasarii butonului [Exclude], va aparea un messagebox pentru confirmare.
-            //In cazul in care raspunstul este OK, atunci se va purcede la eliminarea melodiei din baza de date.
+            //In cazul in care raspunstul este OK, se va purcede la eliminarea melodiei din baza de date.
             Form Messagebox = new MessageBox();
             int idMelodie = int.Parse((sender as Button).Tag.ToString());
             string Denumire = melodii.First(m => m.IdMelodie == idMelodie).Denumire;
