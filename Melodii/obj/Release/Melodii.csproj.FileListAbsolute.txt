@@ -1,0 +1,17 @@
+C:\Users\Dorin\Desktop\Practica Tehnologica\Melodii\Melodii\Melodii\bin\Release\bin\Debug\Database.mdf
+C:\Users\Dorin\Desktop\Practica Tehnologica\Melodii\Melodii\Melodii\bin\Release\bin\Debug\Database_log.ldf
+C:\Users\Dorin\Desktop\Practica Tehnologica\Melodii\Melodii\Melodii\obj\Release\Melodii.csprojAssemblyReference.cache
+C:\Users\Dorin\Desktop\Practica Tehnologica\Melodii\Melodii\Melodii\obj\Release\Melodii.Form1.resources
+C:\Users\Dorin\Desktop\Practica Tehnologica\Melodii\Melodii\Melodii\obj\Release\Melodii.Forms.AdaugaMelodieForm.resources
+C:\Users\Dorin\Desktop\Practica Tehnologica\Melodii\Melodii\Melodii\obj\Release\Melodii.Forms.AdaugaParticipantForm.resources
+C:\Users\Dorin\Desktop\Practica Tehnologica\Melodii\Melodii\Melodii\obj\Release\Melodii.Forms.HomeForm.resources
+C:\Users\Dorin\Desktop\Practica Tehnologica\Melodii\Melodii\Melodii\obj\Release\Melodii.Forms.MessageBox.resources
+C:\Users\Dorin\Desktop\Practica Tehnologica\Melodii\Melodii\Melodii\obj\Release\Melodii.Forms.Sondaj.SondajForm.resources
+C:\Users\Dorin\Desktop\Practica Tehnologica\Melodii\Melodii\Melodii\obj\Release\Melodii.Forms.Sondaj.SondajStartForm.resources
+C:\Users\Dorin\Desktop\Practica Tehnologica\Melodii\Melodii\Melodii\obj\Release\Melodii.Forms.VeziMelodiiForm.resources
+C:\Users\Dorin\Desktop\Practica Tehnologica\Melodii\Melodii\Melodii\obj\Release\Melodii.Forms.VeziParticipantiForm.resources
+C:\Users\Dorin\Desktop\Practica Tehnologica\Melodii\Melodii\Melodii\obj\Release\Melodii.Properties.Resources.resources
+C:\Users\Dorin\Desktop\Practica Tehnologica\Melodii\Melodii\Melodii\obj\Release\Melodii.csproj.GenerateResource.cache
+C:\Users\Dorin\Desktop\Practica Tehnologica\Melodii\Melodii\Melodii\obj\Release\Melodii.csproj.CoreCompileInputs.cache
+C:\Users\Dorin\Desktop\Practica Tehnologica\Melodii\Melodii\Melodii\obj\Release\Melodii.exe
+C:\Users\Dorin\Desktop\Practica Tehnologica\Melodii\Melodii\Melodii\obj\Release\Melodii.pdb
