@@ -23,10 +23,13 @@ namespace Melodii
             try
             {
                 //Vom folosi parametri sql pentru ca aplicatia sa fie imuna atacurilor de tip SQL Injection
-                SqlCommand cmd = new SqlCommand("INSERT INTO MELODII" +
-                "(Denumire, Interpret, Puncte, Informatii, GenMuzical)" +
-                "VALUES" +
-                "(@Denumire, @Interpret, @Puncte, @Informatii, @GenMuzical); ", Connection);
+                //SqlCommand cmd = new SqlCommand("INSERT INTO MELODII" +
+                //"(Denumire, Interpret, Puncte, Informatii, GenMuzical)" +
+                //"VALUES" +
+                //"(@Denumire, @Interpret, @Puncte, @Informatii, @GenMuzical); ", Connection);
+                SqlCommand cmd = new SqlCommand("InsertMelodie", Connection);
+                cmd.CommandType = CommandType.StoredProcedure;
+
                 SqlParameter parDenumire = new SqlParameter("@Denumire", melodie.Denumire);
                 cmd.Parameters.Add(parDenumire);
 

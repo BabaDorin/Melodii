@@ -117,30 +117,39 @@ namespace Melodii.Forms
         private void timer2_Tick(object sender, EventArgs e)
         {
             //Zguduirea campurilor invalide
-
-            if(InvalidTextBoxes == null)
+            try
             {
-                timer2.Stop();
-            }
-
-            if (Shakes == 3 && InvalidTextBoxes[0].Left == label4.Left)
-            {
-                Shakes = 0;
-                timer2.Stop();
-            }
-            else
-            {
-                if (InvalidTextBoxes[0].Left - label4.Left >= 5 || label4.Left - InvalidTextBoxes[0].Left >= 5)
+                if (InvalidTextBoxes == null)
                 {
-                    speed *= -1;
-                    Shakes++;
+                    timer2.Stop();
                 }
 
-                foreach(TextBox t in InvalidTextBoxes)
+                if (Shakes == 3 && InvalidTextBoxes[0].Left == label4.Left)
                 {
-                    t.Left += speed;
+                    Shakes = 0;
+                    timer2.Stop();
+                }
+                else
+                {
+                    if (InvalidTextBoxes[0].Left - label4.Left >= 5 || label4.Left - InvalidTextBoxes[0].Left >= 5)
+                    {
+                        speed *= -1;
+                        Shakes++;
+                    }
+
+                    foreach (TextBox t in InvalidTextBoxes)
+                    {
+                        t.Left += speed;
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                timer2.Stop();
+                Debug.WriteLine("Eroare Timer" + ex.Message);
+                lbEroare.Text = "Datele n-au fost salvate.";
+            }
+            
         }
 
         private void timer1_Tick(object sender, EventArgs e)
