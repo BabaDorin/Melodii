@@ -83,7 +83,8 @@ namespace Melodii
 
                 //Crerea unui obiect de tip DataAdapter pentru conectarea DataSet-ului
                 //cu baza de date.
-                SqlDataAdapter daMelodii = new SqlDataAdapter("SELECT * FROM MELODII", Connection);
+                SqlDataAdapter daMelodii = new SqlDataAdapter("sp_LoadMelodii", Connection);
+                daMelodii.SelectCommand.CommandType = CommandType.StoredProcedure;
                 DataSet dsMelodii = new DataSet("Melodii");
                 daMelodii.Fill(dsMelodii, "Melodii");
                 DataTable tblMelodii = dsMelodii.Tables["Melodii"];
@@ -126,7 +127,8 @@ namespace Melodii
             SqlConnection Connection = new SqlConnection(ConnectionString);
             try
             {
-                SqlCommand sqlCount = new SqlCommand("SELECT COUNT(*) FROM MELODII", Connection);
+                SqlCommand sqlCount = new SqlCommand("sp_NrMelodii", Connection);
+                sqlCount.CommandType = CommandType.StoredProcedure;
 
                 Connection.Open();
                 int nrMelodii = (int)sqlCount.ExecuteScalar();
@@ -153,7 +155,9 @@ namespace Melodii
             SqlConnection Connection = new SqlConnection(ConnectionString);
             try
             {
-                SqlCommand sqlcDelete = new SqlCommand("DELETE FROM MELODII WHERE IDMELODIE = @IdMelodie", Connection);
+                SqlCommand sqlcDelete = new SqlCommand("sp_RemoveMelodie", Connection);
+                sqlcDelete.CommandType = CommandType.StoredProcedure;
+
                 SqlParameter parIdMelodie = new SqlParameter("@IdMelodie", idMelodie);
                 sqlcDelete.Parameters.Add(parIdMelodie);
 
@@ -182,7 +186,8 @@ namespace Melodii
             try
             {
                 //Vom folosi parametri sql pentru ca aplicatia sa fie imuna atacurilor de tip SQL Injection
-                SqlCommand cmd = new SqlCommand("SELECT Denumire FROM Melodii WHERE IdMelodie = @IdMelodie", Connection);
+                SqlCommand cmd = new SqlCommand("sp_MelodieNameByID", Connection);
+                cmd.CommandType = CommandType.StoredProcedure;
 
                 SqlParameter parId = new SqlParameter("@IdMelodie", idMelodie);
                 cmd.Parameters.Add(parId);
