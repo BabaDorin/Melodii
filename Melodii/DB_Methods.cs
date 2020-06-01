@@ -226,10 +226,9 @@ namespace Melodii
             try
             {
                 //Vom folosi parametri sql pentru ca aplicatia sa fie imuna atacurilor de tip SQL Injection
-                SqlCommand cmd = new SqlCommand("INSERT INTO PARTICIPANTI" +
-                "(Nume, Scor, Informatii, Varsta)" +
-                "VALUES" +
-                "(@Nume, @Scor, @Informatii, @Varsta); ", Connection);
+                SqlCommand cmd = new SqlCommand("sp_InsertParticipant", Connection);
+                cmd.CommandType = CommandType.StoredProcedure;
+
                 SqlParameter parNume = new SqlParameter("@Nume", participant.Nume);
                 cmd.Parameters.Add(parNume);
 
@@ -278,7 +277,8 @@ namespace Melodii
 
                 //Crerea unui obiect de tip DataAdapter pentru conectarea DataSet-ului
                 //cu baza de date.
-                SqlDataAdapter daParticipanti = new SqlDataAdapter("SELECT * FROM PARTICIPANTI", Connection);
+                SqlDataAdapter daParticipanti = new SqlDataAdapter("sp_LoadParticipanti", Connection);
+                daParticipanti.SelectCommand.CommandType = CommandType.StoredProcedure;
                 DataSet dsParticipanti = new DataSet("Participanti");
                 daParticipanti.Fill(dsParticipanti, "Participanti");
                 DataTable tblParticipanti = dsParticipanti.Tables["Participanti"];
@@ -319,8 +319,8 @@ namespace Melodii
             SqlConnection Connection = new SqlConnection(ConnectionString);
             try
             {
-                SqlCommand updateScor = new SqlCommand("UPDATE Participanti SET SCOR = SCOR + @ScorDeAdaugat " +
-                    "WHERE IdParticipant = @IdParticipant", Connection);
+                SqlCommand updateScor = new SqlCommand("sp_UpdateParticipantScor", Connection);
+                updateScor.CommandType = CommandType.StoredProcedure;
 
                 SqlParameter parScor = new SqlParameter("@ScorDeAdaugat", ScorDeAdaugat);
                 updateScor.Parameters.Add(parScor);
@@ -353,7 +353,8 @@ namespace Melodii
             try
             {
                 //Vom folosi parametri sql pentru ca aplicatia sa fie imuna atacurilor de tip SQL Injection
-                SqlCommand cmd = new SqlCommand("SELECT Nume FROM Participanti WHERE IdParticipant = @IdParticipant", Connection);
+                SqlCommand cmd = new SqlCommand("sp_ParticipantNumeByID", Connection);
+                cmd.CommandType = CommandType.StoredProcedure;
 
                 SqlParameter parId = new SqlParameter("@IdParticipant", idParticipant);
                 cmd.Parameters.Add(parId);
@@ -389,7 +390,9 @@ namespace Melodii
             SqlConnection Connection = new SqlConnection(ConnectionString);
             try
             {
-                SqlCommand sqlcDelete = new SqlCommand("DELETE FROM PARTICIPANTI WHERE IDPARTICIPANT = @IdParticipant", Connection);
+                SqlCommand sqlcDelete = new SqlCommand("sp_RemoveParticipant", Connection);
+                sqlcDelete.CommandType = CommandType.StoredProcedure;
+
                 SqlParameter parIdParticipant = new SqlParameter("@IdParticipant", IdParticipant);
                 sqlcDelete.Parameters.Add(parIdParticipant);
 
