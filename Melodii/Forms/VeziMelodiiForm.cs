@@ -46,7 +46,7 @@ namespace Melodii.Forms
 
             try
             {
-                LoadMelodii(ref melodii);
+                LoadMelodii(ref melodii, false);
 
                 //Sortarea listei in ordine descrescatoare dupa punctele acumulate
                 melodii.Sort((x, y) => x.Puncte.CompareTo(y.Puncte));

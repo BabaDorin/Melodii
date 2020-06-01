@@ -21,13 +21,14 @@ namespace Melodii.Forms.Sondaj
             label1.Left = this.Width / 2 - label1.Width / 2;
             btOk.Left = this.Width / 2 - btOk.Width / 2;
             btOk.Tag = ParticipantId;
+            cbTop3.Left = this.Width / 2 - cbTop3.Width / 2;
         }
 
         private void btOk_Click(object sender, EventArgs e)
         {
             Panel parent = this.Parent as Panel;
             this.Close();
-            openChildForm(new SondajForm(int.Parse((sender as Button).Tag.ToString())), parent);
+            openChildForm(new SondajForm(int.Parse((sender as Button).Tag.ToString()), cbTop3.Checked), parent);
         }
     }
 }

@@ -67,7 +67,7 @@ namespace Melodii
             }
         }
 
-        public static void LoadMelodii(ref List<Melodie> melodii)
+        public static void LoadMelodii(ref List<Melodie> melodii, bool top3)
         {
 
             //---------------------< Extragerea melodiilor din baza de date >---------------------------
@@ -83,7 +83,65 @@ namespace Melodii
 
                 //Crerea unui obiect de tip DataAdapter pentru conectarea DataSet-ului
                 //cu baza de date.
-                SqlDataAdapter daMelodii = new SqlDataAdapter("sp_LoadMelodii", Connection);
+                SqlDataAdapter daMelodii;
+                if(!top3)
+                    daMelodii = new SqlDataAdapter("sp_LoadMelodii", Connection);
+                else
+                    daMelodii = new SqlDataAdapter("sp_LoadMelodiiTOP3", Connection);
+                daMelodii.SelectCommand.CommandType = CommandType.StoredProcedure;
+                DataSet dsMelodii = new DataSet("Melodii");
+                daMelodii.Fill(dsMelodii, "Melodii");
+                DataTable tblMelodii = dsMelodii.Tables["Melodii"];
+                Connection.Close();
+
+                //Acum avem datele din tabela Melodii din baza de date in obiectul tblMelodii.
+                //Trecem la popularea listei.
+
+                melodii.Clear();
+                foreach (DataRow drMelodie in tblMelodii.Rows)
+                {
+                    melodii.Add(new Melodie
+                    {
+                        IdMelodie = int.Parse(drMelodie["IdMelodie"].ToString()),
+                        Denumire = drMelodie["Denumire"].ToString(),
+                        Interpret = drMelodie["Interpret"].ToString(),
+                        Puncte = int.Parse(drMelodie["Puncte"].ToString()),
+                        Informatii = drMelodie["Informatii"].ToString(),
+                        GenMuzical = drMelodie["GenMuzical"].ToString()
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Eroare LoadMelodii: " + ex.Message);
+                throw ex;
+            }
+            finally
+            {
+                if (Connection.State == ConnectionState.Open)
+                    Connection.Close();
+            }
+        }
+
+        public static void LoadMelodiiTOP3(ref List<Melodie> melodii)
+        {
+
+            //---------------------< Extragerea melodiilor din baza de date >---------------------------
+
+            SqlConnection Connection = new SqlConnection(ConnectionString);
+
+            try
+            {
+                //select top (3) with ties id, count from table1
+                //order by count desc
+                //----------------------------< Extragerea datelor din BD >-------------------------
+
+                //Stabilirea conexiunii
+                Connection.Open();
+
+                //Crerea unui obiect de tip DataAdapter pentru conectarea DataSet-ului
+                //cu baza de date.
+                SqlDataAdapter daMelodii = new SqlDataAdapter("sp_LoadMelodiiTOP3", Connection);
                 daMelodii.SelectCommand.CommandType = CommandType.StoredProcedure;
                 DataSet dsMelodii = new DataSet("Melodii");
                 daMelodii.Fill(dsMelodii, "Melodii");

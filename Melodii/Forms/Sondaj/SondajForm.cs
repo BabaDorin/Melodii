@@ -27,7 +27,7 @@ namespace Melodii.Forms.Sondaj
         private static Melodii.Models.Sondaj Sondaj;
         private static RezultateSondaj rezultateSondaj;
 
-        public SondajForm(int IdParticipant)
+        public SondajForm(int IdParticipant, bool top3)
         {
             InitializeComponent();
             UpGoingPanel = null;
@@ -43,7 +43,7 @@ namespace Melodii.Forms.Sondaj
             speed = Width / 6;
 
             //Extragerea melodiilor din baza de date
-            LoadMelodii(ref melodii);
+            LoadMelodii(ref melodii, top3);
 
             //Stabilirea pozitiilor in top a melodiilor
             melodii.Sort((x, y) => x.Puncte.CompareTo(y.Puncte));

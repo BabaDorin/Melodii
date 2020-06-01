@@ -31,6 +31,7 @@
             this.lbAdresare = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.btOk = new System.Windows.Forms.Button();
+            this.cbTop3 = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // lbAdresare
@@ -60,10 +61,9 @@
             // 
             this.btOk.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.btOk.AutoSize = true;
             this.btOk.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btOk.Font = new System.Drawing.Font("Leelawadee", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btOk.Location = new System.Drawing.Point(240, 463);
+            this.btOk.Location = new System.Drawing.Point(246, 472);
             this.btOk.Name = "btOk";
             this.btOk.Size = new System.Drawing.Size(266, 43);
             this.btOk.TabIndex = 14;
@@ -71,12 +71,27 @@
             this.btOk.UseVisualStyleBackColor = true;
             this.btOk.Click += new System.EventHandler(this.btOk_Click);
             // 
+            // cbTop3
+            // 
+            this.cbTop3.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.cbTop3.AutoSize = true;
+            this.cbTop3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(7)))), ((int)(((byte)(36)))));
+            this.cbTop3.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbTop3.Location = new System.Drawing.Point(266, 321);
+            this.cbTop3.Name = "cbTop3";
+            this.cbTop3.Size = new System.Drawing.Size(246, 26);
+            this.cbTop3.TabIndex = 15;
+            this.cbTop3.Text = "Include doar TOP 3 melodii";
+            this.cbTop3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.cbTop3.UseVisualStyleBackColor = false;
+            // 
             // SondajStartForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(7)))), ((int)(((byte)(36)))));
             this.ClientSize = new System.Drawing.Size(771, 612);
+            this.Controls.Add(this.cbTop3);
             this.Controls.Add(this.btOk);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lbAdresare);
@@ -94,5 +109,6 @@
         private System.Windows.Forms.Label lbAdresare;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btOk;
+        private System.Windows.Forms.CheckBox cbTop3;
     }
 }
