@@ -75,9 +75,9 @@
             this.panelSondajSubmenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.panelSondajSubmenu.Controls.Add(this.btnVeziSondaje);
             this.panelSondajSubmenu.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelSondajSubmenu.Location = new System.Drawing.Point(0, 467);
+            this.panelSondajSubmenu.Location = new System.Drawing.Point(0, 457);
             this.panelSondajSubmenu.Name = "panelSondajSubmenu";
-            this.panelSondajSubmenu.Size = new System.Drawing.Size(191, 42);
+            this.panelSondajSubmenu.Size = new System.Drawing.Size(191, 38);
             this.panelSondajSubmenu.TabIndex = 6;
             // 
             // btnVeziSondaje
@@ -89,7 +89,7 @@
             this.btnVeziSondaje.Location = new System.Drawing.Point(0, 0);
             this.btnVeziSondaje.Name = "btnVeziSondaje";
             this.btnVeziSondaje.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
-            this.btnVeziSondaje.Size = new System.Drawing.Size(191, 39);
+            this.btnVeziSondaje.Size = new System.Drawing.Size(191, 38);
             this.btnVeziSondaje.TabIndex = 2;
             this.btnVeziSondaje.Text = "Vezi sondajele anterioare";
             this.btnVeziSondaje.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -102,10 +102,10 @@
             this.btnSondaj.FlatAppearance.BorderSize = 0;
             this.btnSondaj.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSondaj.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.btnSondaj.Location = new System.Drawing.Point(0, 428);
+            this.btnSondaj.Location = new System.Drawing.Point(0, 419);
             this.btnSondaj.Name = "btnSondaj";
             this.btnSondaj.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
-            this.btnSondaj.Size = new System.Drawing.Size(191, 39);
+            this.btnSondaj.Size = new System.Drawing.Size(191, 38);
             this.btnSondaj.TabIndex = 5;
             this.btnSondaj.Text = "Sondaj";
             this.btnSondaj.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -119,9 +119,9 @@
             this.panelParticipantiSubmenu.Controls.Add(this.btnVeziParticipanti);
             this.panelParticipantiSubmenu.Controls.Add(this.btnAdaugaParticipanti);
             this.panelParticipantiSubmenu.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelParticipantiSubmenu.Location = new System.Drawing.Point(0, 346);
+            this.panelParticipantiSubmenu.Location = new System.Drawing.Point(0, 343);
             this.panelParticipantiSubmenu.Name = "panelParticipantiSubmenu";
-            this.panelParticipantiSubmenu.Size = new System.Drawing.Size(191, 82);
+            this.panelParticipantiSubmenu.Size = new System.Drawing.Size(191, 76);
             this.panelParticipantiSubmenu.TabIndex = 4;
             // 
             // btnVeziParticipanti
@@ -130,10 +130,10 @@
             this.btnVeziParticipanti.FlatAppearance.BorderSize = 0;
             this.btnVeziParticipanti.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnVeziParticipanti.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.btnVeziParticipanti.Location = new System.Drawing.Point(0, 39);
+            this.btnVeziParticipanti.Location = new System.Drawing.Point(0, 38);
             this.btnVeziParticipanti.Name = "btnVeziParticipanti";
             this.btnVeziParticipanti.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
-            this.btnVeziParticipanti.Size = new System.Drawing.Size(191, 39);
+            this.btnVeziParticipanti.Size = new System.Drawing.Size(191, 38);
             this.btnVeziParticipanti.TabIndex = 1;
             this.btnVeziParticipanti.Text = "Vezi participantii";
             this.btnVeziParticipanti.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -149,7 +149,7 @@
             this.btnAdaugaParticipanti.Location = new System.Drawing.Point(0, 0);
             this.btnAdaugaParticipanti.Name = "btnAdaugaParticipanti";
             this.btnAdaugaParticipanti.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
-            this.btnAdaugaParticipanti.Size = new System.Drawing.Size(191, 39);
+            this.btnAdaugaParticipanti.Size = new System.Drawing.Size(191, 38);
             this.btnAdaugaParticipanti.TabIndex = 0;
             this.btnAdaugaParticipanti.Text = "Adauga";
             this.btnAdaugaParticipanti.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -162,10 +162,10 @@
             this.btnParticipanti.FlatAppearance.BorderSize = 0;
             this.btnParticipanti.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnParticipanti.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.btnParticipanti.Location = new System.Drawing.Point(0, 307);
+            this.btnParticipanti.Location = new System.Drawing.Point(0, 305);
             this.btnParticipanti.Name = "btnParticipanti";
             this.btnParticipanti.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
-            this.btnParticipanti.Size = new System.Drawing.Size(191, 39);
+            this.btnParticipanti.Size = new System.Drawing.Size(191, 38);
             this.btnParticipanti.TabIndex = 3;
             this.btnParticipanti.Text = "Participanti";
             this.btnParticipanti.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -180,7 +180,7 @@
             this.panelMelodiiSubmenu.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelMelodiiSubmenu.Location = new System.Drawing.Point(0, 229);
             this.panelMelodiiSubmenu.Name = "panelMelodiiSubmenu";
-            this.panelMelodiiSubmenu.Size = new System.Drawing.Size(191, 78);
+            this.panelMelodiiSubmenu.Size = new System.Drawing.Size(191, 76);
             this.panelMelodiiSubmenu.TabIndex = 2;
             // 
             // btnVeziMelodii
@@ -193,7 +193,7 @@
             this.btnVeziMelodii.Name = "btnVeziMelodii";
             this.btnVeziMelodii.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
             this.btnVeziMelodii.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.btnVeziMelodii.Size = new System.Drawing.Size(191, 39);
+            this.btnVeziMelodii.Size = new System.Drawing.Size(191, 38);
             this.btnVeziMelodii.TabIndex = 2;
             this.btnVeziMelodii.Text = "Vezi melodiile";
             this.btnVeziMelodii.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;

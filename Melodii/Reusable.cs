@@ -1,18 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Melodii
 {
-    public class DesignFunctionalities
+    public class Reusable
     {
         //Afisarea sau ascunderea unui submeniu.
         public static void Toggle(Button parent, Panel panel)
         {
+            //Afisarea / ascunderea submeniurilor
             if (panel.Visible)
             {
                 panel.Hide();
@@ -30,6 +27,7 @@ namespace Melodii
 
         public static void openChildForm(Form child, Panel parent)
         {
+            //Deschiderea unei ferestre
             //Eliminam obiectele care au fost plasate anterior
             if(parent.Controls.Count>0)
                 foreach(Form c in parent.Controls)
@@ -71,7 +69,7 @@ namespace Melodii
         public static void ScurtareDenumire(Button btn, int maxWidth)
         {
             //In cazul in care lungimea numelui este mai mare decat
-            //lungimea butonului, atunci vom afisa literele care incap, urmate de 
+            //lungimea butonului, atunci vom afisa doar literele care incap, urmate de 
             //3 puncte de suspensie [...].
             Size size = TextRenderer.MeasureText(btn.Text, btn.Font);
             if (size.Width > maxWidth - maxWidth * 0.35)

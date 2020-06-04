@@ -1,16 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using static Melodii.DesignFunctionalities;
+using static Melodii.Reusable;
 using Melodii.Forms;
-using System.Diagnostics;
-using System.Data.SqlClient;
 using Melodii.Forms.Sondaj;
 
 namespace Melodii

@@ -6,7 +6,7 @@ using System.Windows.Forms;
 using Melodii.Models;
 using System.Diagnostics;
 using static Melodii.DB_Methods;
-using static Melodii.DesignFunctionalities;
+using static Melodii.Reusable;
 
 namespace Melodii.Forms.Sondaj
 {
@@ -98,7 +98,6 @@ namespace Melodii.Forms.Sondaj
                 Random rnd = new Random();
                 int randomIndex = rnd.Next(0, melodii.Count);
                 Melodie random = melodii[randomIndex];
-                Debug.WriteLine(randomIndex);
                 CurrentId = randomIndex;
 
                 //Panoul pentru afisarea informatiilor despre melodie

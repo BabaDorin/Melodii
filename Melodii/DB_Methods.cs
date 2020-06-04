@@ -27,7 +27,7 @@ namespace Melodii
                 //"(Denumire, Interpret, Puncte, Informatii, GenMuzical)" +
                 //"VALUES" +
                 //"(@Denumire, @Interpret, @Puncte, @Informatii, @GenMuzical); ", Connection);
-                SqlCommand cmd = new SqlCommand("InsertMelodie", Connection);
+                SqlCommand cmd = new SqlCommand("sp_InsertMelodie", Connection);
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 SqlParameter parDenumire = new SqlParameter("@Denumire", melodie.Denumire);

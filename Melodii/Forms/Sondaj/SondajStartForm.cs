@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
-using static Melodii.DesignFunctionalities;
+using static Melodii.Reusable;
 
 namespace Melodii.Forms.Sondaj
 {

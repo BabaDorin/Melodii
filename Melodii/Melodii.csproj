@@ -67,7 +67,7 @@
       <DependentUpon>DatabaseDataSet1.xsd</DependentUpon>
     </Compile>
     <Compile Include="DB_Methods.cs" />
-    <Compile Include="DesignFunctionalities.cs" />
+    <Compile Include="Reusable.cs" />
     <Compile Include="Forms\Sondaj\VeziSondajeForm.cs">
       <SubType>Form</SubType>
     </Compile>

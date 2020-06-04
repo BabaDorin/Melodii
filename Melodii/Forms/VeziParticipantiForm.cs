@@ -6,7 +6,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using static Melodii.DesignFunctionalities;
+using static Melodii.Reusable;
 using static Melodii.DB_Methods;
 
 namespace Melodii.Forms
