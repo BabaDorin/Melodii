@@ -67,16 +67,16 @@
             this.label2.Dock = System.Windows.Forms.DockStyle.Left;
             this.label2.Location = new System.Drawing.Point(0, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(1, 408);
+            this.label2.Size = new System.Drawing.Size(1, 410);
             this.label2.TabIndex = 4;
             // 
             // label3
             // 
             this.label3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.label3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.label3.Location = new System.Drawing.Point(1, 407);
+            this.label3.Location = new System.Drawing.Point(1, 409);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(328, 1);
+            this.label3.Size = new System.Drawing.Size(331, 1);
             this.label3.TabIndex = 7;
             // 
             // panelMelodii
@@ -84,20 +84,23 @@
             this.panelMelodii.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.panelMelodii.AutoScroll = true;
+            this.panelMelodii.AutoSize = true;
             this.panelMelodii.Controls.Add(this.panelMelodiiButtons);
             this.panelMelodii.Controls.Add(this.label3);
             this.panelMelodii.Controls.Add(this.label2);
             this.panelMelodii.Font = new System.Drawing.Font("Leelawadee", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panelMelodii.Location = new System.Drawing.Point(50, 143);
             this.panelMelodii.Name = "panelMelodii";
-            this.panelMelodii.Size = new System.Drawing.Size(329, 408);
+            this.panelMelodii.Size = new System.Drawing.Size(332, 410);
             this.panelMelodii.TabIndex = 8;
             // 
             // panelMelodiiButtons
             // 
+            this.panelMelodiiButtons.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panelMelodiiButtons.AutoScroll = true;
+            this.panelMelodiiButtons.AutoSize = true;
             this.panelMelodiiButtons.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.panelMelodiiButtons.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelMelodiiButtons.Location = new System.Drawing.Point(1, 0);
             this.panelMelodiiButtons.Name = "panelMelodiiButtons";
             this.panelMelodiiButtons.Padding = new System.Windows.Forms.Padding(10);
@@ -169,6 +172,7 @@
             this.Text = "Vezi melodiile";
             this.Resize += new System.EventHandler(this.VeziMelodiiForm_Resize);
             this.panelMelodii.ResumeLayout(false);
+            this.panelMelodii.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 

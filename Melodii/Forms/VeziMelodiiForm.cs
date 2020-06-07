@@ -143,8 +143,10 @@ namespace Melodii.Forms
             // Daca fereastra a fost marita, atunci denumirea va contine mai multe litere ca urmare
             // a maririi lungimii butoanelor, in caz contrar, denumirea va fi scurtata.
 
+            Debug.WriteLine("Resize called");
             int lastMelodiiWidth = panelMelodii.Width;
             panelMelodii.Width = Width / 100 * 45;
+            panelMelodii.Height = this.Height - panelMelodii.Top - 50;
             panelInfo.Left = panelMelodii.Right + 50;
             panelInfo.Width = this.Right - panelInfo.Left - 20;
             btTop3.Left = panelMelodii.Right - btTop3.Width;

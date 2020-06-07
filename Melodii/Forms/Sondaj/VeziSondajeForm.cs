@@ -131,7 +131,9 @@ namespace Melodii.Forms.Sondaj
             // 2) Vom re-analiza modul in care este afisat numele participantului
             // Daca fereastra a fost marita, atunci denumirea va contine mai multe litere ca urmare
             // a maririi lungimii butoanelor, in caz contrar, denumirea va fi scurtata.
+
             panelList.Width = Width / 100 * 45;
+            panelList.Height = this.Height - panelList.Top - 50;
             panelInfo.Left = panelList.Right + 50;
             panelInfo.Width = this.Right - panelInfo.Left - 20;
             formMinimized = !formMinimized;

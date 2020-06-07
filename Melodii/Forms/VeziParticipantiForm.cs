@@ -127,6 +127,7 @@ namespace Melodii.Forms
 
             int lastParticipantWidth = panelParticipanti.Width;
             panelParticipanti.Width = Width / 100 * 45;
+            panelParticipanti.Height = this.Height - panelParticipanti.Top - 50;
             panelInfo.Left = panelParticipanti.Right + 50;
             panelInfo.Width = this.Right - panelInfo.Left - 20;
             btVarsta18.Left = panelParticipanti.Right - btVarsta18.Width;
